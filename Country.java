@@ -51,8 +51,8 @@ public class Country {
         return this.hasRuler;
     }
 
-    public void setAdjacentCountries(ArrayList<Country> adjacent) {
-        this.adjacentCountries = adjacent;
+    public void setAdjacentCountries(Country country) {
+        adjacentCountries.add(country);
     }
 
     public ArrayList<Country> getAdjacentCountries() {
