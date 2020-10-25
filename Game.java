@@ -7,17 +7,10 @@ public class Game {
 
     private Board board;
     private boolean gameWon;
-    private String[] countries = new String[42];
-
 
     public Game() {
-        setCountries(countries);
     }
 
-    public void setCountries(String [] c){
-        countries[0]= "Eastern Australia";
-        countries[1]="Indonesia";
-    }
     public static void main(String[] args) {
 
         Game game = new Game();
@@ -63,14 +56,23 @@ public class Game {
 
                 System.out.println("It is " + board.playerArray.get(i).getName() + "'s turn");
 
-                System.out.println("At the start of each turn each player receives 3 or more armies");
+                System.out.println("At the start of each turn each player receives 3 or more armies and" +
+                        " if you rule a whole continent you will get more bonus armies.");
 
-                int newArmies = (board.playerArray.get(i).getCountrySizes() / 3);
+                int bonusArmies = 0;
+
+                if(board.playerArray.get(i).getContinentSize() > 0) {
+                    for(int j = 0; j < board.playerArray.get(i).getContinentSize(); j++) {
+                        bonusArmies = bonusArmies + board.playerArray.get(i).getContinent(j).getBonusArmy();
+                    }
+                }
+
+                int newArmies = (board.playerArray.get(i).getCountrySizes() / 3) + bonusArmies;
                 board.playerArray.get(i).increaseArmyCount(newArmies);
 
                 System.out.println(board.playerArray.get(i).getName() +" receives " + newArmies +" armies");
 
-                for(int b = 0;i<newArmies;i++) {
+                for(int b = 0; i < newArmies; i++) {
                     System.out.println("Enter country to add armies to:");
                     String countryToAdd;
                     countryToAdd = s.nextLine();

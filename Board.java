@@ -473,7 +473,21 @@ public class Board {
 
     //public getAdjacentCountries() {} Sandeep
 
-    //public ArrayList<Continent> getContinent() {} Sandeep
+    public Continent getContinent(String name) {
+        if(name.equals("Australia")) {
+            return continents.get(0);
+        } else if(name.equals("Asia")) {
+            return continents.get(1);
+        } else if(name.equals("Africa")) {
+            return continents.get(2);
+        } else if(name.equals("Europe")) {
+            return continents.get(3);
+        } else if(name.equals("South America")) {
+            return continents.get(4);
+        } else {
+            return continents.get(5);
+        }
+    }
 
     //public ArrayList<Country> getCountriesByContinent(String continent) {} Sandeep
 

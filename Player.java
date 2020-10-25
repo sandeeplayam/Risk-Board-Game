@@ -29,6 +29,14 @@ public class Player {
         return ruleCountries.size();
     }
 
+    public int getContinentSize() {
+        return ruleContinent.size();
+    }
+
+    public Continent getContinent(int index) {
+        return ruleContinent.get(index);
+    }
+
     public void addContinent(Continent continent) {
         ruleContinent.add(continent);
     }
