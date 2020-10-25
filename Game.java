@@ -187,7 +187,7 @@ public class Game {
 
 
         } else if (command.equals("map")) {
-            //print function from model
+            board.stateOfMap();
 
         } else if (command.equals("rules")) {
             printRules();

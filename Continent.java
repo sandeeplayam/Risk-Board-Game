@@ -9,6 +9,7 @@ public class Continent {
     public Continent(String name, int bonusArmy) {
         this.name = name;
         this.bonusArmy = bonusArmy;
+        countries = new ArrayList<Country>();
     }
 
     public int getBonusArmy() {

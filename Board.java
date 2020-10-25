@@ -2,16 +2,14 @@ import java.util.ArrayList;
 
 public class Board {
 
-    private Country[] countries = new Country[42];
-    private ArrayList<Continent> continents;
+    private final Country[] countries = new Country[42];
+    private final ArrayList<Continent> continents;
     public ArrayList<Player> playerArray;
-    private int players;
 
     public Board(int players) {
-        this.players = players;
 
-        continents = new ArrayList<Continent>();
-        playerArray = new ArrayList<Player>();
+        continents = new ArrayList<>();
+        playerArray = new ArrayList<>();
         createPlayer(players);
         createCountries();
         createContinents();
@@ -26,19 +24,19 @@ public class Board {
         for(i=0;i<players;i++){
 
             if (players == 2) {
-                playerArray.add(new Player("player" + Integer.toString(i+1), 50));
+                playerArray.add(new Player("player" + (i+1), 50));
 
             }else if (players == 3) {
-                playerArray.add(new Player("player" + Integer.toString(i+1), 35));
+                playerArray.add(new Player("player" + (i + 1), 35));
 
             } else if (players == 4) {
-                playerArray.add(new Player("player" + Integer.toString(i+1), 30));
+                playerArray.add(new Player("player" + (i + 1), 30));
 
             }else if (players == 5) {
-                playerArray.add(new Player("player" + Integer.toString(i+1), 25));
+                playerArray.add(new Player("player" + (i+1), 25));
 
             }else if (players == 6) {
-                playerArray.add(new Player("player" + Integer.toString(i+1), 20));
+                playerArray.add(new Player("player" + (i+1), 20));
             }
         }
     }
@@ -474,18 +472,19 @@ public class Board {
     //public getAdjacentCountries() {} Sandeep
 
     public Continent getContinent(String name) {
-        if(name.equals("Australia")) {
-            return continents.get(0);
-        } else if(name.equals("Asia")) {
-            return continents.get(1);
-        } else if(name.equals("Africa")) {
-            return continents.get(2);
-        } else if(name.equals("Europe")) {
-            return continents.get(3);
-        } else if(name.equals("South America")) {
-            return continents.get(4);
-        } else {
-            return continents.get(5);
+        switch (name) {
+            case "Australia":
+                return continents.get(0);
+            case "Asia":
+                return continents.get(1);
+            case "Africa":
+                return continents.get(2);
+            case "Europe":
+                return continents.get(3);
+            case "South America":
+                return continents.get(4);
+            default:
+                return continents.get(5);
         }
     }
 
@@ -496,20 +495,22 @@ public class Board {
     }
 
     public boolean checkAdjacentCountries(Country country, Country country2) {
-        if(country.getAdjacentCountries().contains(country2)) {
-            return true;
-        } else {
-            return false;
+        return country.getAdjacentCountries().contains(country2);
+    }
+
+    public void stateOfMap() {
+        for (Country c : countries) {
+            System.out.println(c.getName() + " is ruled by " +  c.getRuler() + " and has " + c.getArmies() + " on it.");
         }
     }
 
-    //attackDice is number of dice for attacker,defendDice is # of dice for defender
+
     public void attack(String attackFrom, String attackTo, int attackDice,int defendDice) {
 
         int a = mapCountryToIndex(attackFrom); //will be used to represent attacker
         int b = mapCountryToIndex(attackTo); //will be used represent defender
 
-        if (checkAdjacentCountries(countries[a], countries[b]) == true) {
+        if (checkAdjacentCountries(countries[a], countries[b])) {
             //get the players countries army size
             if ((countries[a].getArmies() > 2) && (countries[a].getArmies() > attackDice) && (countries[b].getArmies() > defendDice)) {
                 if (countries[a].getArmies() > attackDice) {
@@ -530,7 +531,7 @@ public class Board {
             }
         }
         else{
-            System.out.println("Countries are not adjacent");
+            System.out.println("Countries are not adjacent, cannot attack " + countries[b].getName() + " from " + countries[a].getName());
         }
     }
 
