@@ -1,10 +1,12 @@
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Board {
 
     private final Country[] countries = new Country[42];
     private final ArrayList<Continent> continents;
     public ArrayList<Player> playerArray;
+    private Dice red1, red2, red3, white1, white2;
 
     public Board(int players) {
 
@@ -16,6 +18,11 @@ public class Board {
         setAdjacentCountries();
         setInitialArmies(players);
         setInitialRulers(players);
+        red1 = new Dice();
+        red2 = new Dice();
+        red3 = new Dice();
+        white1 = new Dice();
+        white2 = new Dice();
     }
 
     private void createPlayer(int players) {
@@ -499,8 +506,10 @@ public class Board {
     }
 
     public void stateOfMap() {
-        for (Country c : countries) {
-            System.out.println(c.getName() + " is ruled by " +  c.getRuler() + " and has " + c.getArmies() + " on it.");
+        for (Player p : playerArray) {
+            System.out.println(p.getName() + " rules: ");
+            p.getRuledCountriesInfo();
+            System.out.println();
         }
     }
 
@@ -509,28 +518,225 @@ public class Board {
 
         int a = mapCountryToIndex(attackFrom); //will be used to represent attacker
         int b = mapCountryToIndex(attackTo); //will be used represent defender
+        int r1, r2, r3, w1, w2, reinforceNumber;
+        Scanner s = new Scanner(System.in);
+
 
         if (checkAdjacentCountries(countries[a], countries[b])) {
-            //get the players countries army size
-            if ((countries[a].getArmies() > 2) && (countries[a].getArmies() > attackDice) && (countries[b].getArmies() > defendDice)) {
-                if (countries[a].getArmies() > attackDice) {
-                    System.out.println("Country attacked");
+
+            if ((countries[a].getArmies() >= 2)) {
+                if(attackDice == 1 && defendDice == 1) {
+                    r1 = red1.roll();
+                    w1 = white1.roll();
+                    if(r1 < w1) {
+                        countries[a].decreaseArmyCount(1);
+                        countries[a].getRuler().decreaseArmyCount(1);
+                    } else if(r1 > w1) {
+                        countries[b].decreaseArmyCount(1);
+                        countries[b].getRuler().decreaseArmyCount(1);
+                    } else {
+                        countries[a].decreaseArmyCount(1);
+                        countries[a].getRuler().decreaseArmyCount(1);
+                    }
+                } else if(attackDice == 2 && defendDice == 1) {
+                    r1 = red1.roll();
+                    r2 = red2.roll();
+                    w1 = white1.roll();
+                    if((r1 > w1) || (r2 > w1)) {
+                        countries[b].decreaseArmyCount(1);
+                        countries[b].getRuler().decreaseArmyCount(1);
+                    } else if((r1 < w1) && (r2 < w1)) {
+                        countries[a].decreaseArmyCount(1);
+                        countries[a].getRuler().decreaseArmyCount(1);
+                    } else {
+                        countries[a].decreaseArmyCount(1);
+                        countries[a].getRuler().decreaseArmyCount(1);
+                    }
+                } else if(attackDice == 1 && defendDice == 2) {
+                    r1 = red1.roll();
+                    w2 = white2.roll();
+                    w1 = white1.roll();
+                    if((r1 < w1) || (r1 < w2)) {
+                        countries[a].decreaseArmyCount(1);
+                        countries[a].getRuler().decreaseArmyCount(1);
+                    } else if((r1 > w1) && (r1 > w2)) {
+                        countries[b].decreaseArmyCount(1);
+                        countries[b].getRuler().decreaseArmyCount(1);
+                    } else {
+                        countries[a].decreaseArmyCount(1);
+                        countries[a].getRuler().decreaseArmyCount(1);
+                    }
+                } else if(attackDice == 2 && defendDice == 2) {
+                    r1 = red1.roll();
+                    r2 = red2.roll();
+                    w1 = white1.roll();
+                    w2 = white2.roll();
+                    int h1r, h2r, h1w, h2w;
+
+                    if(r1 > r2) {
+                        h1r = r1;
+                        h2r = r2;
+                    } else if(r2 > r1){
+                        h1r = r2;
+                        h2r = r1;
+                    } else {
+                        h1r = r1;
+                        h2r = r2;
+                    }
+
+                    if(w1 > w2) {
+                        h1w = w1;
+                        h2w = w2;
+                    } else if(w2 > w1){
+                        h1w = w2;
+                        h2w = w1;
+                    } else {
+                        h1w = w1;
+                        h2w = w2;
+                    }
+
+                    if(h1r > h1w) {
+                        countries[b].decreaseArmyCount(1);
+                        countries[b].getRuler().decreaseArmyCount(1);
+                    } else if(h1w > h1r) {
+                        countries[a].decreaseArmyCount(1);
+                        countries[a].getRuler().decreaseArmyCount(1);
+                    } else {
+                        countries[a].decreaseArmyCount(1);
+                        countries[a].getRuler().decreaseArmyCount(1);
+                    }
+
+                    if(h2r > h2w) {
+                        countries[b].decreaseArmyCount(1);
+                        countries[b].getRuler().decreaseArmyCount(1);
+                    } else if(h2w > h2r) {
+                        countries[a].decreaseArmyCount(1);
+                        countries[a].getRuler().decreaseArmyCount(1);
+                    } else {
+                        countries[a].decreaseArmyCount(1);
+                        countries[a].getRuler().decreaseArmyCount(1);
+                    }
+                } else if(attackDice == 3 && defendDice == 1) {
+                    r1 = red1.roll();
+                    r2 = red2.roll();
+                    r3 = red3.roll();
+                    w1 = white1.roll();
+                    if((r1 > w1) || (r2 > w1) || (r3 > w1)) {
+                        countries[b].decreaseArmyCount(1);
+                        countries[b].getRuler().decreaseArmyCount(1);
+                    } else if((r1 < w1) && (r2 < w1) && (r3 < w1)) {
+                        countries[a].decreaseArmyCount(1);
+                        countries[a].getRuler().decreaseArmyCount(1);
+                    } else {
+                        countries[a].decreaseArmyCount(1);
+                        countries[a].getRuler().decreaseArmyCount(1);
+                    }
+                } else if(attackDice == 3 && defendDice == 2) {
+                    r1 = red1.roll();
+                    r2 = red2.roll();
+                    r3 = red3.roll();
+                    w1 = white1.roll();
+                    w2 = white2.roll();
+                    int h1r, h2r, h3r, h1w, h2w;
+
+                    if(r1 > r2 && r1 > r3) {
+                        h1r = r1;
+                        if(r2 > r3) {
+                            h2r = r2;
+                            h3r = r3;
+                        } else {
+                            h2r = r3;
+                            h3r = r2;
+                        }
+                    } else if(r2 > r1 && r2 > r3){
+                        h1r = r2;
+                        if(r1 > r3) {
+                            h2r = r1;
+                            h3r = r3;
+                        } else {
+                            h2r = r3;
+                            h3r = r1;
+                        }
+                    } else if(r3 > r1 && r3 > r2){
+                        h1r = r2;
+                        if(r2 > r1) {
+                            h2r = r2;
+                            h3r = r1;
+                        } else {
+                            h2r = r1;
+                            h3r = r2;
+                        }
+                    } else {
+                        h1r = r1;
+                        h2r = r2;
+                        h3r = r3;
+                    }
+
+                    if(w1 > w2) {
+                        h1w = w1;
+                        h2w = w2;
+                    } else if(w2 > w1){
+                        h1w = w2;
+                        h2w = w1;
+                    } else {
+                        h1w = w1;
+                        h2w = w2;
+                    }
+
+                    if(h1r > h1w) {
+                        countries[b].decreaseArmyCount(1);
+                        countries[b].getRuler().decreaseArmyCount(1);
+                    } else if(h1w > h1r) {
+                        countries[a].decreaseArmyCount(1);
+                        countries[a].getRuler().decreaseArmyCount(1);
+                    } else {
+                        countries[a].decreaseArmyCount(1);
+                        countries[a].getRuler().decreaseArmyCount(1);
+                    }
+
+                    if(h2r > h2w) {
+                        countries[b].decreaseArmyCount(1);
+                        countries[b].getRuler().decreaseArmyCount(1);
+                    } else if(h2w > h2r) {
+                        countries[a].decreaseArmyCount(1);
+                        countries[a].getRuler().decreaseArmyCount(1);
+                    } else {
+                        countries[a].decreaseArmyCount(1);
+                        countries[a].getRuler().decreaseArmyCount(1);
+                    }
                 }
-                if (attackDice > defendDice) {
-                    countries[b].decreaseArmyCount(1);
-                    System.out.println("Attacking country won the battle");
+
+                if(countries[b].getArmies() == 0) {
+                    System.out.println(countries[b].getRuler().getName() + " you have no armies remaining in "
+                    + countries[b].getName());
+
+                    System.out.println(countries[a].getRuler().getName() + " has conquered your country.");
+
+                    countries[b].getRuler().removeCountry(countries[b]);
+                    countries[b].setRuler(countries[a].getRuler());
+                    countries[a].getRuler().addCountry(countries[b]);
+
+                    System.out.println(countries[a].getRuler().getName() + " you must reinforce the country you have just" +
+                            " conquered with a minimum of " + attackDice + " armies.");
+
+                    System.out.println("How many armies would you like to reinforce " + countries[b].getName() + ": ");
+                    reinforceNumber = s.nextInt();
+
+                    while(!((reinforceNumber >= attackDice) && (reinforceNumber < countries[a].getArmies()))) {
+                        System.out.println("How many armies would you like to reinforce " + countries[b].getName() + ": ");
+                        reinforceNumber = s.nextInt();
+                    }
+
+                    //fortify(countries[a], countries[b], reinforceNumber);
+
+
                 }
-                if (defendDice > attackDice) {
-                    countries[a].decreaseArmyCount(1);
-                    System.out.println("Defending country won the battle");
-                }
-                if (defendDice == attackDice) {
-                    countries[a].decreaseArmyCount(1);
-                    System.out.println("Defending country won the battle as it was a tie");
-                }
+
+            } else {
+                System.out.println("You do not have enough armies on " + countries[a].getName() + " to attack." +
+                        " You need a minimum of two armies.");
             }
-        }
-        else{
+        } else {
             System.out.println("Countries are not adjacent, cannot attack " + countries[b].getName() + " from " + countries[a].getName());
         }
     }

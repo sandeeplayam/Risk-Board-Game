@@ -25,6 +25,12 @@ public class Player {
         ruleCountries.remove(country);
     }
 
+    public void getRuledCountriesInfo() {
+        for (int i = 0; i < getCountrySizes(); i++) {
+            System.out.println(ruleCountries.get(i).getName() + " has " + ruleCountries.get(i).getArmies() + " armies");
+        }
+    }
+
     public int getCountrySizes() {
         return ruleCountries.size();
     }

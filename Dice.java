@@ -6,12 +6,12 @@ public class Dice {
      /there is 5 dice in total, 2 white(defender) and 3 red(attacker)
      */
     private int Dice;
-    private int colour;
+    //private int colour;
 
 
     //constructor constructs a dice object
-    public Dice( String Colour) {
-        this.colour = colour;
+    public Dice() {
+        //this.colour = colour;
 
         //randomly set a number when dice is brought out of box, generator
         Random r = new Random();

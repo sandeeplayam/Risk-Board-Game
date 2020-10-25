@@ -6,12 +6,14 @@ public class Country {
 
     private int armies;
     private String name;
+    //private String continent;
     private Player ruler;
     private boolean hasRuler;
     private ArrayList<Country> adjacentCountries;
 
     public Country(String name) {
         this.name = name;
+        //this.continent = continent;
         hasRuler = false;
         armies = 0;
         adjacentCountries = new ArrayList<Country>();
