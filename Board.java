@@ -8,10 +8,16 @@ public class Board {
     private int players;
 
     public Board(int players) {
-        this.players=players;
+        this.players = players;
 
+        continents = new ArrayList<Continent>();
         playerArray = new ArrayList<Player>();
         createPlayer(players);
+        createCountries();
+        createContinents();
+        setAdjacentCountries();
+        setInitialArmies(players);
+        setInitialRulers(players);
     }
 
     private void createPlayer(int players) {
@@ -94,7 +100,56 @@ public class Board {
         countries[41] = new Country("Western United States");
     }
 
-    //private createContinents() {} Sandeep
+    private void createContinents() {
+
+        //Australia
+        continents.add(new Continent("Australia", 2));
+
+        //Asia
+        continents.add(new Continent("Asia", 7));
+
+        //Africa
+        continents.add(new Continent("Africa", 3));
+
+        //Europe
+        continents.add(new Continent("Europe", 5));
+
+        //South America
+        continents.add(new Continent("South America", 2));
+
+        //North America
+        continents.add(new Continent("North America", 5));
+
+            //Adding all countries in Australia to the continent
+            for(int  j = 0; j < 4; j++) {
+                continents.get(0).addCountry(countries[j]);
+            }
+
+            //Adding all countries in Asia to the continent
+            for(int j = 4; j < 16; j++) {
+                continents.get(1).addCountry(countries[j]);
+            }
+
+            //Adding all countries in Africa to the continent
+            for(int j = 16; j < 22; j++) {
+                continents.get(2).addCountry(countries[j]);
+            }
+
+            //Adding all countries in Europe to the continent
+            for(int j = 22; j < 29; j++) {
+                continents.get(3).addCountry(countries[j]);
+            }
+
+            //Adding all countries in South America to the continent
+            for(int j = 29; j < 33; j++) {
+                continents.get(4).addCountry(countries[j]);
+            }
+
+            //Adding all countries in North America to the continent
+            for(int j = 33; j < 42; j++) {
+                continents.get(5).addCountry(countries[j]);
+            }
+    }
 
     private void setInitialArmies(int players) {
         int i;
@@ -425,4 +480,44 @@ public class Board {
     public Country getCountries(int index) {
         return countries[index];
     }
+
+    public boolean checkAdjacentCountries(Country country, Country country2) {
+        if(country.getAdjacentCountries().contains(country2)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    //attackDice is number of dice for attacker,defendDice is # of dice for defender
+    public void attack(String attackFrom, String attackTo, int attackDice,int defendDice) {
+
+        int a = mapCountryToIndex(attackFrom); //will be used to represent attacker
+        int b = mapCountryToIndex(attackTo); //will be used represent defender
+
+        if (checkAdjacentCountries(countries[a], countries[b]) == true) {
+            //get the players countries army size
+            if ((countries[a].getArmies() > 2) && (countries[a].getArmies() > attackDice) && (countries[b].getArmies() > defendDice)) {
+                if (countries[a].getArmies() > attackDice) {
+                    System.out.println("Country attacked");
+                }
+                if (attackDice > defendDice) {
+                    countries[b].decreaseArmyCount(1);
+                    System.out.println("Attacking country won the battle");
+                }
+                if (defendDice > attackDice) {
+                    countries[a].decreaseArmyCount(1);
+                    System.out.println("Defending country won the battle");
+                }
+                if (defendDice == attackDice) {
+                    countries[a].decreaseArmyCount(1);
+                    System.out.println("Defending country won the battle as it was a tie");
+                }
+            }
+        }
+        else{
+            System.out.println("Countries are not adjacent");
+        }
+    }
+
 }

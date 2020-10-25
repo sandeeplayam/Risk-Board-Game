@@ -25,6 +25,10 @@ public class Player {
         ruleCountries.remove(country);
     }
 
+    public int getCountrySizes() {
+        return ruleCountries.size();
+    }
+
     public void addContinent(Continent continent) {
         ruleContinent.add(continent);
     }

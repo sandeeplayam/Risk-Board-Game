@@ -1,14 +1,23 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import static java.lang.System.exit;
+
 public class Game {
 
     private Board board;
     private boolean gameWon;
+    private String[] countries = new String[42];
+
 
     public Game() {
+        setCountries(countries);
     }
 
+    public void setCountries(String [] c){
+        countries[0]= "Eastern Australia";
+        countries[1]="Indonesia";
+    }
     public static void main(String[] args) {
 
         Game game = new Game();
@@ -47,78 +56,120 @@ public class Game {
 
         this.gameWon = false;
 
+        System.out.println("The game will start with Player 1");
+
         do {
+            for (int i = 0; i < board.playerArray.size(); i++) {
 
-            System.out.println("Enter a command:");
-            String command;
-            command = s.nextLine();
-            commandWord(command);
+                System.out.println("It is " + board.playerArray.get(i).getName() + "'s turn");
+
+                System.out.println("At the start of each turn each player receives 3 or more armies");
+
+                int newArmies = (board.playerArray.get(i).getCountrySizes() / 3);
+                board.playerArray.get(i).increaseArmyCount(newArmies);
+
+                System.out.println(board.playerArray.get(i).getName() +" receives " + newArmies +" armies");
+
+                for(int b = 0;i<newArmies;i++) {
+                    System.out.println("Enter country to add armies to:");
+                    String countryToAdd;
+                    countryToAdd = s.nextLine();
+                    int g = board.mapCountryToIndex(countryToAdd);
+
+                    while(g == -1){
+                        System.out.println("You have entered an invalid country");
+                        System.out.println("Enter a country to add armies too");
+                        countryToAdd = s.nextLine();
+                        g = board.mapCountryToIndex(countryToAdd);
+                    }
+
+                    board.getCountries(g).increaseArmyCount(1);
+
+                }
+
+                String command;
+                System.out.println("Enter a command:");
+                command = s.nextLine();
 
 
 
-        } while (!this.gameWon);
-
-
-        if (this.gameWon) {
-
-            System.out.println("Congratulations! You have won the game!");
-        }
-
+                while(!command.equals("pass")) {
+                    commandWord(command);
+                    System.out.println("Enter a command:");
+                    command = s.nextLine();
+                }
+                System.out.println(board.playerArray.get(i).getName() + " passes");
+            }
+        }while (!this.gameWon);
 
     }
-
 
     public void commandWord(String command) {
 
         Scanner sc = new Scanner(System.in);
-        int a, b, e, f;
+        int e, f;
         String c, d;
 
         if (command.equals("attack")) {
+            int i;
+            String attackFrom;
+            String defendFrom;
 
             do {
-                System.out.println("Enter attacking player number:");
-                a = sc.nextInt();
-            }while (a<1 || a> board.playerArray.size());
+                System.out.println("Enter country to attack:");
+                c = sc.next();
+                defendFrom = c;
+                i = board.mapCountryToIndex(c);
+                if(i == -1) {
+                    System.out.println("You have entered an invalid country, try again.");
+                }
+            }while(i == -1);
 
-            //do{
-            System.out.println("Enter country to attack:");
-            c = sc.next();
-            //}while();
 
-            //do{
-            System.out.println("Enter country attacking from:");
-            d = sc.next();
-            //}while();
+            do{
+                System.out.println("Enter country attacking from:");
+                d = sc.next();
+                attackFrom = d;
+                i = board.mapCountryToIndex(d);
+                if(i == -1) {
+                    System.out.println("You have entered an invalid country, try again.");
+                }
+            }while(i == -1);
 
             do {
                 System.out.println("Choose number of dice to roll (attacker):");
                 e = sc.nextInt();
-            }while (e < 1 || e > 3) ;
+                i = board.mapCountryToIndex(attackFrom);
+                if(board.getCountries(i).getArmies() <= e) {
+                    System.out.println("Must have one more army in the country you are attacking from" +
+                            " than the amount of dice you are rolling.");
+                }
+            }while ((e < 1 || e > 3) && (board.getCountries(i).getArmies() <= e)) ;
 
             do {
                 System.out.println("Choose number of dice to roll (defender):");
                 f = sc.nextInt();
-            }while (f < 1 || f > 2) ;
+                i = board.mapCountryToIndex(defendFrom);
+                if(board.getCountries(i).getArmies() < f) {
+                    System.out.println("Must have the same amount or more armies in the country you are defending" +
+                            " from than the amount of dice you are rolling.");
+                }
+            }while ((f < 1 || f > 2) && (board.getCountries(i).getArmies() < f));
 
-            //call attack (parameters: (playerArray[a-1], playerArray[b-1],c,d,e,f) //check passing country
+            board.attack(c,d,e,f);
 
-            // if (this.board.checkWin){
-            // this.gameWon == true;}
-
+            if (board.playerArray.size()==0){
+                System.out.println("Congratulations You won the game!");
+                exit(0);
+            }
 
         }else if (command.equals("pass")) {
+
             System.out.println("The next player can start their turn");
 
 
         } else if (command.equals("fortify")) {
-            int g;
             String h, j;
-
-            //do {
-            System.out.println("Enter player number");
-            g = sc.nextInt();
-            // }while (g<1 || g>board.playerArray.size()+1);
 
             //do{
             System.out.println("Enter country to fortify:");
@@ -180,3 +231,7 @@ public class Game {
     }
 
 }
+
+
+
+

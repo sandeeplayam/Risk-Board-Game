@@ -1,4 +1,4 @@
-//author: Sudarsana Sandeep
+
 
 import java.util.ArrayList;
 
@@ -14,6 +14,7 @@ public class Country {
         this.name = name;
         hasRuler = false;
         armies = 0;
+        adjacentCountries = new ArrayList<Country>();
     }
 
     public String getName(){
@@ -52,18 +53,11 @@ public class Country {
     }
 
     public void setAdjacentCountries(Country country) {
-        adjacentCountries.add(country);
+        this.adjacentCountries.add(country);
     }
 
     public ArrayList<Country> getAdjacentCountries() {
         return this.adjacentCountries;
     }
 
-    public boolean checkAdjacentCountries(Country country, Country country2) {
-        if(country.adjacentCountries.contains(country2)) {
-            return true;
-        } else {
-            return false;
-        }
-    }
 }

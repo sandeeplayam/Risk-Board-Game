@@ -6,10 +6,9 @@ public class Continent {
     private int bonusArmy;
     private ArrayList<Country> countries;
 
-    public Continent(String name, int bonusArmy, ArrayList<Country> countriesInContinent) {
+    public Continent(String name, int bonusArmy) {
         this.name = name;
         this.bonusArmy = bonusArmy;
-        this.countries = countriesInContinent;
     }
 
     public int getBonusArmy() {
@@ -22,5 +21,9 @@ public class Continent {
 
     public ArrayList<Country> getCountries() {
         return this.countries;
+    }
+
+    public void addCountry(Country country) {
+        countries.add(country);
     }
 }
