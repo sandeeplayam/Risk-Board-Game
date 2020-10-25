@@ -5,7 +5,7 @@ public class Board {
     private Country[] countries = new Country[42];
     private ArrayList<Continent> continents;
     public ArrayList<Player> playerArray;
-    int players;
+    private int players;
 
     public Board(int players) {
         this.players=players;
@@ -406,11 +406,23 @@ public class Board {
         countries[41].setAdjacentCountries(countries[35]);
     }
 
+    public int mapCountryToIndex(String country) {
+        int i;
+        for(i = 0; i < countries.length; i++) {
+            if(countries[i].getName().equals(country)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     //public getAdjacentCountries() {} Sandeep
 
     //public ArrayList<Continent> getContinent() {} Sandeep
 
     //public ArrayList<Country> getCountriesByContinent(String continent) {} Sandeep
 
-    //public ArrayList<Country> getCountries() {} Sandeep
+    public Country getCountries(int index) {
+        return countries[index];
+    }
 }

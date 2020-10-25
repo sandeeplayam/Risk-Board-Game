@@ -56,8 +56,14 @@ public class Country {
     }
 
     public ArrayList<Country> getAdjacentCountries() {
-        return adjacentCountries;
+        return this.adjacentCountries;
     }
 
-
+    public boolean checkAdjacentCountries(Country country, Country country2) {
+        if(country.adjacentCountries.contains(country2)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
