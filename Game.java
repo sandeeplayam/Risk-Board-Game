@@ -1,3 +1,9 @@
+//@author Danish Butt, Sudarsana Sandeep, Yusuf Jamaac
+
+/** This is the game class for the Risk game. This class
+ *  creates the main method which creates an instance of the game
+ */
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -11,12 +17,18 @@ public class Game {
     public Game() {
     }
 
+    /**
+     * Constructor of the game class that initializes the variables
+     */
     public static void main(String[] args) {
 
         Game game = new Game();
         game.play();
     }
 
+    /**
+     * This method contains a loop where the game keeps on going until someone wins
+     */
     public void play() {
 
         System.out.println("Welcome to a text-based version of Risk");
@@ -26,7 +38,7 @@ public class Game {
         int number = 0;
 
         do {
-            System.out.print("Enter Number of players: ");
+            System.out.print("Enter Number of players: ");  //Enter number of players and create board
             input = s.nextLine();
 
             if (input.equals("2")) {
@@ -42,37 +54,44 @@ public class Game {
             }
         } while (number < 2 || number > 6);
 
+        //create Board
         board = new Board(number);
         printRules();
         printCommands();
-
 
         this.gameWon = false;
 
         System.out.println("The game will start with Player 1");
 
+        //This is the main loop of the game
         do {
+
+            System.out.println("At the start of each turn each player receives 3 or more armies and" +
+                    " if you rule a whole continent you will get more bonus armies.");
+
+            board.stateOfMap();
+
+            //This loops to each of the players
             for (int i = 0; i < board.playerArray.size(); i++) {
 
                 System.out.println("It is " + board.playerArray.get(i).getName() + "'s turn");
 
-                System.out.println("At the start of each turn each player receives 3 or more armies and" +
-                        " if you rule a whole continent you will get more bonus armies.");
-
                 int bonusArmies = 0;
 
+                //Assign continent bonus
                 if(board.playerArray.get(i).getContinentSize() > 0) {
                     for(int j = 0; j < board.playerArray.get(i).getContinentSize(); j++) {
                         bonusArmies = bonusArmies + board.playerArray.get(i).getContinent(j).getBonusArmy();
                     }
                 }
 
+                //Assign 3 or more armies at each turn
                 int newArmies = (board.playerArray.get(i).getCountrySizes() / 3) + bonusArmies;
                 board.playerArray.get(i).increaseArmyCount(newArmies);
 
                 System.out.println(board.playerArray.get(i).getName() +" receives " + newArmies +" armies");
 
-                for(int b = 0; i < newArmies; i++) {
+                for(int b = 0; b < newArmies; b++) {
                     System.out.println("Enter country to add armies to:");
                     String countryToAdd;
                     countryToAdd = s.nextLine();
@@ -89,27 +108,33 @@ public class Game {
 
                 }
 
+                //Asks the user for a command
                 String command;
                 System.out.println("Enter a command:");
-                command = s.nextLine();
+                command = s.nextLine();   //execute command
 
 
-
+                //if pass is entered cycle to the next player
                 while(!command.equals("pass")) {
                     commandWord(command);
                     System.out.println("Enter a command:");
                     command = s.nextLine();
                 }
                 System.out.println(board.playerArray.get(i).getName() + " passes");
+
             }
         }while (!this.gameWon);
 
     }
 
+    /**
+     * This method accepts a command and executes/prints out the result
+     * @param command command entered by player
+     */
     public void commandWord(String command) {
 
         Scanner sc = new Scanner(System.in);
-        int e, f;
+        int e, f, v;
         String c, d;
 
         if (command.equals("attack")) {
@@ -125,6 +150,7 @@ public class Game {
                 if(i == -1) {
                     System.out.println("You have entered an invalid country, try again.");
                 }
+
             }while(i == -1);
 
 
@@ -136,7 +162,12 @@ public class Game {
                 if(i == -1) {
                     System.out.println("You have entered an invalid country, try again.");
                 }
-            }while(i == -1);
+                if(attackFrom.equals(defendFrom)){
+                    System.out.println("You can not attack the same country you are attacking from");
+                }
+
+            }while((i == -1) || (attackFrom.equals(defendFrom)));
+
 
             do {
                 System.out.println("Choose number of dice to roll (attacker):");
@@ -146,7 +177,7 @@ public class Game {
                     System.out.println("Must have one more army in the country you are attacking from" +
                             " than the amount of dice you are rolling.");
                 }
-            }while ((e < 1 || e > 3) && (board.getCountries(i).getArmies() <= e)) ;
+            }while ((e < 1) && (e > 3) && (board.getCountries(i).getArmies() > e)) ;
 
             do {
                 System.out.println("Choose number of dice to roll (defender):");
@@ -156,9 +187,9 @@ public class Game {
                     System.out.println("Must have the same amount or more armies in the country you are defending" +
                             " from than the amount of dice you are rolling.");
                 }
-            }while ((f < 1 || f > 2) && (board.getCountries(i).getArmies() < f));
+            }while ((f < 1 || f > 2) ||  (board.getCountries(i).getArmies() < f));
 
-            board.attack(c,d,e,f);
+            board.attack(d,c,e,f);
 
             if (board.playerArray.size()==0){
                 System.out.println("Congratulations You won the game!");
@@ -173,17 +204,23 @@ public class Game {
         } else if (command.equals("fortify")) {
             String h, j;
 
-            //do{
+            int x;
+
+            // do{
             System.out.println("Enter country to fortify:");
             h = sc.next();
-            //}while();
 
-            //do{
             System.out.println("Enter country fortifying from:");
             j= sc.next();
+            // }while(board.);
+
+
+            System.out.println("Number of armies to move");
+            x =sc.nextInt();
+
             //while();
 
-            //fortify(playerArray[g-1], h, j)
+            board.fortify(j,h,x);
 
 
         } else if (command.equals("map")) {
@@ -195,6 +232,20 @@ public class Game {
         } else if (command.equals("commands")) {
             printCommands();
 
+        } else if(command.equals("adjacent countries")){
+            String k;
+            System.out.println("Enter country:");
+            k= sc.next();
+
+            int o=board.mapCountryToIndex(k);
+            ArrayList<Country> countryList;
+            countryList= board.getCountries(o).getAdjacentCountries();
+
+            for(int i=0; i< countryList.size();i++){
+                System.out.println(countryList.get(i).getName());
+            }
+
+
         } else {
             System.out.println("This is not a valid command. Please try again");
         }
@@ -202,6 +253,9 @@ public class Game {
 
     }
 
+    /**
+     * This method prints the rules of the games
+     */
     public void printRules () {
         System.out.println
                 ("Rules \n" +
@@ -220,7 +274,9 @@ public class Game {
                 );
     }
 
-
+    /**
+     * This method prints the commands for the game
+     */
     public void printCommands(){
 
         System.out.println("These are the possible commands:\n" +
@@ -229,11 +285,9 @@ public class Game {
                 "fortify: fortify one of the countries you rule\n" +
                 "map: print state of the map\n" +
                 "rules: print rules\n" +
-                "commands: print commands\n");
+                "commands: print commands\n"+
+                "adjacent countries: print adjacent countries\n");
     }
 
 }
-
-
-
 

@@ -1,3 +1,5 @@
+//@Sudarsana Sandeep
+
 import java.util.ArrayList;
 
 public class Continent {
@@ -7,9 +9,9 @@ public class Continent {
     private ArrayList<Country> countries;
 
     public Continent(String name, int bonusArmy) {
+        countries= new ArrayList<Country>();
         this.name = name;
         this.bonusArmy = bonusArmy;
-        countries = new ArrayList<Country>();
     }
 
     public int getBonusArmy() {

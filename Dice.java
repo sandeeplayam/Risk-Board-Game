@@ -1,3 +1,5 @@
+//@author Yasin Jamaac
+
 import java.util.*;
 
 public class Dice {
