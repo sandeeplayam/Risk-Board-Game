@@ -522,9 +522,6 @@ public class Board {
         int r1, r2, r3, w1, w2, reinforceNumber;
         Scanner s = new Scanner(System.in);
 
-
-        if (checkAdjacentCountries(countries[a], countries[b])) {
-
             if ((countries[a].getArmies() >= 2)) {
                 if (attackDice == 1 && defendDice == 1) {
                     r1 = red1.roll();
@@ -812,10 +809,8 @@ public class Board {
                 System.out.println("You do not have enough armies on " + countries[a].getName() + " to attack." +
                         " You need a minimum of two armies.");
             }
-        } else {
-            System.out.println("Countries are not adjacent, cannot attack " + countries[b].getName() + " from " + countries[a].getName());
         }
-    }
+
 
     public void fortify(String moveFrom, String moveTo, int armyAmount) {
         int m = mapCountryToIndex(moveFrom);

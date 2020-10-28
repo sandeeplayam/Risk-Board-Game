@@ -4,6 +4,7 @@
  *  creates the main method which creates an instance of the game
  */
 
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -134,16 +135,19 @@ public class Game {
     public void commandWord(String command) {
 
         Scanner sc = new Scanner(System.in);
-        int e, f, v;
+        int e, f;
         String c, d;
 
         if (command.equals("attack")) {
             int i;
+            int j;
             String attackFrom;
             String defendFrom;
 
+
+
             do {
-                System.out.println("Enter country to attack:");
+                System.out.println("Enter country attacking from:");
                 c = sc.next();
                 defendFrom = c;
                 i = board.mapCountryToIndex(c);
@@ -155,10 +159,12 @@ public class Game {
 
 
             do{
-                System.out.println("Enter country attacking from:");
+                System.out.println("Enter country to attack:");
                 d = sc.next();
                 attackFrom = d;
                 i = board.mapCountryToIndex(d);
+                j= board.mapCountryToIndex(defendFrom);
+
                 if(i == -1) {
                     System.out.println("You have entered an invalid country, try again.");
                 }
@@ -166,7 +172,16 @@ public class Game {
                     System.out.println("You can not attack the same country you are attacking from");
                 }
 
-            }while((i == -1) || (attackFrom.equals(defendFrom)));
+                if(board.checkAdjacentCountries(board.getCountries(i),board.getCountries(j))==false){
+                    System.out.println("These 2 countries are not adjacent");
+                }
+
+                if(board.getCountries(i).getRuler()==board.getCountries(j).getRuler()){
+                    System.out.println("You can not attack a country you rule");
+                }
+
+
+            }while((i == -1) || (attackFrom.equals(defendFrom)) || (board.checkAdjacentCountries(board.getCountries(i),board.getCountries(j))==false)||board.getCountries(i).getRuler()==board.getCountries(j).getRuler());
 
 
             do {
@@ -202,26 +217,42 @@ public class Game {
 
 
         } else if (command.equals("fortify")) {
+            int x, l, k;
             String h, j;
+            String fortifyFrom;
+            String fortifyTo;
 
-            int x;
-
-            // do{
-            System.out.println("Enter country to fortify:");
-            h = sc.next();
-
+            do{
             System.out.println("Enter country fortifying from:");
-            j= sc.next();
-            // }while(board.);
+            h = sc.next();
+            fortifyTo= h;
+            l= board.mapCountryToIndex(h);
+                if(l == -1) {
+                    System.out.println("You have entered an invalid country, try again.");
+                }
+            }while(l == -1);
+
+            do {
+                System.out.println("Enter country to fortify:");
+                j = sc.next();
+                fortifyFrom = j;
+                k =board.mapCountryToIndex(j);
+
+                if(fortifyFrom.equals(fortifyTo)){
+                    System.out.println("You can not fortify the same country");
+                }
+
+                if(!(board.getCountries(k).getRuler()==board.getCountries(l).getRuler())){
+                    System.out.println("You can only fortify a country you own");
+                }
+
+            }while((fortifyFrom.equals(fortifyTo)) || (!(board.getCountries(k).getRuler()==board.getCountries(l).getRuler())));
 
 
             System.out.println("Number of armies to move");
             x =sc.nextInt();
 
-            //while();
-
             board.fortify(j,h,x);
-
 
         } else if (command.equals("map")) {
             board.stateOfMap();
