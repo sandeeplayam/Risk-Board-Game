@@ -21,7 +21,7 @@ public class View {
         controller = new Controller(this);
         frame = new JFrame("Risk");
 
-        frame.setSize(500, 500);
+        frame.setSize(1500, 1500);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setResizable(true);
 
@@ -277,10 +277,10 @@ public class View {
         JButton WesternUnitedStates = new JButton("Western United States");
         countries.add(WesternUnitedStates);
 
-        JButton Attack = new JButton("Attack");
+        JButton Attack = new JButton("ATTACK!!");
         countries.add(Attack);
 
-        JButton Fortify = new JButton("Fortify");
+        JButton Fortify = new JButton("FORTIFY!!");
         countries.add(Fortify);
 
         mainScreen.add(countries, BorderLayout.EAST);
