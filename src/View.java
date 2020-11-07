@@ -4,6 +4,7 @@ import java.awt.*;
 
 public class View {
     private JFrame frame;
+    private Controller controller;
 
 
     public JFrame getFrame() {
@@ -16,6 +17,7 @@ public class View {
 
     public View(){
 
+        controller = new Controller(this);
         frame = new JFrame("Risk");
 
         frame.setSize(500, 500);
@@ -36,10 +38,13 @@ public class View {
         options.add(rules);
         options.add(mapState);
         options.add(quit);
+        rules.addActionListener(controller);
+        mapState.addActionListener(controller);
+        quit.addActionListener(controller);
 
         frame.setVisible(true);
-        //startMenu();
-        createNumOfPlayers();
+        startMenu();
+
     }
 
     public void startMenu(){
@@ -59,9 +64,11 @@ public class View {
 
         JButton start = new JButton("Start");
         start.setFont(new Font("Calibri", Font.PLAIN, 20));
+        start.addActionListener(controller);
 
         JButton rules = new JButton("Rules");
         rules.setFont(new Font("Calibri", Font.PLAIN, 20));
+        rules.addActionListener(controller);
 
         buttons.add(rules);
         buttons.add(start);
@@ -117,6 +124,23 @@ public class View {
         frame.validate();
         frame.repaint();
 
+    }
+
+    public void showRules() {
+        JOptionPane.showMessageDialog(this.frame,
+                "1. The winner is the first player to eliminate every opponent by " +
+                "capturing all 42 territories on the board.\n"
+                + "2. You can only attack a country that is adjacent to a country you control.\n"
+                + "3. At the start of each turn you will receive at least 3 armies or the # of territories " +
+                "you own divided by 3 (which ever one is higher).\n"
+                + "4. You can only attack a country if you own at least 2 armies in the attacking country.\n"
+                + "5. When attacking the person who is attacking can choose to roll up to 3 dice.\n"
+                + "6. The person defending can roll up to 2 dice but must have at least 2 armies in the " +
+                "defending country (if not they can only roll one dice).\n"
+                + "7. When you capture a territory, you must move at least as many armies as " +
+                "dice you rolled in your last attack.\n" +
+                "                                  ", "Rules", JOptionPane.OK_OPTION,
+                new ImageIcon(getClass().getResource("res/riskLogo.png")));
     }
 
 }
