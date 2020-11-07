@@ -43,8 +43,8 @@ public class View {
         quit.addActionListener(controller);
 
         frame.setVisible(true);
-        startMenu();
-
+        //startMenu();
+        mainScreen();
     }
 
     public void startMenu(){
@@ -120,6 +120,22 @@ public class View {
         playerButtons.add(player6);
         playerButtons.add(startGame);
         numOfPlayers.add(playerButtons, BorderLayout.CENTER);
+
+        frame.validate();
+        frame.repaint();
+
+    }
+
+    public void mainScreen(){
+        frame.getContentPane().removeAll();
+        JPanel mainScreen = new JPanel(new BorderLayout());
+
+        frame.getContentPane().add(mainScreen);
+
+        ImageIcon logoImage = new ImageIcon(getClass().getResource("res/riskMap.jpg"));
+        JLabel logo = new JLabel(logoImage);
+        logo.setPreferredSize(new Dimension(300, 300));
+        mainScreen.add(logo, BorderLayout.CENTER);
 
         frame.validate();
         frame.repaint();
