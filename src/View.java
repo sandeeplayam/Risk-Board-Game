@@ -5,6 +5,7 @@ import java.awt.*;
 public class View {
     private JFrame frame;
     private Controller controller;
+    private JMenuItem mapState, mainMenu;
 
 
     public JFrame getFrame() {
@@ -33,8 +34,9 @@ public class View {
         menu.add(options);
 
         JMenuItem rules = new JMenuItem("Rules");
-        JMenuItem mapState = new JMenuItem("Map State");
+        mapState = new JMenuItem("Map State");
         JMenuItem quit = new JMenuItem("Quit");
+        mainMenu = new JMenuItem("Main Menu");
         options.add(rules);
         options.add(mapState);
         options.add(quit);
@@ -43,11 +45,14 @@ public class View {
         quit.addActionListener(controller);
 
         frame.setVisible(true);
-        //startMenu();
-        mainScreen();
+        startMenu();
+        //mainScreen();
     }
 
     public void startMenu(){
+
+        mapState.setVisible(false);
+        mainMenu.setVisible(false);
 
         frame.getContentPane().removeAll();
 
@@ -97,21 +102,27 @@ public class View {
 
         JButton player2 = new JButton("2 Players");
         player2.setFont(new Font("Calibri", Font.PLAIN, 20));
+        player2.addActionListener(controller);
 
         JButton player3 = new JButton("3 Players");
         player3.setFont(new Font("Calibri", Font.PLAIN, 20));
+        player3.addActionListener(controller);
 
         JButton player4 = new JButton("4 Players");
         player4.setFont(new Font("Calibri", Font.PLAIN, 20));
+        player4.addActionListener(controller);
 
         JButton player5 = new JButton("5 Players");
         player5.setFont(new Font("Calibri", Font.PLAIN, 20));
+        player5.addActionListener(controller);
 
         JButton player6 = new JButton("6 Players");
         player6.setFont(new Font("Calibri", Font.PLAIN, 20));
+        player6.addActionListener(controller);
 
         JButton startGame= new JButton("Start Game");
         startGame.setFont(new Font("Calibri", Font.PLAIN, 20));
+        startGame.addActionListener(controller);
 
         playerButtons.add(player2);
         playerButtons.add(player3);
@@ -157,6 +168,19 @@ public class View {
                 "dice you rolled in your last attack.\n" +
                 "                                  ", "Rules", JOptionPane.OK_OPTION,
                 new ImageIcon(getClass().getResource("res/riskLogo.png")));
+    }
+
+    public void quit() {
+
+        int choice = JOptionPane.showConfirmDialog(null,
+                "Are you sure you would like to quit?",
+                "Quit",
+                JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE,
+                new ImageIcon(getClass().getResource("res/riskLogo.png")));
+
+        if (choice == 0) {
+            System.exit(0);
+        }
     }
 
 }
