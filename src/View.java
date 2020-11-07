@@ -148,6 +148,144 @@ public class View {
         logo.setPreferredSize(new Dimension(300, 300));
         mainScreen.add(logo, BorderLayout.CENTER);
 
+        JPanel countries = new JPanel(new GridLayout(15,3));
+
+        //Adding country buttons
+        JButton EasternAustralia = new JButton("Eastern Australia");
+        countries.add(EasternAustralia);
+
+        JButton Indonesia = new JButton("Indonesia");
+        countries.add(Indonesia);
+
+        JButton NewGuinea= new JButton("New Guinea");
+        countries.add(NewGuinea);
+
+        JButton WesternAustralia = new JButton("Western Australia");
+        countries.add(WesternAustralia);
+
+        JButton Afghanistan = new JButton("Afghanistan");
+        countries.add(Afghanistan);
+
+        JButton China = new JButton("China");
+        countries.add(China);
+
+        JButton India= new JButton("India");
+        countries.add(India);
+
+        JButton Irkutsk = new JButton("Irkutsk");
+        countries.add(Irkutsk);
+
+        JButton Japan = new JButton("Japan");
+        countries.add(Japan);
+
+        JButton Kamchatka = new JButton("Kamchatka");
+        countries.add(Kamchatka);
+
+        JButton MiddleEast= new JButton("Middle East");
+        countries.add(MiddleEast);
+
+        JButton Mongolia = new JButton("Mongolia");
+        countries.add(Mongolia);
+
+        JButton Siam = new JButton("Siam");
+        countries.add(Siam);
+
+        JButton Siberia = new JButton("Siberia");
+        countries.add(Siberia);
+
+        JButton Ural= new JButton("Ural");
+        countries.add(Ural);
+
+        JButton Yakutsk = new JButton("Yakutsk");
+        countries.add(Yakutsk);
+
+        JButton Congo = new JButton("Congo");
+        countries.add(Congo);
+
+        JButton EastAfrica = new JButton("East Africa");
+        countries.add(EastAfrica);
+
+        JButton Egypt= new JButton("Egypt");
+        countries.add(Egypt);
+
+        JButton Madagascar = new JButton("Madagascar");
+        countries.add(Madagascar);
+
+        JButton NorthAfrica = new JButton("North Africa");
+        countries.add(NorthAfrica);
+
+        JButton SouthAfrica = new JButton("South Africa");
+        countries.add(SouthAfrica);
+
+        JButton GreatBritain= new JButton("Great Britain");
+        countries.add(GreatBritain);
+
+        JButton Iceland = new JButton("Iceland");
+        countries.add(Iceland);
+
+        JButton NorthernEurope = new JButton("Northern Europe");
+        countries.add(NorthernEurope);
+
+        JButton Scandinavia = new JButton("Scandinavia");
+        countries.add(Scandinavia);
+
+        JButton SouthernEurope= new JButton("Southern Europe");
+        countries.add(SouthernEurope);
+
+        JButton Ukraine = new JButton("Ukraine");
+        countries.add(Ukraine);
+
+        JButton WesternEurope = new JButton("Western Europe");
+        countries.add(WesternEurope);
+
+        JButton Argentina = new JButton("Argentina");
+        countries.add(Argentina);
+
+        JButton Brazil= new JButton("Brazil");
+        countries.add(Brazil);
+
+        JButton Peru = new JButton("Peru");
+        countries.add(Peru);
+
+        JButton Venezuela = new JButton("Venezuela");
+        countries.add(Venezuela);
+
+        JButton Alaska = new JButton("Alaska");
+        countries.add(Alaska);
+
+        JButton Alberta= new JButton("Alberta");
+        countries.add(Alberta);
+
+        JButton CentralAmerica = new JButton("Central America");
+        countries.add(CentralAmerica);
+
+        JButton EasternUnitedStates = new JButton("EasternUnitedStates");
+        countries.add(EasternUnitedStates);
+
+        JButton Greenland = new JButton("Greenland");
+        countries.add(Greenland);
+
+        JButton NorthwestTerritories= new JButton("Northwest Territories");
+        countries.add(NorthwestTerritories);
+
+        JButton Ontario = new JButton("Ontario");
+        countries.add(Ontario);
+
+        JButton Quebec= new JButton("Quebec");
+        countries.add(Quebec);
+
+        JButton WesternUnitedStates = new JButton("Western United States");
+        countries.add(WesternUnitedStates);
+
+        JButton Attack = new JButton("Attack");
+        countries.add(Attack);
+
+        JButton Fortify = new JButton("Fortify");
+        countries.add(Fortify);
+
+        mainScreen.add(countries, BorderLayout.EAST);
+
+
         frame.validate();
         frame.repaint();
 
