@@ -155,6 +155,7 @@ public class View {
         logo.setPreferredSize(new Dimension(300, 300));
         mainScreen.add(logo, BorderLayout.CENTER);
 
+
         JPanel countries = new JPanel(new GridLayout(15,3));
 
         //Adding country buttons
@@ -340,6 +341,8 @@ public class View {
 
         mainScreen.add(countries, BorderLayout.EAST);
 
+
+
         //Dice
         JPanel dice= new JPanel(new GridLayout(1,3));
         JButton dice1 = new JButton("1 die");
@@ -353,7 +356,6 @@ public class View {
 
         //Output
         JPanel output = new JPanel();
-
 
 
 
