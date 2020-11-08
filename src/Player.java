@@ -32,6 +32,15 @@ public class Player {
         }
     }
 
+    public boolean ownsCountry(String name) {
+        for (int i = 0; i < getCountrySizes(); i++) {
+            if(ruleCountries.get(i).equals(name)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public int getCountrySizes() {
         return ruleCountries.size();
     }

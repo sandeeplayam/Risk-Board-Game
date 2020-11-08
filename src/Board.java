@@ -32,19 +32,19 @@ public class Board {
         for (i = 0; i < players; i++) {
 
             if (players == 2) {
-                playerArray.add(new Player("player" + (i + 1), 50));
+                playerArray.add(new Player("Player" + (i + 1), 50));
 
             } else if (players == 3) {
-                playerArray.add(new Player("player" + (i + 1), 35));
+                playerArray.add(new Player("Player" + (i + 1), 35));
 
             } else if (players == 4) {
-                playerArray.add(new Player("player" + (i + 1), 30));
+                playerArray.add(new Player("Player" + (i + 1), 30));
 
             } else if (players == 5) {
-                playerArray.add(new Player("player" + (i + 1), 25));
+                playerArray.add(new Player("Player" + (i + 1), 25));
 
             } else if (players == 6) {
-                playerArray.add(new Player("player" + (i + 1), 20));
+                playerArray.add(new Player("Player" + (i + 1), 20));
             }
         }
     }
@@ -515,12 +515,19 @@ public class Board {
     }
 
 
-    public void attack(String attackFrom, String attackTo, int attackDice, int defendDice) {
+    public void attack(String attackFrom, String attackTo, int attackDice) {
 
         int a = mapCountryToIndex(attackFrom); //will be used to represent attacker
         int b = mapCountryToIndex(attackTo); //will be used represent defender
+        int defendDice;
         int r1, r2, r3, w1, w2, reinforceNumber;
         Scanner s = new Scanner(System.in);
+
+        if (countries[b].getArmies() >= 2) {
+            defendDice = 2;
+        } else {
+            defendDice = 1;
+        }
 
             if ((countries[a].getArmies() >= 2)) {
                 if (attackDice == 1 && defendDice == 1) {

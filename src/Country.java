@@ -62,4 +62,12 @@ public class Country {
         return this.adjacentCountries;
     }
 
+    public boolean equals(String name) {
+        if(this.name == name) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 }

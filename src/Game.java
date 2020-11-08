@@ -204,7 +204,7 @@ public class Game {
                 }
             }while ((f < 1 || f > 2) ||  (board.getCountries(i).getArmies() < f));
 
-            board.attack(d,c,e,f);
+            //board.attack(d,c,e,f);
 
             if (board.playerArray.size()==0){
                 System.out.println("Congratulations You won the game!");

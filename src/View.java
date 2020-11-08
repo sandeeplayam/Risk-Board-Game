@@ -153,141 +153,187 @@ public class View {
         //Adding country buttons
         JButton EasternAustralia = new JButton("Eastern Australia");
         countries.add(EasternAustralia);
+        EasternAustralia.addActionListener(controller);
 
         JButton Indonesia = new JButton("Indonesia");
         countries.add(Indonesia);
+        Indonesia.addActionListener(controller);
 
         JButton NewGuinea= new JButton("New Guinea");
         countries.add(NewGuinea);
+        NewGuinea.addActionListener(controller);
 
         JButton WesternAustralia = new JButton("Western Australia");
         countries.add(WesternAustralia);
+        WesternAustralia.addActionListener(controller);
 
         JButton Afghanistan = new JButton("Afghanistan");
         countries.add(Afghanistan);
+        Afghanistan.addActionListener(controller);
 
         JButton China = new JButton("China");
         countries.add(China);
+        China.addActionListener(controller);
 
         JButton India= new JButton("India");
         countries.add(India);
+        India.addActionListener(controller);
 
         JButton Irkutsk = new JButton("Irkutsk");
         countries.add(Irkutsk);
+        Irkutsk.addActionListener(controller);
 
         JButton Japan = new JButton("Japan");
         countries.add(Japan);
+        Japan.addActionListener(controller);
 
         JButton Kamchatka = new JButton("Kamchatka");
         countries.add(Kamchatka);
+        Kamchatka.addActionListener(controller);
 
         JButton MiddleEast= new JButton("Middle East");
         countries.add(MiddleEast);
+        MiddleEast.addActionListener(controller);
 
         JButton Mongolia = new JButton("Mongolia");
         countries.add(Mongolia);
+        Mongolia.addActionListener(controller);
 
         JButton Siam = new JButton("Siam");
         countries.add(Siam);
+        Siam.addActionListener(controller);
 
         JButton Siberia = new JButton("Siberia");
         countries.add(Siberia);
+        Siberia.addActionListener(controller);
 
         JButton Ural= new JButton("Ural");
         countries.add(Ural);
+        Ural.addActionListener(controller);
 
         JButton Yakutsk = new JButton("Yakutsk");
         countries.add(Yakutsk);
+        Yakutsk.addActionListener(controller);
 
         JButton Congo = new JButton("Congo");
         countries.add(Congo);
+        Congo.addActionListener(controller);
 
         JButton EastAfrica = new JButton("East Africa");
         countries.add(EastAfrica);
+        EastAfrica.addActionListener(controller);
 
         JButton Egypt= new JButton("Egypt");
         countries.add(Egypt);
+        Egypt.addActionListener(controller);
 
         JButton Madagascar = new JButton("Madagascar");
         countries.add(Madagascar);
+        Madagascar.addActionListener(controller);
 
         JButton NorthAfrica = new JButton("North Africa");
         countries.add(NorthAfrica);
+        NorthAfrica.addActionListener(controller);
 
         JButton SouthAfrica = new JButton("South Africa");
         countries.add(SouthAfrica);
+        SouthAfrica.addActionListener(controller);
 
         JButton GreatBritain= new JButton("Great Britain");
         countries.add(GreatBritain);
+        GreatBritain.addActionListener(controller);
 
         JButton Iceland = new JButton("Iceland");
         countries.add(Iceland);
+        Iceland.addActionListener(controller);
 
         JButton NorthernEurope = new JButton("Northern Europe");
         countries.add(NorthernEurope);
+        NorthernEurope.addActionListener(controller);
 
         JButton Scandinavia = new JButton("Scandinavia");
         countries.add(Scandinavia);
+        Scandinavia.addActionListener(controller);
 
         JButton SouthernEurope= new JButton("Southern Europe");
         countries.add(SouthernEurope);
+        SouthernEurope.addActionListener(controller);
 
         JButton Ukraine = new JButton("Ukraine");
         countries.add(Ukraine);
+        Ukraine.addActionListener(controller);
 
         JButton WesternEurope = new JButton("Western Europe");
         countries.add(WesternEurope);
+        WesternEurope.addActionListener(controller);
 
         JButton Argentina = new JButton("Argentina");
         countries.add(Argentina);
+        Argentina.addActionListener(controller);
 
         JButton Brazil= new JButton("Brazil");
         countries.add(Brazil);
+        Brazil.addActionListener(controller);
 
         JButton Peru = new JButton("Peru");
         countries.add(Peru);
+        Peru.addActionListener(controller);
 
         JButton Venezuela = new JButton("Venezuela");
         countries.add(Venezuela);
+        Venezuela.addActionListener(controller);
 
         JButton Alaska = new JButton("Alaska");
         countries.add(Alaska);
+        Alaska.addActionListener(controller);
 
         JButton Alberta= new JButton("Alberta");
         countries.add(Alberta);
+        Alberta.addActionListener(controller);
 
         JButton CentralAmerica = new JButton("Central America");
         countries.add(CentralAmerica);
+        CentralAmerica.addActionListener(controller);
 
-        JButton EasternUnitedStates = new JButton("EasternUnitedStates");
+        JButton EasternUnitedStates = new JButton("Eastern United States");
         countries.add(EasternUnitedStates);
+        EasternUnitedStates.addActionListener(controller);
 
         JButton Greenland = new JButton("Greenland");
         countries.add(Greenland);
+        Greenland.addActionListener(controller);
 
         JButton NorthwestTerritories= new JButton("Northwest Territories");
         countries.add(NorthwestTerritories);
+        NorthwestTerritories.addActionListener(controller);
 
         JButton Ontario = new JButton("Ontario");
         countries.add(Ontario);
+        Ontario.addActionListener(controller);
 
         JButton Quebec= new JButton("Quebec");
         countries.add(Quebec);
+        Quebec.addActionListener(controller);
 
         JButton WesternUnitedStates = new JButton("Western United States");
         countries.add(WesternUnitedStates);
+        WesternUnitedStates.addActionListener(controller);
 
         JButton Attack = new JButton("ATTACK!!");
         countries.add(Attack);
+        Attack.addActionListener(controller);
 
         JButton Fortify = new JButton("FORTIFY!!");
         countries.add(Fortify);
+        Fortify.addActionListener(controller);
 
         mainScreen.add(countries, BorderLayout.EAST);
 
 
         frame.validate();
         frame.repaint();
+        JOptionPane.showMessageDialog(this.frame, "The game shall begin with Player 1",
+                "Info",JOptionPane.OK_OPTION, new ImageIcon(getClass().getResource("res/riskLogo.png")));
 
     }
 
@@ -321,4 +367,22 @@ public class View {
         }
     }
 
+    public void pass(int playerNum) {
+        int choice = JOptionPane.showConfirmDialog(null,
+                "Are you sure you would like to pass?",
+                "Pass",
+                JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE,
+                new ImageIcon(getClass().getResource("res/riskLogo.png")));
+
+        if (choice == 0) {
+            JOptionPane.showMessageDialog(this.frame,"It is now Player" + playerNum + "'s turn.", "Info",
+                    JOptionPane.OK_OPTION, new ImageIcon(getClass().getResource("res/riskLogo.png")));
+        }
+    }
+
+    public void notYourCountry(String name) {
+        JOptionPane.showMessageDialog(this.frame, "You do not rule " + name + ", please attack from a country " +
+                        " that you rule.", "Info",
+                JOptionPane.OK_OPTION, new ImageIcon(getClass().getResource("res/riskLogo.png")));
+    }
 }
