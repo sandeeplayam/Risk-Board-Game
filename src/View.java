@@ -433,10 +433,6 @@ public class View {
         mainScreen.add(controls,BorderLayout.EAST);
         frame.validate();
         frame.repaint();
-
-        mainScreen.add(controls,BorderLayout.EAST);
-        frame.validate();
-        frame.repaint();
         JOptionPane.showMessageDialog(this.frame, "The game shall begin with Player 1",
                 "Info",JOptionPane.OK_OPTION, new ImageIcon(getClass().getResource("res/riskLogo.png")));
 

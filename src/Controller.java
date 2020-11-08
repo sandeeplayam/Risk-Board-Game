@@ -57,6 +57,7 @@ public class Controller implements ActionListener {
         }
     }
 
+
     private void jMenuBarPerformed(ActionEvent e) {
         String input;
 
@@ -94,7 +95,7 @@ public class Controller implements ActionListener {
                 view.mainScreen();
                 menu = 2;
             }
-            playerNumber = 1;
+            playerNumber = 0;
         }
     }
 
@@ -105,16 +106,32 @@ public class Controller implements ActionListener {
         if ((!placeHolder.getText().equals("ATTACK!!")) && (!placeHolder.getText().equals("FORTIFY!!"))
         && (!placeHolder.getText().equals("1 die")) && (!placeHolder.getText().equals("2 dice"))
                 && (!placeHolder.getText().equals("3 dice"))) {
-            country1 = placeHolder.getText();
-            if((model.playerArray.get(playerNumber).ownsCountry(country1)) == false) {
-                model.playerArray.get(playerNumber).getRuledCountriesInfo();
-                view.notYourCountry(country1);
+
+            if (country1 != null) {
+                if((model.playerArray.get(playerNumber).ownsCountry(placeHolder.getText())) == true) {
+                    //view.yourCountry();
+                } else {
+                    int a = model.mapCountryToIndex(country1); //will be used to represent attacker
+                    int b = model.mapCountryToIndex(country2);
+
+                    if (model.checkAdjacentCountries(model.getCountries(a), model.getCountries(b))) {
+                        country2 = placeHolder.getText();
+                    } else {
+                        //view.notAdjacent();
+                    }
+
+                }
+
+            }
+
+            if((model.playerArray.get(playerNumber).ownsCountry(placeHolder.getText())) == false) {
+                //model.playerArray.get(playerNumber).getRuledCountriesInfo();
+                view.notYourCountry(placeHolder.getText());
+            } else {
+                country1 = placeHolder.getText();
             }
         }
 
-        if (country1 != null) {
-            country2 = placeHolder.getText();
-        }
 
         if (placeHolder.getText().equals("1 die")) {
             numOfAttackDice = 1;
@@ -125,14 +142,19 @@ public class Controller implements ActionListener {
         }
 
         if (placeHolder.getText().equals("ATTACK!!")) {
-            if (country1.equals(null)) {
+           // if (country1.equals(null) && country2) {}
 
-            }
 
-            if (country2.equals(null)) {
-
-            }
             model.attack(country1, country2, numOfAttackDice);
+        }
+
+        if (placeHolder.getText().equals("PASS")) {
+            if (playerNumber == model.playerArray.size()) {
+                playerNumber = 0;
+            } else  {
+                playerNumber++;
+            }
+
         }
 
 
