@@ -8,12 +8,12 @@ public class View {
     private JFrame frame;
     private Controller controller;
     private JMenuItem mapState, mainMenu;
-    public static final Color pink= new Color(207,43,201);
+    public static final Color pink= new Color(255,153,255);
     public static final Color brown = new Color(168,126,40);
     public static final Color yellow = new Color(245,217,76);
     public static final Color green = new Color(84,207,68);
     public static final Color orange = new Color(255,163,43);
-    public static final Color blue = new Color(124,31,237);
+    public static final Color blue = new Color(153,153,255);
 
     public JFrame getFrame() {
         return this.frame;
@@ -327,38 +327,61 @@ public class View {
         countries.add(WesternUnitedStates);
         WesternUnitedStates.setBackground(orange);
 
-        JButton Attack = new JButton("ATTACK!!");
-        countries.add(Attack);
-        Attack.setBackground(Color.red);
 
-        JButton Fortify = new JButton("FORTIFY!!");
-        countries.add(Fortify);
-        Fortify.setBackground(Color.red);
 
-        JButton Pass = new JButton(("PASS!!"));
-        countries.add(Pass);
-        Pass.setBackground(Color.red);
-
-        mainScreen.add(countries, BorderLayout.EAST);
+        mainScreen.add(countries, BorderLayout.WEST);
 
 
 
         //Dice
-        JPanel dice= new JPanel(new GridLayout(1,3));
-        JButton dice1 = new JButton("1 die");
-        JButton dice2 = new JButton("2 dice");
-        JButton dice3 = new JButton("3 dice");
+        JPanel controls= new JPanel(new GridBagLayout());
+        GridBagConstraints c = new GridBagConstraints();
 
-        dice.add(dice1);
-        dice.add(dice2);
-        dice.add(dice3);
-        mainScreen.add(dice, BorderLayout.SOUTH);
+        JButton dice1 = new JButton("1 Die");
+        c.fill =GridBagConstraints.HORIZONTAL;
+        c.gridx=0;
+        c.gridy=0;
+        c.ipady=30;
+        dice1.setBackground(Color.red);
 
-        //Output
-        JPanel output = new JPanel();
+        controls.add(dice1,c);
 
+        JButton dice2 = new JButton("2 Dice");
+        c.fill =GridBagConstraints.HORIZONTAL;
+        c.gridx = 1;
+        c.gridy = 0;
+        controls.add(dice2,c);
+        dice2.setBackground(Color.red);
 
+        JButton dice3 = new JButton("3 Dice");
+        c.fill =GridBagConstraints.HORIZONTAL;
+        c.gridx = 2;
+        c.gridy = 0;
+        controls.add(dice3,c);
+        dice3.setBackground(Color.red);
 
+        JButton Attack = new JButton("ATTACK");
+        c.fill =GridBagConstraints.HORIZONTAL;
+        c.gridx = 0;
+        c.gridy = 1;
+        controls.add(Attack,c);
+        Attack.setBackground(Color.yellow);
+
+        JButton Fortify = new JButton("FORTIFY");
+        c.fill =GridBagConstraints.HORIZONTAL;
+        c.gridx = 1;
+        c.gridy = 1;
+        controls.add(Fortify,c);
+        Fortify.setBackground(Color.yellow);
+
+       JButton Pass = new JButton(("PASS"));
+        c.fill =GridBagConstraints.HORIZONTAL;
+        c.gridx = 2;
+        c.gridy = 1;
+        controls.add(Pass,c);
+        Pass.setBackground(Color.yellow);
+
+        mainScreen.add(controls,BorderLayout.EAST);
         frame.validate();
         frame.repaint();
 
