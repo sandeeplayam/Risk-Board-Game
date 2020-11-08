@@ -103,50 +103,59 @@ public class Controller implements ActionListener {
 
         JButton placeHolder = (JButton) e.getSource();
 
-        if ((!placeHolder.getText().equals("ATTACK!!")) && (!placeHolder.getText().equals("FORTIFY!!"))
-        && (!placeHolder.getText().equals("1 die")) && (!placeHolder.getText().equals("2 dice"))
-                && (!placeHolder.getText().equals("3 dice"))) {
+        if ((!placeHolder.getText().equals("PASS")) && (!placeHolder.getText().equals("FORTIFY!!"))
+        && (!placeHolder.getText().equals("1 Die")) && (!placeHolder.getText().equals("2 Dice"))
+                && (!placeHolder.getText().equals("3 Dice"))) {
 
-            if (country1 != null) {
-                if((model.playerArray.get(playerNumber).ownsCountry(placeHolder.getText())) == true) {
-                    //view.yourCountry();
-                } else {
-                    int a = model.mapCountryToIndex(country1); //will be used to represent attacker
-                    int b = model.mapCountryToIndex(country2);
+                if (!placeHolder.getText().equals("ATTACK!!")) {
+                    if (country1 != null) {
+                        if ((model.playerArray.get(playerNumber).ownsCountry(placeHolder.getText()))) {
+                            view.cannotAttack(placeHolder.getText());
+                        } else {
+                            int a = model.mapCountryToIndex(country1); //will be used to represent attacking country
+                            int b = model.mapCountryToIndex(placeHolder.getText()); //will be used to represent country that is being attacked
 
-                    if (model.checkAdjacentCountries(model.getCountries(a), model.getCountries(b))) {
-                        country2 = placeHolder.getText();
-                    } else {
-                        //view.notAdjacent();
+                            if (model.checkAdjacentCountries(model.getCountries(a), model.getCountries(b))) {
+                                country2 = placeHolder.getText();
+                            } else {
+                                view.notAdjacent(placeHolder.getText());
+                            }
+
+                        }
+
                     }
 
+                    if (!(model.playerArray.get(playerNumber).ownsCountry(placeHolder.getText()))) {
+                        //model.playerArray.get(playerNumber).getRuledCountriesInfo();
+                        view.notYourCountry(placeHolder.getText());
+                    } else {
+                        country1 = placeHolder.getText();
+                    }
                 }
 
-            }
+                if (placeHolder.getText().equals("ATTACK!!")) {
+                    if (country1.equals(null) || country2.equals(null)) {
+                        view.pickCountry(placeHolder.getText());
+                    }
 
-            if((model.playerArray.get(playerNumber).ownsCountry(placeHolder.getText())) == false) {
-                //model.playerArray.get(playerNumber).getRuledCountriesInfo();
-                view.notYourCountry(placeHolder.getText());
-            } else {
-                country1 = placeHolder.getText();
-            }
+
+                    model.attack(country1, country2, numOfAttackDice);
+                    country1 = null;
+                    country2 = null;
+                }
+
         }
 
 
-        if (placeHolder.getText().equals("1 die")) {
+        if (placeHolder.getText().equals("1 Die")) {
             numOfAttackDice = 1;
-        } else if (placeHolder.getText().equals("2 dice")) {
+        } else if (placeHolder.getText().equals("2 Dice")) {
             numOfAttackDice = 2;
         } else {
             numOfAttackDice = 3;
         }
 
-        if (placeHolder.getText().equals("ATTACK!!")) {
-           // if (country1.equals(null) && country2) {}
 
-
-            model.attack(country1, country2, numOfAttackDice);
-        }
 
         if (placeHolder.getText().equals("PASS")) {
             if (playerNumber == model.playerArray.size()) {
@@ -154,10 +163,7 @@ public class Controller implements ActionListener {
             } else  {
                 playerNumber++;
             }
-
         }
-
-
 
     }
 

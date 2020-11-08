@@ -482,8 +482,24 @@ public class View {
     }
 
     public void notYourCountry(String name) {
-        JOptionPane.showMessageDialog(this.frame, "You do not rule " + name + ", please attack from a country " +
+        JOptionPane.showMessageDialog(this.frame, "You do not rule " + name + ", please select a country" +
                         " that you rule.", "Info",
                 JOptionPane.OK_OPTION, new ImageIcon(getClass().getResource("res/riskLogo.png")));
+    }
+
+    public void cannotAttack(String name) {
+        JOptionPane.showMessageDialog(this.frame, "You rule " + name + " you cannot attack it.",
+                "Info", JOptionPane.OK_OPTION, new ImageIcon(getClass().getResource("res/riskLogo.png")));
+    }
+
+    public void notAdjacent(String name) {
+        JOptionPane.showMessageDialog(this.frame,  name + " is not adjacent to the country you are attacking" +
+                        " from, please select a country that is adjacent to the country you are attacking from.",
+                "Info", JOptionPane.OK_OPTION, new ImageIcon(getClass().getResource("res/riskLogo.png")));
+    }
+
+    public void pickCountry(String name) {
+        JOptionPane.showMessageDialog(this.frame,  "You cannot " + name + ", please select countries first",
+                "Info", JOptionPane.OK_OPTION, new ImageIcon(getClass().getResource("res/riskLogo.png")));
     }
 }
