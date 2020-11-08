@@ -1,12 +1,19 @@
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
+import java.awt.Color;
+
 
 public class View {
     private JFrame frame;
     private Controller controller;
     private JMenuItem mapState, mainMenu;
-
+    public static final Color pink= new Color(255,153,255);
+    public static final Color brown = new Color(168,126,40);
+    public static final Color yellow = new Color(245,217,76);
+    public static final Color green = new Color(84,207,68);
+    public static final Color orange = new Color(255,163,43);
+    public static final Color blue = new Color(153,153,255);
 
     public JFrame getFrame() {
         return this.frame;
@@ -148,22 +155,27 @@ public class View {
         logo.setPreferredSize(new Dimension(300, 300));
         mainScreen.add(logo, BorderLayout.CENTER);
 
+
         JPanel countries = new JPanel(new GridLayout(15,3));
 
         //Adding country buttons
         JButton EasternAustralia = new JButton("Eastern Australia");
+        EasternAustralia.setBackground(pink);
         countries.add(EasternAustralia);
         EasternAustralia.addActionListener(controller);
 
         JButton Indonesia = new JButton("Indonesia");
+        Indonesia.setBackground(pink);
         countries.add(Indonesia);
         Indonesia.addActionListener(controller);
 
         JButton NewGuinea= new JButton("New Guinea");
+        NewGuinea.setBackground(pink);
         countries.add(NewGuinea);
         NewGuinea.addActionListener(controller);
 
         JButton WesternAustralia = new JButton("Western Australia");
+        WesternAustralia.setBackground(pink);
         countries.add(WesternAustralia);
         WesternAustralia.addActionListener(controller);
 
@@ -294,6 +306,131 @@ public class View {
         JButton CentralAmerica = new JButton("Central America");
         countries.add(CentralAmerica);
         CentralAmerica.addActionListener(controller);
+        Afghanistan.setBackground(green);
+
+        JButton China = new JButton("China");
+        countries.add(China);
+        China.setBackground(green);
+
+        JButton India= new JButton("India");
+        countries.add(India);
+        India.setBackground(green);
+
+        JButton Irkutsk = new JButton("Irkutsk");
+        countries.add(Irkutsk);
+        Irkutsk.setBackground(green);
+
+        JButton Japan = new JButton("Japan");
+        countries.add(Japan);
+        Japan.setBackground(green);
+
+        JButton Kamchatka = new JButton("Kamchatka");
+        countries.add(Kamchatka);
+        Kamchatka.setBackground(green);
+
+        JButton MiddleEast= new JButton("Middle East");
+        countries.add(MiddleEast);
+        MiddleEast.setBackground(green);
+
+        JButton Mongolia = new JButton("Mongolia");
+        countries.add(Mongolia);
+        Mongolia.setBackground(green);
+
+        JButton Siam = new JButton("Siam");
+        countries.add(Siam);
+        Siam.setBackground(green);
+
+        JButton Siberia = new JButton("Siberia");
+        countries.add(Siberia);
+        Siberia.setBackground(green);
+
+        JButton Ural= new JButton("Ural");
+        countries.add(Ural);
+        Ural.setBackground(green);
+
+        JButton Yakutsk = new JButton("Yakutsk");
+        countries.add(Yakutsk);
+        Yakutsk.setBackground(green);
+
+        JButton Congo = new JButton("Congo");
+        countries.add(Congo);
+        Congo.setBackground(brown);
+
+        JButton EastAfrica = new JButton("East Africa");
+        countries.add(EastAfrica);
+        EastAfrica.setBackground(brown);
+
+        JButton Egypt= new JButton("Egypt");
+        countries.add(Egypt);
+        Egypt.setBackground(brown);
+
+        JButton Madagascar = new JButton("Madagascar");
+        countries.add(Madagascar);
+        Madagascar.setBackground(brown);
+
+        JButton NorthAfrica = new JButton("North Africa");
+        countries.add(NorthAfrica);
+        NorthAfrica.setBackground(brown);
+
+        JButton SouthAfrica = new JButton("South Africa");
+        countries.add(SouthAfrica);
+        SouthAfrica.setBackground(brown);
+
+        JButton GreatBritain= new JButton("Great Britain");
+        countries.add(GreatBritain);
+        GreatBritain.setBackground(blue);
+
+        JButton Iceland = new JButton("Iceland");
+        countries.add(Iceland);
+        Iceland.setBackground(blue);
+
+        JButton NorthernEurope = new JButton("Northern Europe");
+        countries.add(NorthernEurope);
+        NorthernEurope.setBackground(blue);
+
+        JButton Scandinavia = new JButton("Scandinavia");
+        countries.add(Scandinavia);
+        Scandinavia.setBackground(blue);
+
+        JButton SouthernEurope= new JButton("Southern Europe");
+        countries.add(SouthernEurope);
+        SouthernEurope.setBackground(blue);
+
+        JButton Ukraine = new JButton("Ukraine");
+        countries.add(Ukraine);
+        Ukraine.setBackground(blue);
+
+        JButton WesternEurope = new JButton("Western Europe");
+        countries.add(WesternEurope);
+        WesternEurope.setBackground(blue);
+
+        JButton Argentina = new JButton("Argentina");
+        countries.add(Argentina);
+        Argentina.setBackground(yellow);
+
+        JButton Brazil= new JButton("Brazil");
+        countries.add(Brazil);
+        Brazil.setBackground(yellow);
+
+        JButton Peru = new JButton("Peru");
+        countries.add(Peru);
+        Peru.setBackground(yellow);
+
+        JButton Venezuela = new JButton("Venezuela");
+        countries.add(Venezuela);
+        Venezuela.setBackground(yellow);
+
+        JButton Alaska = new JButton("Alaska");
+        countries.add(Alaska);
+        Alaska.setBackground(orange);
+
+        JButton Alberta= new JButton("Alberta");
+        countries.add(Alberta);
+        Alberta.setBackground(orange);
+
+        JButton CentralAmerica = new JButton("Central America");
+        countries.add(CentralAmerica);
+        CentralAmerica.setBackground(orange);
 
         JButton EasternUnitedStates = new JButton("Eastern United States");
         countries.add(EasternUnitedStates);
@@ -326,10 +463,83 @@ public class View {
         JButton Fortify = new JButton("FORTIFY!!");
         countries.add(Fortify);
         Fortify.addActionListener(controller);
+        EasternUnitedStates.setBackground(orange);
 
-        mainScreen.add(countries, BorderLayout.EAST);
+        JButton Greenland = new JButton("Greenland");
+        countries.add(Greenland);
+        Greenland.setBackground(orange);
+
+        JButton NorthwestTerritories= new JButton("Northwest Territories");
+        countries.add(NorthwestTerritories);
+        NorthwestTerritories.setBackground(orange);
+
+        JButton Ontario = new JButton("Ontario");
+        countries.add(Ontario);
+        Ontario.setBackground(orange);
+
+        JButton Quebec= new JButton("Quebec");
+        countries.add(Quebec);
+        Quebec.setBackground(orange);
+
+        JButton WesternUnitedStates = new JButton("Western United States");
+        countries.add(WesternUnitedStates);
+        WesternUnitedStates.setBackground(orange);
 
 
+
+        mainScreen.add(countries, BorderLayout.WEST);
+
+
+
+        //Dice
+        JPanel controls= new JPanel(new GridBagLayout());
+        GridBagConstraints c = new GridBagConstraints();
+
+        JButton dice1 = new JButton("1 Die");
+        c.fill =GridBagConstraints.HORIZONTAL;
+        c.gridx=0;
+        c.gridy=0;
+        c.ipady=30;
+        dice1.setBackground(Color.red);
+
+        controls.add(dice1,c);
+
+        JButton dice2 = new JButton("2 Dice");
+        c.fill =GridBagConstraints.HORIZONTAL;
+        c.gridx = 1;
+        c.gridy = 0;
+        controls.add(dice2,c);
+        dice2.setBackground(Color.red);
+
+        JButton dice3 = new JButton("3 Dice");
+        c.fill =GridBagConstraints.HORIZONTAL;
+        c.gridx = 2;
+        c.gridy = 0;
+        controls.add(dice3,c);
+        dice3.setBackground(Color.red);
+
+        JButton Attack = new JButton("ATTACK");
+        c.fill =GridBagConstraints.HORIZONTAL;
+        c.gridx = 0;
+        c.gridy = 1;
+        controls.add(Attack,c);
+        Attack.setBackground(Color.yellow);
+
+        JButton Fortify = new JButton("FORTIFY");
+        c.fill =GridBagConstraints.HORIZONTAL;
+        c.gridx = 1;
+        c.gridy = 1;
+        controls.add(Fortify,c);
+        Fortify.setBackground(Color.yellow);
+
+       JButton Pass = new JButton(("PASS"));
+        c.fill =GridBagConstraints.HORIZONTAL;
+        c.gridx = 2;
+        c.gridy = 1;
+        controls.add(Pass,c);
+        Pass.setBackground(Color.yellow);
+
+        mainScreen.add(controls,BorderLayout.EAST);
         frame.validate();
         frame.repaint();
         JOptionPane.showMessageDialog(this.frame, "The game shall begin with Player 1",
