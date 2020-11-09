@@ -141,46 +141,74 @@ public class Controller implements ActionListener {
 
                 if (placeHolder.getText().equals("ATTACK!!")) {
                     if (country1 == null) {
-                        view.pickAttackFromCountry(placeHolder.getText());
+                        view.wrongChoice(placeHolder.getText());
+                        country1 = null;
+                        country2 = null;
+                        numOfAttackDice = 0;
                     } else if (country2 == null) {
-                        view.pickAttackToCountry(placeHolder.getText());
+                        view.wrongChoice(placeHolder.getText());
+                        country1 = null;
+                        country2 = null;
+                        numOfAttackDice = 0;
                     } else if (numOfAttackDice == 0) {
-                        view.selectDice();
+                        view.wrongChoice(placeHolder.getText());
+                        country1 = null;
+                        country2 = null;
+                        numOfAttackDice = 0;
                     } else if (model.getCountries(country1Index).getArmies() < 2) {
                         view.notEnoughArmies(country1, numOfAttackDice);
+                        country1 = null;
+                        country2 = null;
+                        numOfAttackDice = 0;
                     } else if (model.playerArray.get(playerNumber).ownsCountry(country2)) {
                         view.cannotAttack(country2);
                         country2 = null;
+                        country1 = null;
+                        numOfAttackDice = 0;
                     } else if (country1 != null && country2 != null && numOfAttackDice > 0){
                         System.out.println(numOfAttackDice);
                         model.attack(country1, country2, numOfAttackDice);
                         //display attack info
                         country1 = null;
                         country2 = null;
+                        numOfAttackDice = 0;
                     }
                 }
         }
 
 
         if (placeHolder.getText().equals("1 Die")) {
-            numOfAttackDice = 1;
+            if (country1 == null || country2 == null) {
+                view.selectCountry();
+            } else {
+                numOfAttackDice = 1;
+            }
         } else if (placeHolder.getText().equals("2 Dice")) {
-            numOfAttackDice = 2;
+            if (country1 == null || country2 == null) {
+                view.selectCountry();
+            } else {
+                numOfAttackDice = 2;
+            }
         } else if (placeHolder.getText().equals("3 Dice")){
-            numOfAttackDice = 3;
+            if (country1 == null || country2 == null) {
+                view.selectCountry();
+            } else {
+                numOfAttackDice = 3;
+            }
         }
 
 
         if (placeHolder.getText().equals("PASS")) {
-
+            view.pass();
+            if (view.choice == 0) {
                 if (playerNumber == (model.playerArray.size() - 1)) {
                     playerNumber = 0;
                 } else {
                     playerNumber++;
                 }
-
+                view.passForSure(playerNumber + 1);
+            }
         }
-
     }
 
 }

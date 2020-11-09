@@ -8,6 +8,7 @@ public class View {
     private JFrame frame;
     private Controller controller;
     private JMenuItem mapState, mainMenu;
+    int choice;
     public static final Color pink= new Color(255,153,255);
     public static final Color brown = new Color(168,126,40);
     public static final Color yellow = new Color(245,217,76);
@@ -445,7 +446,7 @@ public class View {
         frame.validate();
         frame.repaint();
         JOptionPane.showMessageDialog(this.frame, "The game shall begin with Player 1",
-                "Info",JOptionPane.OK_OPTION, new ImageIcon(getClass().getResource("res/riskLogo.png")));
+                "Info",JOptionPane.INFORMATION_MESSAGE, new ImageIcon(getClass().getResource("res/riskLogo.png")));
 
     }
 
@@ -462,7 +463,7 @@ public class View {
                 "defending country (if not they can only roll one dice).\n"
                 + "7. When you capture a territory, you must move at least as many armies as " +
                 "dice you rolled in your last attack.\n" +
-                "                                  ", "Rules", JOptionPane.OK_OPTION,
+                "                                  ", "Rules", JOptionPane.INFORMATION_MESSAGE,
                 new ImageIcon(getClass().getResource("res/riskLogo.png")));
     }
 
@@ -479,30 +480,28 @@ public class View {
         }
     }
 
-    public int pass(int playerNum) {
-        int choice = JOptionPane.showConfirmDialog(null,
+    public void pass() {
+        choice = JOptionPane.showConfirmDialog(null,
                 "Are you sure you would like to pass?",
                 "Pass",
                 JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE,
                 new ImageIcon(getClass().getResource("res/riskLogo.png")));
+    }
 
-        if (choice == 0) {
-            JOptionPane.showMessageDialog(this.frame,"It is now Player" + playerNum + "'s turn.", "Info",
-                    JOptionPane.OK_OPTION, new ImageIcon(getClass().getResource("res/riskLogo.png")));
-        }
-
-        return choice;
+    public void passForSure(int playerNum) {
+        JOptionPane.showMessageDialog(this.frame,"It is now Player " + playerNum + "'s turn.", "Info",
+                JOptionPane.WARNING_MESSAGE, new ImageIcon(getClass().getResource("res/riskLogo.png")));
     }
 
     public void notYourCountry(String name) {
         JOptionPane.showMessageDialog(this.frame, "You do not rule " + name + ", please select a country" +
                         " that you rule.", "Warning",
-                JOptionPane.OK_OPTION, new ImageIcon(getClass().getResource("res/riskLogo.png")));
+                JOptionPane.WARNING_MESSAGE, new ImageIcon(getClass().getResource("res/riskLogo.png")));
     }
 
     public void cannotAttack(String name) {
         JOptionPane.showMessageDialog(this.frame, "You rule " + name + " you cannot attack it.",
-                "Warning", JOptionPane.OK_OPTION, new ImageIcon(getClass().getResource("res/riskLogo.png")));
+                "Warning", JOptionPane.WARNING_MESSAGE, new ImageIcon(getClass().getResource("res/riskLogo.png")));
     }
 
     public void cannotFortify(String name) {
@@ -511,33 +510,30 @@ public class View {
 
     public void notAdjacent(String name) {
         JOptionPane.showMessageDialog(this.frame,  name + " is not adjacent to the country you are attacking" +
-                        " from, please select a country that is adjacent to the country you are attacking from.",
-                "Warning", JOptionPane.OK_OPTION, new ImageIcon(getClass().getResource("res/riskLogo.png")));
+                        " from, please restart your move.",
+                "Warning", JOptionPane.WARNING_MESSAGE, new ImageIcon(getClass().getResource("res/riskLogo.png")));
     }
 
-    public void pickAttackFromCountry(String name) {
-        JOptionPane.showMessageDialog(this.frame,  "You cannot " + name + ", please select country to attack from first.",
-                "Warning", JOptionPane.OK_OPTION, new ImageIcon(getClass().getResource("res/riskLogo.png")));
-    }
-
-    public void pickAttackToCountry(String name) {
-        JOptionPane.showMessageDialog(this.frame,  "You cannot " + name + ", please select country to attack first.",
-                "Warning", JOptionPane.OK_OPTION, new ImageIcon(getClass().getResource("res/riskLogo.png")));
-    }
-
-    public void selectDice() {
-        JOptionPane.showMessageDialog(this.frame, "Please select number of dice before attacking.",
-                "Warning", JOptionPane.OK_OPTION, new ImageIcon(getClass().getResource("res/riskLogo.png")));
+    public void wrongChoice(String name) {
+        JOptionPane.showMessageDialog(this.frame,  "You cannot " + name + ", please select country to attack" +
+                        " from first, then country you would like to attack, then the amount of dice and finally choose to attack.",
+                "Warning", JOptionPane.WARNING_MESSAGE, new ImageIcon(getClass().getResource("res/riskLogo.png")));
     }
 
     public void notEnoughArmies(String name, int dice) {
         JOptionPane.showMessageDialog(this.frame, "You do not have enough armies in " + name + " to attack" +
                         ", must have a minimum of " + dice + " armies to attack.",
-                "Warning", JOptionPane.OK_OPTION, new ImageIcon(getClass().getResource("res/riskLogo.png")));
+                "Warning", JOptionPane.WARNING_MESSAGE, new ImageIcon(getClass().getResource("res/riskLogo.png")));
     }
 
     public void stateOfTheMap(String info) {
-        JOptionPane.showMessageDialog(this.frame,info,"State of the Map",JOptionPane.OK_OPTION, new ImageIcon(getClass().getResource("res/riskLogo.png")));
+        JOptionPane.showMessageDialog(this.frame,info,"State of the Map",JOptionPane.WARNING_MESSAGE, new ImageIcon(getClass().getResource("res/riskLogo.png")));
     }
 
+
+    public void selectCountry() {
+        JOptionPane.showMessageDialog(this.frame, "Please select countries before selecting dice, then select" +
+                        " dice and finally attack.",
+                "Warning", JOptionPane.WARNING_MESSAGE, new ImageIcon(getClass().getResource("res/riskLogo.png")));
+    }
 }
