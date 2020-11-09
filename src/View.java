@@ -518,10 +518,11 @@ public class View {
 
     }
 
-    public void notAdjacent(String name) {
+    public boolean notAdjacent(String name) {
         JOptionPane.showMessageDialog(this.frame,  name + " is not adjacent to the country you are attacking" +
                         " from, please restart your move.",
                 "Warning", JOptionPane.WARNING_MESSAGE, new ImageIcon(getClass().getResource("res/riskLogo.png")));
+        return true;
     }
 
     public void wrongChoice(String name) {

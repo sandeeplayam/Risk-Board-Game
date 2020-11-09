@@ -112,6 +112,7 @@ public class Controller implements ActionListener {
     }
 
     private void mainScreenPerformed(ActionEvent e) {
+        boolean notAdjacent = false;
         model.stateOfMap();
         JButton placeHolder = (JButton) e.getSource();
 
@@ -128,7 +129,7 @@ public class Controller implements ActionListener {
                         if (model.checkAdjacentCountries(model.getCountries(country1Index), model.getCountries(country2Index))) {
                             country2 = placeHolder.getText();
                         } else {
-                            view.notAdjacent(placeHolder.getText());
+                            notAdjacent = view.notAdjacent(placeHolder.getText());
                         }
                     }
 
@@ -211,6 +212,16 @@ public class Controller implements ActionListener {
                 view.passForSure(playerNumber + 1);
             }
         }
+
+        if (country1 != null) {
+            if (notAdjacent) {
+                country1 = null;
+            }
+        }
+
+        System.out.println(country1);
+        System.out.println(country1Index);
+        System.out.println(country2Index);
     }
 
 }
