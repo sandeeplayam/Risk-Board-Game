@@ -603,4 +603,16 @@ public class View {
                 "Warning", JOptionPane.WARNING_MESSAGE, new ImageIcon(getClass().getResource("res/riskLogo.png")));
     }
 
+    public void conquered(String b)
+    { JOptionPane.showMessageDialog(this.frame, b,
+            "Message", JOptionPane.WARNING_MESSAGE, new ImageIcon(getClass().getResource("res/riskLogo.png")));
+    }
+
+    public int armyToReinforce() {
+
+        return Integer.parseInt(JOptionPane.showInputDialog("How many armies would you like to REINFORCE with?"));
+
+    }
+
+
 }

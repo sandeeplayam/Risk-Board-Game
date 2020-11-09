@@ -834,6 +834,28 @@ public class Board {
                     return "Army transfer amount exceeds the amount of armies in the origin country.";
                 }
     }
+
+    public String conquered(String c1, String c2, int dice){
+        String k;
+        int a, b;
+        a= mapCountryToIndex(c1);
+        b=mapCountryToIndex(c2);
+
+        k=(countries[b].getRuler().getName() + " you have no armies remaining in "
+                + countries[b].getName());
+
+        k=k +" "+(countries[a].getRuler().getName() + " has conquered your country.");
+
+        countries[b].getRuler().removeCountry(countries[b]);
+        countries[b].setRuler(countries[a].getRuler());
+        countries[a].getRuler().addCountry(countries[b]);
+
+        k=k+" "+(countries[a].getRuler().getName() + " you must reinforce the country you have just" +
+                " conquered with a minimum of " + dice + " armies.");
+        return k;
+
+    }
+
 }
 
 
