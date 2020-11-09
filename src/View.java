@@ -154,6 +154,7 @@ public class View {
     }
 
     public void mainScreen(){
+        mapState.setVisible(true);
         frame.getContentPane().removeAll();
         JPanel mainScreen = new JPanel(new BorderLayout());
         mapState.setVisible(true);
@@ -534,4 +535,9 @@ public class View {
                         ", must have a minimum of " + dice + " armies to attack.",
                 "Warning", JOptionPane.OK_OPTION, new ImageIcon(getClass().getResource("res/riskLogo.png")));
     }
+
+    public void stateOfTheMap(String info) {
+        JOptionPane.showMessageDialog(this.frame,info,"State of the Map",JOptionPane.OK_OPTION, new ImageIcon(getClass().getResource("res/riskLogo.png")));
+    }
+
 }

@@ -7,8 +7,9 @@ public class Controller implements ActionListener {
     private Board model;
     private View view;
     private int menu;
+
     private int numPlayers, numOfAttackDice, playerNumber, country1Index, country2Index;
-    private String country1, country2;
+    private String country1, country2, info, temp, temp2;
 
 
     public Controller(View view) {
@@ -61,14 +62,22 @@ public class Controller implements ActionListener {
 
     private void jMenuBarPerformed(ActionEvent e) {
         String input;
+        info="";
 
         JMenuItem placeHolder = (JMenuItem) e.getSource();
         input = placeHolder.getText();
+        System.out.println(input);
 
         if (input.equals("Rules")) {
             view.showRules();
         } else if (input.equals("Map State")) {
-            //add this later when completed
+            for(Player p: model.playerArray){
+            temp=p.getName() + "rules:/n";
+            info=info.concat(temp);
+            info=info.concat(p.getRuledCountriesInfo());
+            }
+            view.stateOfTheMap(info);
+
         } else if (input.equals("Quit")) {
             view.quit();
         }
