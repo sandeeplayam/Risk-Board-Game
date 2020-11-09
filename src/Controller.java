@@ -80,6 +80,8 @@ public class Controller implements ActionListener {
 
         } else if (input.equals("Quit")) {
             view.quit();
+        } else if(input.equals("Help")){
+            view.help();
         }
     }
 

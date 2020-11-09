@@ -2,12 +2,13 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.Color;
+import java.awt.event.ActionListener;
 
 
 public class View {
     private JFrame frame;
     private Controller controller;
-    private JMenuItem mapState, mainMenu;
+    private JMenuItem mapState, mainMenu, help;
     int choice;
     public static final Color pink= new Color(255,153,255);
     public static final Color brown = new Color(168,126,40);
@@ -24,7 +25,7 @@ public class View {
         new View();
     }
 
-    public View(){
+    public View() {
 
         controller = new Controller(this);
         frame = new JFrame("Risk");
@@ -34,12 +35,16 @@ public class View {
         frame.setResizable(true);
 
 
-
-        JMenuBar menu= new JMenuBar();
+        JMenuBar menu = new JMenuBar();
         frame.setJMenuBar(menu);
 
         JMenu options = new JMenu("Options");
         menu.add(options);
+
+        help = new JMenuItem("Help");
+        options.add(help);
+        help.addActionListener(controller);
+        help.setVisible(false);
 
         JMenuItem rules = new JMenuItem("Rules");
         mapState = new JMenuItem("Map State");
@@ -57,10 +62,11 @@ public class View {
 
     }
 
-    public void startMenu(){
+    public void startMenu() {
 
         mapState.setVisible(false);
         mainMenu.setVisible(false);
+        help.setVisible(false);
 
         frame.getContentPane().removeAll();
 
@@ -78,18 +84,18 @@ public class View {
 
         JButton start = new JButton("Start");
         start.setFont(new Font("Calibri", Font.PLAIN, 40));
-        c.fill =GridBagConstraints.HORIZONTAL;
-        c.gridx=0;
-        c.gridy=0;
-        c.ipady=50;
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 0;
+        c.gridy = 0;
+        c.ipady = 50;
         start.addActionListener(controller);
 
         JButton rules = new JButton("Rules");
         rules.setFont(new Font("Calibri", Font.PLAIN, 40));
-        c.fill =GridBagConstraints.HORIZONTAL;
-        c.gridx=1;
-        c.gridy=0;
-        c.ipady=50;
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 1;
+        c.gridy = 0;
+        c.ipady = 50;
         rules.addActionListener(controller);
 
         buttons.add(rules);
@@ -101,7 +107,8 @@ public class View {
 
     }
 
-    public void createNumOfPlayers(){
+    public void createNumOfPlayers() {
+        help.setVisible(false);
 
         frame.getContentPane().removeAll();
         JPanel numOfPlayers = new JPanel(new BorderLayout());
@@ -115,7 +122,7 @@ public class View {
         numOfPlayers.add(logo, BorderLayout.NORTH);
 
 
-        JPanel playerButtons = new JPanel(new GridLayout(3,2));
+        JPanel playerButtons = new JPanel(new GridLayout(3, 2));
 
         JButton player2 = new JButton("2 Players");
         player2.setFont(new Font("Calibri", Font.PLAIN, 20));
@@ -137,7 +144,7 @@ public class View {
         player6.setFont(new Font("Calibri", Font.PLAIN, 20));
         player6.addActionListener(controller);
 
-        JButton startGame= new JButton("Start Game");
+        JButton startGame = new JButton("Start Game");
         startGame.setFont(new Font("Calibri", Font.PLAIN, 20));
         startGame.addActionListener(controller);
 
@@ -154,7 +161,8 @@ public class View {
 
     }
 
-    public void mainScreen(){
+    public void mainScreen() {
+        help.setVisible(true);
         mapState.setVisible(true);
         frame.getContentPane().removeAll();
         JPanel mainScreen = new JPanel(new BorderLayout());
@@ -162,13 +170,14 @@ public class View {
 
         frame.getContentPane().add(mainScreen);
 
+
         ImageIcon logoImage = new ImageIcon(getClass().getResource("res/riskMap.jpg"));
         JLabel logo = new JLabel(logoImage);
         logo.setPreferredSize(new Dimension(300, 300));
         mainScreen.add(logo, BorderLayout.CENTER);
 
 
-        JPanel countries = new JPanel(new GridLayout(15,3));
+        JPanel countries = new JPanel(new GridLayout(15, 3));
 
         //Adding country buttons
         JButton EasternAustralia = new JButton("Eastern Australia");
@@ -182,7 +191,7 @@ public class View {
         countries.add(Indonesia);
         Indonesia.addActionListener(controller);
 
-        JButton NewGuinea= new JButton("New Guinea");
+        JButton NewGuinea = new JButton("New Guinea");
         NewGuinea.setBackground(pink);
         countries.add(NewGuinea);
         NewGuinea.addActionListener(controller);
@@ -202,7 +211,7 @@ public class View {
         China.setBackground(green);
         China.addActionListener(controller);
 
-        JButton India= new JButton("India");
+        JButton India = new JButton("India");
         countries.add(India);
         India.setBackground(green);
         India.addActionListener(controller);
@@ -222,7 +231,7 @@ public class View {
         Kamchatka.setBackground(green);
         Kamchatka.addActionListener(controller);
 
-        JButton MiddleEast= new JButton("Middle East");
+        JButton MiddleEast = new JButton("Middle East");
         countries.add(MiddleEast);
         MiddleEast.setBackground(green);
         MiddleEast.addActionListener(controller);
@@ -242,7 +251,7 @@ public class View {
         Siberia.setBackground(green);
         Siberia.addActionListener(controller);
 
-        JButton Ural= new JButton("Ural");
+        JButton Ural = new JButton("Ural");
         countries.add(Ural);
         Ural.setBackground(green);
         Ural.addActionListener(controller);
@@ -262,7 +271,7 @@ public class View {
         EastAfrica.setBackground(brown);
         EastAfrica.addActionListener(controller);
 
-        JButton Egypt= new JButton("Egypt");
+        JButton Egypt = new JButton("Egypt");
         countries.add(Egypt);
         Egypt.setBackground(brown);
         Egypt.addActionListener(controller);
@@ -282,7 +291,7 @@ public class View {
         SouthAfrica.setBackground(brown);
         SouthAfrica.addActionListener(controller);
 
-        JButton GreatBritain= new JButton("Great Britain");
+        JButton GreatBritain = new JButton("Great Britain");
         countries.add(GreatBritain);
         GreatBritain.setBackground(blue);
         GreatBritain.addActionListener(controller);
@@ -302,7 +311,7 @@ public class View {
         Scandinavia.setBackground(blue);
         Scandinavia.addActionListener(controller);
 
-        JButton SouthernEurope= new JButton("Southern Europe");
+        JButton SouthernEurope = new JButton("Southern Europe");
         countries.add(SouthernEurope);
         SouthernEurope.setBackground(blue);
         SouthernEurope.addActionListener(controller);
@@ -322,7 +331,7 @@ public class View {
         Argentina.setBackground(yellow);
         Argentina.addActionListener(controller);
 
-        JButton Brazil= new JButton("Brazil");
+        JButton Brazil = new JButton("Brazil");
         countries.add(Brazil);
         Brazil.setBackground(yellow);
         Brazil.addActionListener(controller);
@@ -342,7 +351,7 @@ public class View {
         Alaska.setBackground(orange);
         Alaska.addActionListener(controller);
 
-        JButton Alberta= new JButton("Alberta");
+        JButton Alberta = new JButton("Alberta");
         countries.add(Alberta);
         Alberta.setBackground(orange);
         Alberta.addActionListener(controller);
@@ -362,7 +371,7 @@ public class View {
         Greenland.setBackground(orange);
         Greenland.addActionListener(controller);
 
-        JButton NorthwestTerritories= new JButton("Northwest Territories");
+        JButton NorthwestTerritories = new JButton("Northwest Territories");
         countries.add(NorthwestTerritories);
         NorthwestTerritories.setBackground(orange);
         NorthwestTerritories.addActionListener(controller);
@@ -372,7 +381,7 @@ public class View {
         Ontario.setBackground(orange);
         Ontario.addActionListener(controller);
 
-        JButton Quebec= new JButton("Quebec");
+        JButton Quebec = new JButton("Quebec");
         countries.add(Quebec);
         Quebec.setBackground(orange);
         Quebec.addActionListener(controller);
@@ -383,70 +392,69 @@ public class View {
         WesternUnitedStates.addActionListener(controller);
 
 
-
         mainScreen.add(countries, BorderLayout.WEST);
 
 
-
         //Dice
-        JPanel controls= new JPanel(new GridBagLayout());
+        JPanel controls = new JPanel(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
 
         JButton dice1 = new JButton("1 Die");
-        c.fill =GridBagConstraints.HORIZONTAL;
-        c.gridx=0;
-        c.gridy=0;
-        c.ipady=30;
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 0;
+        c.gridy = 0;
+        c.ipady = 30;
         dice1.setBackground(Color.red);
         dice1.addActionListener(controller);
 
-        controls.add(dice1,c);
+        controls.add(dice1, c);
 
         JButton dice2 = new JButton("2 Dice");
-        c.fill =GridBagConstraints.HORIZONTAL;
+        c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 1;
         c.gridy = 0;
-        controls.add(dice2,c);
+        controls.add(dice2, c);
         dice2.setBackground(Color.red);
         dice2.addActionListener(controller);
 
         JButton dice3 = new JButton("3 Dice");
-        c.fill =GridBagConstraints.HORIZONTAL;
+        c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 2;
         c.gridy = 0;
-        controls.add(dice3,c);
+        controls.add(dice3, c);
         dice3.setBackground(Color.red);
         dice3.addActionListener(controller);
 
         JButton Attack = new JButton("ATTACK!!");
-        c.fill =GridBagConstraints.HORIZONTAL;
+        c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
         c.gridy = 1;
-        controls.add(Attack,c);
+        controls.add(Attack, c);
         Attack.setBackground(Color.yellow);
         Attack.addActionListener(controller);
 
         JButton Fortify = new JButton("FORTIFY!!");
-        c.fill =GridBagConstraints.HORIZONTAL;
+        c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 1;
         c.gridy = 1;
-        controls.add(Fortify,c);
+        controls.add(Fortify, c);
         Fortify.setBackground(Color.yellow);
         Fortify.addActionListener(controller);
 
         JButton Pass = new JButton(("PASS"));
-        c.fill =GridBagConstraints.HORIZONTAL;
+        c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 2;
         c.gridy = 1;
-        controls.add(Pass,c);
+        controls.add(Pass, c);
         Pass.setBackground(Color.yellow);
         Pass.addActionListener(controller);
 
-        mainScreen.add(controls,BorderLayout.EAST);
+        mainScreen.add(controls, BorderLayout.EAST);
         frame.validate();
         frame.repaint();
         JOptionPane.showMessageDialog(this.frame, "The game shall begin with Player 1",
                 "Info",JOptionPane.INFORMATION_MESSAGE, new ImageIcon(getClass().getResource("res/riskLogo.png")));
+
 
     }
 
@@ -464,6 +472,7 @@ public class View {
                 + "7. When you capture a territory, you must move at least as many armies as " +
                 "dice you rolled in your last attack.\n" +
                 "                                  ", "Rules", JOptionPane.INFORMATION_MESSAGE,
+
                 new ImageIcon(getClass().getResource("res/riskLogo.png")));
     }
 
@@ -491,6 +500,7 @@ public class View {
     public void passForSure(int playerNum) {
         JOptionPane.showMessageDialog(this.frame,"It is now Player " + playerNum + "'s turn.", "Info",
                 JOptionPane.WARNING_MESSAGE, new ImageIcon(getClass().getResource("res/riskLogo.png")));
+
     }
 
     public void notYourCountry(String name) {
@@ -518,6 +528,7 @@ public class View {
         JOptionPane.showMessageDialog(this.frame,  "You cannot " + name + ", please select country to attack" +
                         " from first, then country you would like to attack, then the amount of dice and finally choose to attack.",
                 "Warning", JOptionPane.WARNING_MESSAGE, new ImageIcon(getClass().getResource("res/riskLogo.png")));
+
     }
 
     public void notEnoughArmies(String name, int dice) {
@@ -527,12 +538,13 @@ public class View {
     }
 
     public void stateOfTheMap(String info) {
-        JTextArea j = new JTextArea(20,25);
+        JTextArea j = new JTextArea(20, 25);
         j.setText(info);
         JScrollPane state = new JScrollPane(j);
 
-        JOptionPane.showMessageDialog(this.frame,state,"State of the Map",JOptionPane.OK_OPTION, new ImageIcon(getClass().getResource("res/riskLogo.png")));
+        JOptionPane.showMessageDialog(this.frame, state, "State of the Map", JOptionPane.OK_OPTION, new ImageIcon(getClass().getResource("res/riskLogo.png")));
     }
+
 
 
     public void selectCountry() {
@@ -540,4 +552,26 @@ public class View {
                         " dice and finally attack.",
                 "Warning", JOptionPane.WARNING_MESSAGE, new ImageIcon(getClass().getResource("res/riskLogo.png")));
     }
+
+    public void help() {
+        JOptionPane.showMessageDialog(this.frame,"1. The player has 3 options (Attack, Fortify, Pass)\n"
+                + "2. To attack the user needs to first press the country they are attacking from, " +
+                        "the country they want to attack, the number of dice to roll and then press Attack\n"
+                + "3. To fortify the user needs to first press the country they are fortifying from, the country they " +
+                        "want to fortify to, the number of armies to move and then press Fortify\n"
+                + "4. Important Note: If during attack or fortify a clause is triggered (example, country is not adjacent, " +
+                        "you own the country, etc.) restart move from beginning.\n"
+                +"5. To pass the user needs to press Pass. The game will then have a pop up which will st" +
+                        "ate the next players turn\n" +
+                "6. If the user clicks Rules the rules will be displayed\n" +
+                "7. If the user clicks Map State, the state of the map will be displayed" +
+                        " with which players owns which country and how many armies in each country\n"
+                + "8. If the user clicks Quit, they exit the game\n"
+                ,
+                "Help", JOptionPane.OK_OPTION, new ImageIcon(getClass().getResource("res/riskLogo.png")));
+    }
+
+
+
+
 }
