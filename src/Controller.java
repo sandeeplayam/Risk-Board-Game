@@ -72,7 +72,7 @@ public class Controller implements ActionListener {
             view.showRules();
         } else if (input.equals("Map State")) {
             for(Player p: model.playerArray){
-            temp=p.getName() + "rules:/n";
+            temp="\n" + p.getName() + " rules:\n";
             info=info.concat(temp);
             info=info.concat(p.getRuledCountriesInfo());
             }
