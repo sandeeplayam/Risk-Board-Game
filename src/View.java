@@ -527,7 +527,11 @@ public class View {
     }
 
     public void stateOfTheMap(String info) {
-        JOptionPane.showMessageDialog(this.frame,info,"State of the Map",JOptionPane.WARNING_MESSAGE, new ImageIcon(getClass().getResource("res/riskLogo.png")));
+        JTextArea j = new JTextArea(20,25);
+        j.setText(info);
+        JScrollPane state = new JScrollPane(j);
+
+        JOptionPane.showMessageDialog(this.frame,state,"State of the Map",JOptionPane.OK_OPTION, new ImageIcon(getClass().getResource("res/riskLogo.png")));
     }
 
 
