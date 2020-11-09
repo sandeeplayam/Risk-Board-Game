@@ -72,14 +72,23 @@ public class View {
         logo.setPreferredSize(new Dimension(300, 300));
         startMenu.add(logo, BorderLayout.NORTH);
 
-        JPanel buttons = new JPanel(new GridLayout(1,1));
+        JPanel buttons = new JPanel(new GridBagLayout());
+        GridBagConstraints c = new GridBagConstraints();
 
         JButton start = new JButton("Start");
-        start.setFont(new Font("Calibri", Font.PLAIN, 20));
+        start.setFont(new Font("Calibri", Font.PLAIN, 40));
+        c.fill =GridBagConstraints.HORIZONTAL;
+        c.gridx=0;
+        c.gridy=0;
+        c.ipady=50;
         start.addActionListener(controller);
 
         JButton rules = new JButton("Rules");
-        rules.setFont(new Font("Calibri", Font.PLAIN, 20));
+        rules.setFont(new Font("Calibri", Font.PLAIN, 40));
+        c.fill =GridBagConstraints.HORIZONTAL;
+        c.gridx=1;
+        c.gridy=0;
+        c.ipady=50;
         rules.addActionListener(controller);
 
         buttons.add(rules);
