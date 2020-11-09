@@ -827,7 +827,7 @@ public class Board {
 
             if (checkAdjacentCountries(countries[m], countries[n])) {
 
-                if (armyAmount - 1 < countries[m].getArmies()) {
+                if (armyAmount + 1 <= countries[m].getArmies()) {
 
                     countries[m].decreaseArmyCount(armyAmount);
                     countries[n].increaseArmyCount(armyAmount);

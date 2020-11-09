@@ -156,6 +156,7 @@ public class View {
     public void mainScreen(){
         frame.getContentPane().removeAll();
         JPanel mainScreen = new JPanel(new BorderLayout());
+        mapState.setVisible(true);
 
         frame.getContentPane().add(mainScreen);
 
@@ -494,13 +495,13 @@ public class View {
 
     public void notYourCountry(String name) {
         JOptionPane.showMessageDialog(this.frame, "You do not rule " + name + ", please select a country" +
-                        " that you rule.", "Info",
+                        " that you rule.", "Warning",
                 JOptionPane.OK_OPTION, new ImageIcon(getClass().getResource("res/riskLogo.png")));
     }
 
     public void cannotAttack(String name) {
         JOptionPane.showMessageDialog(this.frame, "You rule " + name + " you cannot attack it.",
-                "Info", JOptionPane.OK_OPTION, new ImageIcon(getClass().getResource("res/riskLogo.png")));
+                "Warning", JOptionPane.OK_OPTION, new ImageIcon(getClass().getResource("res/riskLogo.png")));
     }
 
     public void cannotFortify(String name) {
@@ -510,16 +511,27 @@ public class View {
     public void notAdjacent(String name) {
         JOptionPane.showMessageDialog(this.frame,  name + " is not adjacent to the country you are attacking" +
                         " from, please select a country that is adjacent to the country you are attacking from.",
-                "Info", JOptionPane.OK_OPTION, new ImageIcon(getClass().getResource("res/riskLogo.png")));
+                "Warning", JOptionPane.OK_OPTION, new ImageIcon(getClass().getResource("res/riskLogo.png")));
     }
 
-    public void pickCountry(String name) {
-        JOptionPane.showMessageDialog(this.frame,  "You cannot " + name + ", please select countries first",
-                "Info", JOptionPane.OK_OPTION, new ImageIcon(getClass().getResource("res/riskLogo.png")));
+    public void pickAttackFromCountry(String name) {
+        JOptionPane.showMessageDialog(this.frame,  "You cannot " + name + ", please select country to attack from first.",
+                "Warning", JOptionPane.OK_OPTION, new ImageIcon(getClass().getResource("res/riskLogo.png")));
+    }
+
+    public void pickAttackToCountry(String name) {
+        JOptionPane.showMessageDialog(this.frame,  "You cannot " + name + ", please select country to attack first.",
+                "Warning", JOptionPane.OK_OPTION, new ImageIcon(getClass().getResource("res/riskLogo.png")));
     }
 
     public void selectDice() {
-        JOptionPane.showMessageDialog(this.frame, "Please select number of dice to before attacking.",
-                "Info", JOptionPane.OK_OPTION, new ImageIcon(getClass().getResource("res/riskLogo.png")));
+        JOptionPane.showMessageDialog(this.frame, "Please select number of dice before attacking.",
+                "Warning", JOptionPane.OK_OPTION, new ImageIcon(getClass().getResource("res/riskLogo.png")));
+    }
+
+    public void notEnoughArmies(String name, int dice) {
+        JOptionPane.showMessageDialog(this.frame, "You do not have enough armies in " + name + " to attack" +
+                        ", must have a minimum of " + dice + " armies to attack.",
+                "Warning", JOptionPane.OK_OPTION, new ImageIcon(getClass().getResource("res/riskLogo.png")));
     }
 }
