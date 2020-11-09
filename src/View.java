@@ -514,13 +514,9 @@ public class View {
                 "Warning", JOptionPane.WARNING_MESSAGE, new ImageIcon(getClass().getResource("res/riskLogo.png")));
     }
 
-    public void cannotFortify(String name) {
-
-    }
-
     public boolean notAdjacent(String name) {
-        JOptionPane.showMessageDialog(this.frame,  name + " is not adjacent to the country you are attacking" +
-                        " from, please restart your move.",
+        JOptionPane.showMessageDialog(this.frame,  name + " is not adjacent to the country you have selected" +
+                        ", please restart your move.",
                 "Warning", JOptionPane.WARNING_MESSAGE, new ImageIcon(getClass().getResource("res/riskLogo.png")));
         return true;
     }
@@ -543,12 +539,19 @@ public class View {
         j.setText(info);
         JScrollPane state = new JScrollPane(j);
 
-        JOptionPane.showMessageDialog(this.frame, state, "State of the Map", JOptionPane.OK_OPTION, new ImageIcon(getClass().getResource("res/riskLogo.png")));
+        JOptionPane.showMessageDialog(this.frame, state, "State of the Map", JOptionPane.INFORMATION_MESSAGE,
+                new ImageIcon(getClass().getResource("res/riskLogo.png")));
     }
 
 
 
-    public void selectCountry() {
+    public void wrongSelection() {
+        JOptionPane.showMessageDialog(this.frame, "Please select countries before selecting dice, then select" +
+                        " dice and finally attack.",
+                "Warning", JOptionPane.WARNING_MESSAGE, new ImageIcon(getClass().getResource("res/riskLogo.png")));
+    }
+
+    public void selectCountries() {
         JOptionPane.showMessageDialog(this.frame, "Please select countries before selecting dice, then select" +
                         " dice and finally attack.",
                 "Warning", JOptionPane.WARNING_MESSAGE, new ImageIcon(getClass().getResource("res/riskLogo.png")));
@@ -559,7 +562,7 @@ public class View {
                 + "2. To attack the user needs to first press the country they are attacking from, " +
                         "the country they want to attack, the number of dice to roll and then press Attack\n"
                 + "3. To fortify the user needs to first press the country they are fortifying from, the country they " +
-                        "want to fortify to, the number of armies to move and then press Fortify\n"
+                        "want to fortify to, then press Fortify and finally input how many armies to fortify with\n"
                 + "4. Important Note: If during attack or fortify a clause is triggered (example, country is not adjacent, " +
                         "you own the country, etc.) restart move from beginning.\n"
                 +"5. To pass the user needs to press Pass. The game will then have a pop up which will st" +
@@ -569,15 +572,35 @@ public class View {
                         " with which players owns which country and how many armies in each country\n"
                 + "8. If the user clicks Quit, they exit the game\n"
                 ,
-                "Help", JOptionPane.OK_OPTION, new ImageIcon(getClass().getResource("res/riskLogo.png")));
+                "Help", JOptionPane.INFORMATION_MESSAGE, new ImageIcon(getClass().getResource("res/riskLogo.png")));
     }
 
     public void attackResult(String result) {
         JOptionPane.showMessageDialog(this.frame, result ,
-                "Result", JOptionPane.WARNING_MESSAGE, new ImageIcon(getClass().getResource("res/riskLogo.png")));
+                "Result", JOptionPane.INFORMATION_MESSAGE, new ImageIcon(getClass().getResource("res/riskLogo.png")));
 
     }
 
+    public int armyAmount() {
 
+        return Integer.parseInt(JOptionPane.showInputDialog("How many armies would you like to FORTIFY!! with?"));
+
+    }
+
+    public void notRuled() {
+        JOptionPane.showMessageDialog(this.frame, "You do not rule both countries, you must rule " +
+                        "both countries to fortify.",
+                "Warning", JOptionPane.WARNING_MESSAGE, new ImageIcon(getClass().getResource("res/riskLogo.png")));
+    }
+
+    public void fortifyResult(String details) {
+        JOptionPane.showMessageDialog(this.frame, details,
+                "Result", JOptionPane.INFORMATION_MESSAGE, new ImageIcon(getClass().getResource("res/riskLogo.png")));
+    }
+
+    public void cancelFortify() {
+        JOptionPane.showMessageDialog(this.frame, "You have cancelled the fortification process.",
+                "Warning", JOptionPane.WARNING_MESSAGE, new ImageIcon(getClass().getResource("res/riskLogo.png")));
+    }
 
 }

@@ -183,19 +183,19 @@ public class Controller implements ActionListener {
 
         if (placeHolder.getText().equals("1 Die")) {
             if (country1 == null || country2 == null) {
-                view.selectCountry();
+                view.wrongSelection();
             } else {
                 numOfAttackDice = 1;
             }
         } else if (placeHolder.getText().equals("2 Dice")) {
             if (country1 == null || country2 == null) {
-                view.selectCountry();
+                view.wrongSelection();
             } else {
                 numOfAttackDice = 2;
             }
         } else if (placeHolder.getText().equals("3 Dice")){
             if (country1 == null || country2 == null) {
-                view.selectCountry();
+                view.wrongSelection();
             } else {
                 numOfAttackDice = 3;
             }
@@ -211,6 +211,29 @@ public class Controller implements ActionListener {
                     playerNumber++;
                 }
                 view.passForSure(playerNumber + 1);
+            }
+        }
+
+        if (placeHolder.getText().equals("FORTIFY!!")) {
+            if (country1 == null || country2 == null ) {
+                view.selectCountries();
+            } else if (!model.getCountries(country1Index).getRuler().getName().equals(model.getCountries(country2Index).getRuler().getName())) {
+                view.notRuled();
+                country1 = null;
+                country2 = null;
+            } else {
+                try {
+                    int amount = view.armyAmount();
+                    String fortifyDetail = model.fortify(country1, country2, amount);
+                    country1 = null;
+                    country2 = null;
+                    view.fortifyResult(fortifyDetail);
+                } catch (Exception exception) {
+                    view.cancelFortify();
+                    country1 = null;
+                    country2 = null;
+                }
+
             }
         }
 

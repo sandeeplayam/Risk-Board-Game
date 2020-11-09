@@ -32,19 +32,19 @@ public class Board {
         for (i = 0; i < players; i++) {
 
             if (players == 2) {
-                playerArray.add(new Player("Player" + (i + 1), 50));
+                playerArray.add(new Player("Player " + (i + 1), 50));
 
             } else if (players == 3) {
-                playerArray.add(new Player("Player" + (i + 1), 35));
+                playerArray.add(new Player("Player " + (i + 1), 35));
 
             } else if (players == 4) {
-                playerArray.add(new Player("Player" + (i + 1), 30));
+                playerArray.add(new Player("Player " + (i + 1), 30));
 
             } else if (players == 5) {
-                playerArray.add(new Player("Player" + (i + 1), 25));
+                playerArray.add(new Player("Player " + (i + 1), 25));
 
             } else if (players == 6) {
-                playerArray.add(new Player("Player" + (i + 1), 20));
+                playerArray.add(new Player("Player " + (i + 1), 20));
             }
         }
     }
@@ -820,28 +820,19 @@ public class Board {
         }
 
 
-    public void fortify(String moveFrom, String moveTo, int armyAmount) {
+    public String fortify(String moveFrom, String moveTo, int armyAmount) {
         int m = mapCountryToIndex(moveFrom);
         int n = mapCountryToIndex(moveTo);
-
-        if(countries[m].getRuler()==countries[n].getRuler()) {
-
-            if (checkAdjacentCountries(countries[m], countries[n])) {
 
                 if (armyAmount + 1 <= countries[m].getArmies()) {
 
                     countries[m].decreaseArmyCount(armyAmount);
                     countries[n].increaseArmyCount(armyAmount);
-                    System.out.println("Successful Fortify");
+                    return "Successful Fortify";
 
-                } else if (armyAmount > countries[m].getArmies()) {
-                    System.out.println("armyAmount exceeds countries current Army");
-                } else {
-                    System.out.println("The two countries are not adjacent. Can not fortify");
+                } else  {
+                    return "Army transfer amount exceeds the amount of armies in the origin country.";
                 }
-            }
-        }
-        System.out.println("The countries are not owned by the same person");
     }
 }
 
