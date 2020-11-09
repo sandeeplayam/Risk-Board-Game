@@ -468,7 +468,7 @@ public class View {
         }
     }
 
-    public void pass(int playerNum) {
+    public int pass(int playerNum) {
         int choice = JOptionPane.showConfirmDialog(null,
                 "Are you sure you would like to pass?",
                 "Pass",
@@ -479,6 +479,8 @@ public class View {
             JOptionPane.showMessageDialog(this.frame,"It is now Player" + playerNum + "'s turn.", "Info",
                     JOptionPane.OK_OPTION, new ImageIcon(getClass().getResource("res/riskLogo.png")));
         }
+
+        return choice;
     }
 
     public void notYourCountry(String name) {
@@ -492,6 +494,10 @@ public class View {
                 "Info", JOptionPane.OK_OPTION, new ImageIcon(getClass().getResource("res/riskLogo.png")));
     }
 
+    public void cannotFortify(String name) {
+
+    }
+
     public void notAdjacent(String name) {
         JOptionPane.showMessageDialog(this.frame,  name + " is not adjacent to the country you are attacking" +
                         " from, please select a country that is adjacent to the country you are attacking from.",
@@ -500,6 +506,11 @@ public class View {
 
     public void pickCountry(String name) {
         JOptionPane.showMessageDialog(this.frame,  "You cannot " + name + ", please select countries first",
+                "Info", JOptionPane.OK_OPTION, new ImageIcon(getClass().getResource("res/riskLogo.png")));
+    }
+
+    public void selectDice() {
+        JOptionPane.showMessageDialog(this.frame, "Please select number of dice to before attacking.",
                 "Info", JOptionPane.OK_OPTION, new ImageIcon(getClass().getResource("res/riskLogo.png")));
     }
 }

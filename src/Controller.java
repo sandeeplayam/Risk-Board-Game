@@ -100,7 +100,7 @@ public class Controller implements ActionListener {
     }
 
     private void mainScreenPerformed(ActionEvent e) {
-
+        model.stateOfMap();
         JButton placeHolder = (JButton) e.getSource();
 
         if ((!placeHolder.getText().equals("PASS")) && (!placeHolder.getText().equals("FORTIFY!!"))
@@ -108,25 +108,19 @@ public class Controller implements ActionListener {
                 && (!placeHolder.getText().equals("3 Dice"))) {
 
                 if (!placeHolder.getText().equals("ATTACK!!")) {
+
                     if (country1 != null) {
-                        if ((model.playerArray.get(playerNumber).ownsCountry(placeHolder.getText()))) {
-                            view.cannotAttack(placeHolder.getText());
+                        int a = model.mapCountryToIndex(country1); //will be used to represent attacking country
+                        int b = model.mapCountryToIndex(placeHolder.getText()); //will be used to represent country that is being attacked
+
+                        if (model.checkAdjacentCountries(model.getCountries(a), model.getCountries(b))) {
+                            country2 = placeHolder.getText();
                         } else {
-                            int a = model.mapCountryToIndex(country1); //will be used to represent attacking country
-                            int b = model.mapCountryToIndex(placeHolder.getText()); //will be used to represent country that is being attacked
-
-                            if (model.checkAdjacentCountries(model.getCountries(a), model.getCountries(b))) {
-                                country2 = placeHolder.getText();
-                            } else {
-                                view.notAdjacent(placeHolder.getText());
-                            }
-
+                            view.notAdjacent(placeHolder.getText());
                         }
-
                     }
 
                     if (!(model.playerArray.get(playerNumber).ownsCountry(placeHolder.getText()))) {
-                        //model.playerArray.get(playerNumber).getRuledCountriesInfo();
                         view.notYourCountry(placeHolder.getText());
                     } else {
                         country1 = placeHolder.getText();
@@ -134,16 +128,19 @@ public class Controller implements ActionListener {
                 }
 
                 if (placeHolder.getText().equals("ATTACK!!")) {
-                    if (country1.equals(null) || country2.equals(null)) {
+                    if ((model.playerArray.get(playerNumber).ownsCountry(country2))) {
+                        view.cannotAttack(country2);
+                        country2 = null;
+                    } else if (country1 == null || country2 == null) {
                         view.pickCountry(placeHolder.getText());
+                    } else if (numOfAttackDice == 0) {
+                        view.selectDice();
+                    } else {
+                        model.attack(country1, country2, numOfAttackDice);
+                        country1 = null;
+                        country2 = null;
                     }
-
-
-                    model.attack(country1, country2, numOfAttackDice);
-                    country1 = null;
-                    country2 = null;
                 }
-
         }
 
 
@@ -158,11 +155,13 @@ public class Controller implements ActionListener {
 
 
         if (placeHolder.getText().equals("PASS")) {
-            if (playerNumber == model.playerArray.size()) {
-                playerNumber = 0;
-            } else  {
-                playerNumber++;
-            }
+
+                if (playerNumber == (model.playerArray.size() - 1)) {
+                    playerNumber = 0;
+                } else {
+                    playerNumber++;
+                }
+
         }
 
     }
