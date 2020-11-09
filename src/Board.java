@@ -515,8 +515,8 @@ public class Board {
     }
 
 
-    public void attack(String attackFrom, String attackTo, int attackDice) {
-
+    public String attack(String attackFrom, String attackTo, int attackDice) {
+        String result ="";
         int a = mapCountryToIndex(attackFrom); //will be used to represent attacker
         int b = mapCountryToIndex(attackTo); //will be used represent defender
         int defendDice;
@@ -538,20 +538,20 @@ public class Board {
                         countries[a].getRuler().decreaseArmyCount(1);
                         countries[b].increaseArmyCount(1);
                         countries[b].getRuler().increaseArmyCount(1);
-                        System.out.println(countries[b].getRuler().getName() + " has won the attack");
+                        result=countries[b].getRuler().getName() + " has won the attack";
 
                     } else if (r1 > w1) {
                         countries[b].decreaseArmyCount(1);
                         countries[b].getRuler().decreaseArmyCount(1);
                         countries[a].increaseArmyCount(1);
                         countries[a].getRuler().increaseArmyCount(1);
-                        System.out.println(countries[a].getRuler().getName() + " has won the attack");
+                        result = (countries[a].getRuler().getName() + " has won the attack");
                     } else {
                         countries[a].decreaseArmyCount(1);
                         countries[a].getRuler().decreaseArmyCount(1);
                         countries[b].increaseArmyCount(1);
                         countries[b].getRuler().increaseArmyCount(1);
-                        System.out.println(countries[b].getRuler().getName() + " has won the attack");
+                        result=(countries[b].getRuler().getName() + " has won the attack");
                     }
                 } else if (attackDice == 2 && defendDice == 1) {
                     r1 = red1.roll();
@@ -562,19 +562,19 @@ public class Board {
                         countries[b].getRuler().decreaseArmyCount(1);
                         countries[a].increaseArmyCount(1);
                         countries[a].getRuler().increaseArmyCount(1);
-                        System.out.println(countries[a].getRuler().getName() + " has won the attack");
+                        result=(countries[a].getRuler().getName() + " has won the attack");
                     } else if ((r1 < w1) && (r2 < w1)) {
                         countries[a].decreaseArmyCount(1);
                         countries[a].getRuler().decreaseArmyCount(1);
                         countries[b].increaseArmyCount(1);
                         countries[b].getRuler().increaseArmyCount(1);
-                        System.out.println(countries[b].getRuler().getName() + " has won the attack");
+                        result=(countries[b].getRuler().getName() + " has won the attack");
                     } else {
                         countries[a].decreaseArmyCount(1);
                         countries[a].getRuler().decreaseArmyCount(1);
                         countries[b].increaseArmyCount(1);
                         countries[b].getRuler().increaseArmyCount(1);
-                        System.out.println(countries[b].getRuler().getName() + " has won the attack");
+                        result=(countries[b].getRuler().getName() + " has won the attack");
                     }
                 } else if (attackDice == 1 && defendDice == 2) {
                     r1 = red1.roll();
@@ -585,19 +585,19 @@ public class Board {
                         countries[a].getRuler().decreaseArmyCount(1);
                         countries[b].increaseArmyCount(1);
                         countries[b].getRuler().increaseArmyCount(1);
-                        System.out.println(countries[b].getRuler().getName() + " has won the attack");
+                        result=(countries[b].getRuler().getName() + " has won the attack");
                     } else if ((r1 > w1) && (r1 > w2)) {
                         countries[b].decreaseArmyCount(1);
                         countries[b].getRuler().decreaseArmyCount(1);
                         countries[a].increaseArmyCount(1);
                         countries[a].getRuler().increaseArmyCount(1);
-                        System.out.println(countries[a].getRuler().getName() + " has won the attack");
+                        result=(countries[a].getRuler().getName() + " has won the attack");
                     } else {
                         countries[a].decreaseArmyCount(1);
                         countries[a].getRuler().decreaseArmyCount(1);
                         countries[b].increaseArmyCount(1);
                         countries[b].getRuler().increaseArmyCount(1);
-                        System.out.println(countries[b].getRuler().getName() + " has won the attack");
+                        result=(countries[b].getRuler().getName() + " has won the attack");
                     }
                 } else if (attackDice == 2 && defendDice == 2) {
                     r1 = red1.roll();
@@ -633,19 +633,19 @@ public class Board {
                         countries[b].getRuler().decreaseArmyCount(1);
                         countries[a].increaseArmyCount(1);
                         countries[a].getRuler().increaseArmyCount(1);
-                        System.out.println(countries[a].getRuler().getName() + " has won the first part of the attack");
+                        result=(countries[a].getRuler().getName() + " has won the first part of the attack");
                     } else if (h1w > h1r) {
                         countries[a].decreaseArmyCount(1);
                         countries[a].getRuler().decreaseArmyCount(1);
                         countries[b].increaseArmyCount(1);
                         countries[b].getRuler().increaseArmyCount(1);
-                        System.out.println(countries[b].getRuler().getName() + " has won the first part of the attack");
+                        result=(countries[b].getRuler().getName() + " has won the first part of the attack");
                     } else {
                         countries[a].decreaseArmyCount(1);
                         countries[a].getRuler().decreaseArmyCount(1);
                         countries[b].increaseArmyCount(1);
                         countries[b].getRuler().increaseArmyCount(1);
-                        System.out.println(countries[b].getRuler().getName() + " has won the first part of the attack");
+                        result=(countries[b].getRuler().getName() + " has won the first part of the attack");
                     }
 
                     if (h2r > h2w) {
@@ -653,19 +653,19 @@ public class Board {
                         countries[b].getRuler().decreaseArmyCount(1);
                         countries[a].increaseArmyCount(1);
                         countries[a].getRuler().increaseArmyCount(1);
-                        System.out.println(countries[a].getRuler().getName() + " has won the second part of the attack");
+                        result=result +" and "+(countries[a].getRuler().getName() + " has won the second part of the attack");
                     } else if (h2w > h2r) {
                         countries[a].decreaseArmyCount(1);
                         countries[a].getRuler().decreaseArmyCount(1);
                         countries[b].increaseArmyCount(1);
                         countries[b].getRuler().increaseArmyCount(1);
-                        System.out.println(countries[b].getRuler().getName() + " has won the second part of the attack");
+                        result=result +" and " + (countries[b].getRuler().getName() + " has won the second part of the attack");
                     } else {
                         countries[a].decreaseArmyCount(1);
                         countries[a].getRuler().decreaseArmyCount(1);
                         countries[b].increaseArmyCount(1);
                         countries[b].getRuler().increaseArmyCount(1);
-                        System.out.println(countries[b].getRuler().getName() + " has won the second part of the attack");
+                        result=  result +" and " + (countries[b].getRuler().getName() + " has won the second part of the attack");
                     }
                 } else if (attackDice == 3 && defendDice == 1) {
                     r1 = red1.roll();
@@ -678,20 +678,20 @@ public class Board {
                         countries[a].increaseArmyCount(1);
                         countries[a].getRuler().increaseArmyCount(1);
 
-                        System.out.println(countries[a].getRuler().getName() + " has won the attack");
+                        result=(countries[a].getRuler().getName() + " has won the attack");
 
                     } else if ((r1 < w1) && (r2 < w1) && (r3 < w1)) {
                         countries[a].decreaseArmyCount(1);
                         countries[a].getRuler().decreaseArmyCount(1);
                         countries[b].increaseArmyCount(1);
                         countries[b].getRuler().increaseArmyCount(1);
-                        System.out.println(countries[b].getRuler().getName() + " has won the attack");
+                        result=(countries[b].getRuler().getName() + " has won the attack");
                     } else {
                         countries[a].decreaseArmyCount(1);
                         countries[a].getRuler().decreaseArmyCount(1);
                         countries[b].increaseArmyCount(1);
                         countries[b].getRuler().increaseArmyCount(1);
-                        System.out.println(countries[b].getRuler().getName() + " has won the attack");
+                        result=(countries[b].getRuler().getName() + " has won the attack");
                     }
                 } else if (attackDice == 3 && defendDice == 2) {
                     r1 = red1.roll();
@@ -750,19 +750,19 @@ public class Board {
                         countries[b].getRuler().decreaseArmyCount(1);
                         countries[a].increaseArmyCount(1);
                         countries[a].getRuler().increaseArmyCount(1);
-                        System.out.println(countries[a].getRuler().getName() + " has won the first part of the attack");
+                        result=(countries[a].getRuler().getName() + " has won the first part of the attack");
                     } else if (h1w > h1r) {
                         countries[a].decreaseArmyCount(1);
                         countries[a].getRuler().decreaseArmyCount(1);
                         countries[b].increaseArmyCount(1);
                         countries[b].getRuler().increaseArmyCount(1);
-                        System.out.println(countries[b].getRuler().getName() + " has won the first part of the attack");
+                        result=(countries[b].getRuler().getName() + " has won the first part of the attack");
                     } else {
                         countries[a].decreaseArmyCount(1);
                         countries[a].getRuler().decreaseArmyCount(1);
                         countries[b].increaseArmyCount(1);
                         countries[b].getRuler().increaseArmyCount(1);
-                        System.out.println(countries[b].getRuler().getName() + " has won the first part of the attack");
+                        result=(countries[b].getRuler().getName() + " has won the first part of the attack");
                     }
 
                     if (h2r > h2w) {
@@ -770,19 +770,19 @@ public class Board {
                         countries[b].getRuler().decreaseArmyCount(1);
                         countries[a].increaseArmyCount(1);
                         countries[a].getRuler().increaseArmyCount(1);
-                        System.out.println(countries[a].getRuler().getName() + " has won the second part of the attack");
+                        result= result+ " and " +  (countries[a].getRuler().getName() + " has won the second part of the attack");
                     } else if (h2w > h2r) {
                         countries[a].decreaseArmyCount(1);
                         countries[a].getRuler().decreaseArmyCount(1);
                         countries[b].increaseArmyCount(1);
                         countries[b].getRuler().increaseArmyCount(1);
-                        System.out.println(countries[b].getRuler().getName() + " has won the second part of the attack");
+                        result=result+ " and " + (countries[b].getRuler().getName() + " has won the second part of the attack");
                     } else {
                         countries[a].decreaseArmyCount(1);
                         countries[a].getRuler().decreaseArmyCount(1);
                         countries[b].increaseArmyCount(1);
                         countries[b].getRuler().increaseArmyCount(1);
-                        System.out.println(countries[b].getRuler().getName() + " has won the second part of the attack");
+                        result=result + " and " + (countries[b].getRuler().getName() + " has won the second part of the attack");
                     }
                 }
 
@@ -816,6 +816,7 @@ public class Board {
                 System.out.println("You do not have enough armies on " + countries[a].getName() + " to attack." +
                         " You need a minimum of two armies.");
             }
+            return result;
         }
 
 

@@ -158,20 +158,21 @@ public class Controller implements ActionListener {
                         country1 = null;
                         country2 = null;
                         numOfAttackDice = 0;
-                    } else if (model.getCountries(country1Index).getArmies() < 2) {
-                        view.notEnoughArmies(country1, numOfAttackDice);
-                        country1 = null;
-                        country2 = null;
-                        numOfAttackDice = 0;
                     } else if (model.playerArray.get(playerNumber).ownsCountry(country2)) {
                         view.cannotAttack(country2);
                         country2 = null;
                         country1 = null;
                         numOfAttackDice = 0;
+                    } else if (model.getCountries(country1Index).getArmies() < 2) {
+                        view.notEnoughArmies(country1, numOfAttackDice);
+                        country1 = null;
+                        country2 = null;
+                        numOfAttackDice = 0;
+
                     } else if (country1 != null && country2 != null && numOfAttackDice > 0){
                         System.out.println(numOfAttackDice);
-                        model.attack(country1, country2, numOfAttackDice);
-                        //display attack info
+                        String m = model.attack(country1, country2, numOfAttackDice);
+                        view.attackResult(m);
                         country1 = null;
                         country2 = null;
                         numOfAttackDice = 0;

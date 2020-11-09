@@ -572,6 +572,11 @@ public class View {
                 "Help", JOptionPane.OK_OPTION, new ImageIcon(getClass().getResource("res/riskLogo.png")));
     }
 
+    public void attackResult(String result) {
+        JOptionPane.showMessageDialog(this.frame, result ,
+                "Result", JOptionPane.WARNING_MESSAGE, new ImageIcon(getClass().getResource("res/riskLogo.png")));
+
+    }
 
 
 
