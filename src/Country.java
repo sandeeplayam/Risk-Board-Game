@@ -1,5 +1,3 @@
-//@author Sudarsana Sandeep
-
 import java.util.ArrayList;
 
 /**
@@ -113,5 +111,4 @@ public class Country {
             return false;
         }
     }
-
 }

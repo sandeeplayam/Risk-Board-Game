@@ -655,6 +655,7 @@ public class View {
                 "7. If the user clicks Map State, the state of the map will be displayed" +
                         " with which players owns which country and how many armies in each country\n"
                 + "8. If the user clicks Quit, they exit the game\n"
+
                 ,
                 "Help", JOptionPane.INFORMATION_MESSAGE, new ImageIcon(getClass().getResource("res/riskLogo.png")));
     }
@@ -736,6 +737,4 @@ public class View {
                         " attacking from than the amount of dice you want to roll.",
                 "Warning", JOptionPane.WARNING_MESSAGE, new ImageIcon(getClass().getResource("res/riskLogo.png")));
     }
-
-
 }

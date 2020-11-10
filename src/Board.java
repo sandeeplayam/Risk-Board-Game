@@ -1,3 +1,4 @@
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -12,6 +13,7 @@ public class Board {
     private final ArrayList<Continent> continents;
     public ArrayList<Player> playerArray;
     private Dice red1, red2, red3, white1, white2;
+
 
     /**
      * The constructor for the board class which takes an integer as a parameter to initialize the board with that
@@ -34,6 +36,7 @@ public class Board {
         white1 = new Dice();
         white2 = new Dice();
     }
+
 
     /**
      * This method creates all the player objects required for the game and adds them all to an arraylist
@@ -61,6 +64,7 @@ public class Board {
             }
         }
     }
+
 
     /**
      * This method creates all the country objects required for the game and places them into an array
@@ -122,6 +126,7 @@ public class Board {
         countries[41] = new Country("Western United States");
     }
 
+
     /**
      * This method creates all the continent objects in the game and add them to an arraylist
      */
@@ -175,6 +180,7 @@ public class Board {
             continents.get(5).addCountry(countries[j]);
         }
     }
+
 
     /**
      * Since our implementation of the game is always auto setup, this method sets up the initial armies for each
@@ -230,6 +236,7 @@ public class Board {
         }
     }
 
+
     /**
      * Since our implementation of the game is always auto setup, this method sets up the initial rulers/owners of each
      * country
@@ -244,6 +251,7 @@ public class Board {
             playerNum = (playerNum + 1) % players;
         }
     }
+
 
     /**
      * This method sets all the adjacent countries for every single country object on the map
@@ -499,6 +507,7 @@ public class Board {
         countries[41].setAdjacentCountries(countries[35]);
     }
 
+
     /**
      * This method converts the name of a country into an index so that the country object can be retrieved when given
      * a String
@@ -514,6 +523,7 @@ public class Board {
         }
         return -1;
     }
+
 
     /**
      * This method retrieves the continent object from the arraylist when given a name as a String
@@ -537,14 +547,17 @@ public class Board {
         }
     }
 
+
     /**
      * This method gets a country object from the array when given an index
      * @param index An integer which will be used as a index in an array
      * @return Country object
      */
+
     public Country getCountries(int index) {
         return countries[index];
     }
+
 
     /**
      * This method checks if two countries are adjacent
@@ -552,9 +565,11 @@ public class Board {
      * @param country2 Second country object
      * @return boolean True if adjacent, false otherwise
      */
+
     public boolean checkAdjacentCountries(Country country, Country country2) {
         return country.getAdjacentCountries().contains(country2);
     }
+
 
     /**
      * This is the method which handles the attack function in the game of Risk
@@ -889,12 +904,3 @@ public class Board {
     }
 
 }
-
-
-
-
-
-
-
-
-

@@ -2,12 +2,14 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+
 /**
  * The Controller class represents the Controller in the MVC pattern for this project, and this class acts as the
  * middleman between the View and Model.
  *
  * @Author: Sudarsana Sandeep, Danish Butt
  */
+
 public class Controller implements ActionListener {
 
     private Board model;
@@ -57,6 +59,7 @@ public class Controller implements ActionListener {
 
     }
 
+
     /**
      * This method is a delegate method of actionPerformed, and will handle any events that occur on the first
      * screen/panel of the game
@@ -77,6 +80,7 @@ public class Controller implements ActionListener {
             }
         }
     }
+
 
     /**
      * This method is a delegate method of actionPerformed, and will handle any events that occur on the menu bar in
@@ -108,6 +112,7 @@ public class Controller implements ActionListener {
         }
     }
 
+
     /**
      * This method is a delegate method of actionPerformed, and will handle any events that occur on the second
      * screen/panel of the game
@@ -138,6 +143,7 @@ public class Controller implements ActionListener {
             playerNumber = 0;
         }
     }
+
 
     /**
      * This method is a delegate method of actionPerformed, and will handle any events that occur on the main game screen
@@ -229,7 +235,6 @@ public class Controller implements ActionListener {
             }
         }
 
-
             if (placeHolder.getText().equals("1 Die")) {
                 if (country1 == null || country2 == null) {
                     view.wrongSelection();
@@ -304,6 +309,5 @@ public class Controller implements ActionListener {
                 }
             }
         }
-
 
 }
