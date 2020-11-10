@@ -4,8 +4,12 @@ import java.awt.*;
 import java.awt.Color;
 import java.awt.event.ActionListener;
 
-
+/**
+ * This class is used to display the view of the game
+ * @author Danish Butt, Sudarsana Sandeep
+ */
 public class View {
+
     private JFrame frame;
     private Controller controller;
     private JMenuItem mapState, mainMenu, help;
@@ -17,51 +21,61 @@ public class View {
     public static final Color orange = new Color(255,163,43);
     public static final Color blue = new Color(153,153,255);
 
-    public JFrame getFrame() {
-        return this.frame;
-    }
 
+    /**
+     * This method is used to create the an instance of the view.
+     * @param args
+     */
     public static void main(String[] args) {
         new View();
     }
 
+    /**
+     * This method is the constructor for the View class
+     */
     public View() {
 
         controller = new Controller(this);
-        frame = new JFrame("Risk");
 
+        //Create main frame
+        frame = new JFrame("Risk");
         frame.setSize(1500, 1500);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setResizable(true);
 
-
+        //Create menu bar that includes various options such as rules, map state, help, quit
         JMenuBar menu = new JMenuBar();
         frame.setJMenuBar(menu);
 
         JMenu options = new JMenu("Options");
         menu.add(options);
 
-        help = new JMenuItem("Help");
-        options.add(help);
-        help.addActionListener(controller);
-        help.setVisible(false);
-
         JMenuItem rules = new JMenuItem("Rules");
         mapState = new JMenuItem("Map State");
+        help = new JMenuItem("Help");
         JMenuItem quit = new JMenuItem("Quit");
         mainMenu = new JMenuItem("Main Menu");
+
+        options.add(help);
         options.add(rules);
         options.add(mapState);
         options.add(quit);
+
         rules.addActionListener(controller);
         mapState.addActionListener(controller);
         quit.addActionListener(controller);
+        help.addActionListener(controller);
+        help.setVisible(false);
 
         frame.setVisible(true);
         startMenu();
 
     }
 
+    /**
+     * This method creates the startMenu panel. This is the first screen that pops up and prompts
+     * the user to either start a game or to display the rules
+     */
     public void startMenu() {
 
         mapState.setVisible(false);
@@ -70,15 +84,17 @@ public class View {
 
         frame.getContentPane().removeAll();
 
+        //Create panel using borderlayout and add to frame
         JPanel startMenu = new JPanel(new BorderLayout());
         frame.add(startMenu);
 
-
+        //Add image logo
         ImageIcon logoImage = new ImageIcon(getClass().getResource("res/riskLogo.png"));
         JLabel logo = new JLabel(logoImage);
         logo.setPreferredSize(new Dimension(300, 300));
         startMenu.add(logo, BorderLayout.NORTH);
 
+        //Create Buttons
         JPanel buttons = new JPanel(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
 
@@ -98,6 +114,7 @@ public class View {
         c.ipady = 50;
         rules.addActionListener(controller);
 
+        //Add buttons to startMenu frame
         buttons.add(rules);
         buttons.add(start);
         startMenu.add(buttons, BorderLayout.CENTER);
@@ -107,23 +124,29 @@ public class View {
 
     }
 
+    /**
+     * This method creates the number of players panel which is used by the
+     * user to select the number of players playing
+     */
     public void createNumOfPlayers() {
+
         help.setVisible(false);
-
         frame.getContentPane().removeAll();
+
+        //Create numOfPlayers panel
         JPanel numOfPlayers = new JPanel(new BorderLayout());
-
-
         frame.getContentPane().add(numOfPlayers);
 
+        //Add logo image
         ImageIcon logoImage = new ImageIcon(getClass().getResource("res/riskLogo.png"));
         JLabel logo = new JLabel(logoImage);
         logo.setPreferredSize(new Dimension(300, 300));
         numOfPlayers.add(logo, BorderLayout.NORTH);
 
-
+        //Create buttons layout
         JPanel playerButtons = new JPanel(new GridLayout(3, 2));
 
+        //Add buttons
         JButton player2 = new JButton("2 Players");
         player2.setFont(new Font("Calibri", Font.PLAIN, 20));
         player2.addActionListener(controller);
@@ -154,6 +177,8 @@ public class View {
         playerButtons.add(player5);
         playerButtons.add(player6);
         playerButtons.add(startGame);
+
+        //Add buttons to numOfPlayers frame
         numOfPlayers.add(playerButtons, BorderLayout.CENTER);
 
         frame.validate();
@@ -161,22 +186,29 @@ public class View {
 
     }
 
+    /**
+     * This method creates the main screen of the game. This includes the map, buttons for
+     * all the countries and buttons for the different operations and the dice
+     */
     public void mainScreen() {
+
         help.setVisible(true);
         mapState.setVisible(true);
         frame.getContentPane().removeAll();
+
+        //Create main screen panel
         JPanel mainScreen = new JPanel(new BorderLayout());
         mapState.setVisible(true);
 
         frame.getContentPane().add(mainScreen);
 
-
+        //Add map image
         ImageIcon logoImage = new ImageIcon(getClass().getResource("res/riskMap.jpg"));
         JLabel logo = new JLabel(logoImage);
         logo.setPreferredSize(new Dimension(300, 300));
         mainScreen.add(logo, BorderLayout.CENTER);
 
-
+        //Create panel for country buttons
         JPanel countries = new JPanel(new GridLayout(15, 3));
 
         //Adding country buttons
@@ -184,7 +216,6 @@ public class View {
         EasternAustralia.setBackground(pink);
         countries.add(EasternAustralia);
         EasternAustralia.addActionListener(controller);
-
 
         JButton Indonesia = new JButton("Indonesia");
         Indonesia.setBackground(pink);
@@ -391,14 +422,14 @@ public class View {
         WesternUnitedStates.setBackground(orange);
         WesternUnitedStates.addActionListener(controller);
 
-
+        //Add country panel to main screen panel
         mainScreen.add(countries, BorderLayout.WEST);
 
-
-        //Dice
+        //Add panel for the different operatios and dice
         JPanel controls = new JPanel(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
 
+        //Add dice buttons
         JButton dice1 = new JButton("1 Die");
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
@@ -425,6 +456,7 @@ public class View {
         dice3.setBackground(Color.red);
         dice3.addActionListener(controller);
 
+        //Add operation buttons
         JButton Attack = new JButton("ATTACK!!");
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
@@ -449,15 +481,21 @@ public class View {
         Pass.setBackground(Color.yellow);
         Pass.addActionListener(controller);
 
+        //Adding controls to main screen frame
         mainScreen.add(controls, BorderLayout.EAST);
         frame.validate();
         frame.repaint();
+
+        //Display starting game message
         JOptionPane.showMessageDialog(this.frame, "The game shall begin with Player 1",
                 "Info",JOptionPane.INFORMATION_MESSAGE, new ImageIcon(getClass().getResource("res/riskLogo.png")));
 
 
     }
 
+    /**
+     * This method shows the rules. This method is called when the user presses the rules button
+     */
     public void showRules() {
         JOptionPane.showMessageDialog(this.frame,
                 "1. The winner is the first player to eliminate every opponent by " +
@@ -476,6 +514,9 @@ public class View {
                 new ImageIcon(getClass().getResource("res/riskLogo.png")));
     }
 
+    /**
+     * This method is used to quit the game. This happens when the user presses quit.
+     */
     public void quit() {
 
         int choice = JOptionPane.showConfirmDialog(null,
@@ -489,6 +530,9 @@ public class View {
         }
     }
 
+    /**
+     * This method is used to confirm that the user would like to pass.
+     */
     public void pass() {
         choice = JOptionPane.showConfirmDialog(null,
                 "Are you sure you would like to pass?",
@@ -497,23 +541,43 @@ public class View {
                 new ImageIcon(getClass().getResource("res/riskLogo.png")));
     }
 
+    /**
+     * This method is used to display that it is the next person's turn once the
+     * previous player passes
+     * @param playerNum
+     */
     public void passForSure(int playerNum) {
         JOptionPane.showMessageDialog(this.frame,"It is now Player " + playerNum + "'s turn.", "Info",
                 JOptionPane.WARNING_MESSAGE, new ImageIcon(getClass().getResource("res/riskLogo.png")));
 
     }
 
+    /**
+     * This method is used to display a message when a user presses a
+     * country they do not own
+     * @param name
+     */
     public void notYourCountry(String name) {
         JOptionPane.showMessageDialog(this.frame, "You do not rule " + name + ", please select a country" +
                         " that you rule.", "Warning",
                 JOptionPane.WARNING_MESSAGE, new ImageIcon(getClass().getResource("res/riskLogo.png")));
     }
 
+    /**
+     * This method is used to display a message when a user tries to attack a country they rule
+     * @param name
+     */
     public void cannotAttack(String name) {
         JOptionPane.showMessageDialog(this.frame, "You rule " + name + " you cannot attack it.",
                 "Warning", JOptionPane.WARNING_MESSAGE, new ImageIcon(getClass().getResource("res/riskLogo.png")));
     }
 
+    /**
+     * This method is used display a message when a user tries to select a country that is not adjacent
+     * to the first country they selected
+     * @param name
+     * @return : used to return whether a country is adjacent or not
+     */
     public boolean notAdjacent(String name) {
         JOptionPane.showMessageDialog(this.frame,  name + " is not adjacent to the country you have selected" +
                         ", please restart your move.",
@@ -521,6 +585,10 @@ public class View {
         return true;
     }
 
+    /**
+     * This method is used to display a message when the user tries to attack before selecting a country
+     * @param name
+     */
     public void wrongChoice(String name) {
         JOptionPane.showMessageDialog(this.frame,  "You cannot " + name + ", please select country to attack" +
                         " from first, then country you would like to attack, then the amount of dice and finally choose to attack.",
@@ -528,12 +596,21 @@ public class View {
 
     }
 
+    /**
+     * This method is displayed when the user enters a incorrect number of dice
+     * @param name
+     * @param dice
+     */
     public void notEnoughArmies(String name, int dice) {
         JOptionPane.showMessageDialog(this.frame, "You do not have enough armies in " + name + " to attack" +
                         ", must have a minimum of " + dice + " armies to attack.",
                 "Warning", JOptionPane.WARNING_MESSAGE, new ImageIcon(getClass().getResource("res/riskLogo.png")));
     }
 
+    /**
+     * This method is used to display the state of the map
+     * @param info
+     */
     public void stateOfTheMap(String info) {
         JTextArea j = new JTextArea(20, 25);
         j.setText(info);
@@ -544,18 +621,26 @@ public class View {
     }
 
 
-
+    /**
+     * This method is used to display a method if the user selects dice before selecting a country
+     */
     public void wrongSelection() {
         JOptionPane.showMessageDialog(this.frame, "Please select countries before selecting dice, then select" +
                         " dice and finally attack.",
                 "Warning", JOptionPane.WARNING_MESSAGE, new ImageIcon(getClass().getResource("res/riskLogo.png")));
     }
 
+    /**
+     * This method is used to display a message if a user does not select a country and presses fortify
+     */
     public void selectCountries() {
         JOptionPane.showMessageDialog(this.frame, "Please select countries before fortifying",
                 "Warning", JOptionPane.WARNING_MESSAGE, new ImageIcon(getClass().getResource("res/riskLogo.png")));
     }
 
+    /**
+     * This method is used to display message when the user presses help
+     */
     public void help() {
         JOptionPane.showMessageDialog(this.frame,"1. The player has 3 options (Attack, Fortify, Pass)\n"
                 + "2. To attack the user needs to first press the country they are attacking from, " +
@@ -574,42 +659,77 @@ public class View {
                 "Help", JOptionPane.INFORMATION_MESSAGE, new ImageIcon(getClass().getResource("res/riskLogo.png")));
     }
 
+    /**
+     * This method is used to display a message after an attack has happened
+     * @param result
+     */
     public void attackResult(String result) {
         JOptionPane.showMessageDialog(this.frame, result ,
                 "Result", JOptionPane.INFORMATION_MESSAGE, new ImageIcon(getClass().getResource("res/riskLogo.png")));
 
     }
 
+    /**
+     * This method is used to display a message asking the user for the number of armies they would
+     * like to fortify with
+     * @return
+     */
     public int armyAmount() {
 
         return Integer.parseInt(JOptionPane.showInputDialog("How many armies would you like to FORTIFY!! with?"));
 
     }
 
+    /**
+     * This method is used to display a message when the user tries to fortify between 2 countries they
+     * do not own
+     */
     public void notRuled() {
         JOptionPane.showMessageDialog(this.frame, "You do not rule both countries, you must rule " +
                         "both countries to fortify.",
                 "Warning", JOptionPane.WARNING_MESSAGE, new ImageIcon(getClass().getResource("res/riskLogo.png")));
     }
 
+    /**
+     * This method is used to display the results of a fortify
+     * @param details
+     */
     public void fortifyResult(String details) {
         JOptionPane.showMessageDialog(this.frame, details,
                 "Result", JOptionPane.INFORMATION_MESSAGE, new ImageIcon(getClass().getResource("res/riskLogo.png")));
     }
 
+    /**
+     * This method is used to display a message when the user
+     * chooses to exit from fortifying
+     */
     public void cancelFortify() {
         JOptionPane.showMessageDialog(this.frame, "You have cancelled the fortification process.",
                 "Warning", JOptionPane.WARNING_MESSAGE, new ImageIcon(getClass().getResource("res/riskLogo.png")));
     }
 
+    /**
+     * This method is used to display a message when a user conquers a territory
+     * @param b
+     */
     public void conquered(String b) {
         JOptionPane.showMessageDialog(this.frame, b,
             "Message", JOptionPane.WARNING_MESSAGE, new ImageIcon(getClass().getResource("res/riskLogo.png")));
     }
 
+    /**
+     * This method is used to display a message asking the user for the number of armies they would
+     *  like to fortify with only when they have conquered a country
+     * @return
+     */
     public int armyToReinforce() {
         return Integer.parseInt(JOptionPane.showInputDialog("How many armies would you like to REINFORCE with?"));
     }
+
+    /**
+     * This method is used to display a message when the user selects a dice value
+     * that is not one more than the number of armies they own in that country
+     */
 
     public void notEnoughArmy() {
         JOptionPane.showMessageDialog(this.frame, "You must have one more army in the country you are" +
