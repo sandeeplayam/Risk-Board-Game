@@ -3,13 +3,18 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class ContinentTest {
-
+    Continent Australia = new Continent("Australia", 2);
 
     @Test
     public void getName() {
         Player player  = new Player("Mo",7);
         assertEquals("Mo",player.getName());
 
+    }
+
+    @Test
+    public void getBonusArmy(){
+        assertTrue(Australia.getBonusArmy()==2);
     }
 
 
