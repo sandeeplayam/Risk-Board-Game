@@ -1,7 +1,11 @@
-//@author Sudarsana Sandeep, Danish Butt, Yusuf Jamaac
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * @Author Sudarsana Sandeep, Danish Butt
+ * The Board class is the Model in the MVC pattern for this project,
+ * and is where most of the data manipulation and game logic occurs.
+ */
 public class Board {
 
     private final Country[] countries = new Country[42];
@@ -9,6 +13,11 @@ public class Board {
     public ArrayList<Player> playerArray;
     private Dice red1, red2, red3, white1, white2;
 
+    /**
+     * The constructor for the board class which takes an integer as a parameter to initialize the board with that
+     * amount of players.
+     * @param players An integer which lets the board know the number of player
+     */
     public Board(int players) {
 
         continents = new ArrayList<>();
@@ -26,6 +35,10 @@ public class Board {
         white2 = new Dice();
     }
 
+    /**
+     * This method creates all the player objects required for the game and adds them all to an arraylist
+     * @param players An integer which indicates the amount of players playing
+     */
     private void createPlayer(int players) {
         int i;
 
@@ -49,6 +62,9 @@ public class Board {
         }
     }
 
+    /**
+     * This method creates all the country objects required for the game and places them into an array
+     */
     private void createCountries() {
 
         //Australia
@@ -106,6 +122,9 @@ public class Board {
         countries[41] = new Country("Western United States");
     }
 
+    /**
+     * This method creates all the continent objects in the game and add them to an arraylist
+     */
     private void createContinents() {
 
         //Australia
@@ -157,6 +176,11 @@ public class Board {
         }
     }
 
+    /**
+     * Since our implementation of the game is always auto setup, this method sets up the initial armies for each
+     * player based on the amount of players that are playing
+     * @param players An integer which lets the board know the number of player
+     */
     private void setInitialArmies(int players) {
         int i;
 
@@ -206,6 +230,11 @@ public class Board {
         }
     }
 
+    /**
+     * Since our implementation of the game is always auto setup, this method sets up the initial rulers/owners of each
+     * country
+     * @param players An integer which lets the board know the number of player
+     */
     private void setInitialRulers(int players) {
         int i;
         int playerNum = 0;
@@ -216,6 +245,9 @@ public class Board {
         }
     }
 
+    /**
+     * This method sets all the adjacent countries for every single country object on the map
+     */
     private void setAdjacentCountries() {
 
         //setting adjacent countries for Eastern Australia
@@ -467,6 +499,12 @@ public class Board {
         countries[41].setAdjacentCountries(countries[35]);
     }
 
+    /**
+     * This method converts the name of a country into an index so that the country object can be retrieved when given
+     * a String
+     * @param country
+     * @return The index which represent a particular country in the array
+     */
     public int mapCountryToIndex(String country) {
         int i;
         for (i = 0; i < countries.length; i++) {
@@ -477,8 +515,11 @@ public class Board {
         return -1;
     }
 
-    //public getAdjacentCountries() {} Sandeep
-
+    /**
+     * This method retrieves the continent object from the arraylist when given a name as a String
+     * @param name String representation of the continent object
+     * @return The continent object
+     */
     public Continent getContinent(String name) {
         switch (name) {
             case "Australia":
@@ -496,25 +537,32 @@ public class Board {
         }
     }
 
-    //public ArrayList<Country> getCountriesByContinent(String continent) {} Sandeep
-
+    /**
+     * This method gets a country object from the array when given an index
+     * @param index An integer which will be used as a index in an array
+     * @return Country object
+     */
     public Country getCountries(int index) {
         return countries[index];
     }
 
+    /**
+     * This method checks if two countries are adjacent
+     * @param country First country object
+     * @param country2 Second country object
+     * @return boolean True if adjacent, false otherwise
+     */
     public boolean checkAdjacentCountries(Country country, Country country2) {
         return country.getAdjacentCountries().contains(country2);
     }
 
-    public void stateOfMap() {
-        for (Player p : playerArray) {
-            System.out.println(p.getName() + " rules: ");
-            p.getRuledCountriesInfo();
-            System.out.println();
-        }
-    }
-
-
+    /**
+     * This is the method which handles the attack function in the game of Risk
+     * @param attackFrom Country that one is attacking from
+     * @param attackTo Country that is going to be attacked
+     * @param attackDice Number of dice the attacker has chosen
+     * @return String representation of the attack details
+     */
     public String attack(String attackFrom, String attackTo, int attackDice) {
         String result ="";
         int a = mapCountryToIndex(attackFrom); //will be used to represent attacker
@@ -790,7 +838,13 @@ public class Board {
             return result;
         }
 
-
+    /**
+     * This method handles the fortify function in the game
+     * @param moveFrom Country that armies are being moved from
+     * @param moveTo Country that armies are being moved to
+     * @param armyAmount Amount of armies being moved/fortified
+     * @return String representation of fortify details
+     */
     public String fortify(String moveFrom, String moveTo, int armyAmount) {
         int m = mapCountryToIndex(moveFrom);
         int n = mapCountryToIndex(moveTo);
@@ -806,6 +860,13 @@ public class Board {
                 }
     }
 
+    /**
+     * This method concatenates multiple strings which must be displayed when a country is conquered by a player
+     * @param c1
+     * @param c2
+     * @param dice Number of dice
+     * @return
+     */
     public String conquered(String c1, String c2, int dice){
         String info;
         int a, b;

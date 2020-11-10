@@ -552,8 +552,7 @@ public class View {
     }
 
     public void selectCountries() {
-        JOptionPane.showMessageDialog(this.frame, "Please select countries before selecting dice, then select" +
-                        " dice and finally attack.",
+        JOptionPane.showMessageDialog(this.frame, "Please select countries before fortifying",
                 "Warning", JOptionPane.WARNING_MESSAGE, new ImageIcon(getClass().getResource("res/riskLogo.png")));
     }
 

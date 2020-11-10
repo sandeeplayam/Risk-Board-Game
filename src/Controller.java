@@ -2,6 +2,12 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * The Controller class represents the Controller in the MVC pattern for this project, and this class acts as the
+ * middleman between the View and Model.
+ *
+ * @Author: Sudarsana Sandeep, Danish Butt
+ */
 public class Controller implements ActionListener {
 
     private Board model;
@@ -11,7 +17,10 @@ public class Controller implements ActionListener {
     private int numPlayers, numOfAttackDice, playerNumber, country1Index, country2Index;
     private String country1, country2, info, temp, temp2;
 
-
+    /**
+     * The constructor for the Controller class
+     * @param view Takes in an instance of the view to invoke operations on it
+     */
     public Controller(View view) {
 
         this.view = view;
@@ -21,6 +30,11 @@ public class Controller implements ActionListener {
     }
 
     @Override
+    /**
+     * The actionPerformed method handles any action events which occur on the view, and based on the source of the
+     * event will delegate to other performed methods
+     * @param e An action event which is generated anytime something on the view occurs
+     */
     public void actionPerformed(ActionEvent e) {
 
         if (e.getSource().getClass() == JMenuItem.class) {
@@ -43,6 +57,11 @@ public class Controller implements ActionListener {
 
     }
 
+    /**
+     * This method is a delegate method of actionPerformed, and will handle any events that occur on the first
+     * screen/panel of the game
+     * @param e An action event which is generated anytime something on the view occurs
+     */
     private void startPerformed(ActionEvent e) {
         String input;
 
@@ -59,7 +78,11 @@ public class Controller implements ActionListener {
         }
     }
 
-
+    /**
+     * This method is a delegate method of actionPerformed, and will handle any events that occur on the menu bar in
+     * the GUI
+     * @param e An action event which is generated anytime something on the view occurs
+     */
     private void jMenuBarPerformed(ActionEvent e) {
         String input;
         info = "";
@@ -85,6 +108,11 @@ public class Controller implements ActionListener {
         }
     }
 
+    /**
+     * This method is a delegate method of actionPerformed, and will handle any events that occur on the second
+     * screen/panel of the game
+     * @param e An action event which is generated anytime something on the view occurs
+     */
     private void selectLevelPerformed(ActionEvent e) {
         String input;
 
@@ -111,6 +139,11 @@ public class Controller implements ActionListener {
         }
     }
 
+    /**
+     * This method is a delegate method of actionPerformed, and will handle any events that occur on the main game screen
+     * where the board is located.
+     * @param e An action event which is generated anytime something on the view occurs
+     */
     private void mainScreenPerformed(ActionEvent e) {
         boolean notAdjacent = false;
 
@@ -270,10 +303,6 @@ public class Controller implements ActionListener {
                     country1 = null;
                 }
             }
-
-            System.out.println(country1);
-            System.out.println(country1Index);
-            System.out.println(country2Index);
         }
 
 

@@ -1,7 +1,9 @@
-//@Sudarsana Sandeep
-
 import java.util.ArrayList;
 
+/**
+ * This class represents the Continent objects in the game of Risk
+ * @author Sudarsana Sandeep
+ */
 public class Continent {
 
     private String name;
