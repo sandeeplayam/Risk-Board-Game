@@ -786,35 +786,6 @@ public class Board {
                     }
                 }
 
-                if (countries[b].getArmies() == 0) {
-                    System.out.println(countries[b].getRuler().getName() + " you have no armies remaining in "
-                            + countries[b].getName());
-
-                    System.out.println(countries[a].getRuler().getName() + " has conquered your country.");
-
-                    countries[b].getRuler().removeCountry(countries[b]);
-                    countries[b].setRuler(countries[a].getRuler());
-                    countries[a].getRuler().addCountry(countries[b]);
-
-                    System.out.println(countries[a].getRuler().getName() + " you must reinforce the country you have just" +
-                            " conquered with a minimum of " + attackDice + " armies.");
-
-                    System.out.println("How many armies would you like to reinforce " + countries[b].getName() + ": ");
-                    reinforceNumber = s.nextInt();
-
-                    while (!((reinforceNumber >= attackDice) && (reinforceNumber < countries[a].getArmies()))) {
-                        System.out.println("How many armies would you like to reinforce " + countries[b].getName() + ": ");
-                        reinforceNumber = s.nextInt();
-                    }
-
-                    //fortify(countries[a], countries[b], reinforceNumber);
-
-
-                }
-
-            } else {
-                System.out.println("You do not have enough armies on " + countries[a].getName() + " to attack." +
-                        " You need a minimum of two armies.");
             }
             return result;
         }
@@ -836,24 +807,24 @@ public class Board {
     }
 
     public String conquered(String c1, String c2, int dice){
-        String k;
+        String info;
         int a, b;
         a= mapCountryToIndex(c1);
         b=mapCountryToIndex(c2);
 
-        k=(countries[b].getRuler().getName() + " you have no armies remaining in "
+        info = (countries[b].getRuler().getName() + " you have no armies remaining in "
                 + countries[b].getName());
 
-        k=k +" "+(countries[a].getRuler().getName() + " has conquered your country.");
+        info = info + " " + (countries[a].getRuler().getName() + " has conquered your country.");
 
         countries[b].getRuler().removeCountry(countries[b]);
         countries[b].setRuler(countries[a].getRuler());
         countries[a].getRuler().addCountry(countries[b]);
 
-        k=k+" "+(countries[a].getRuler().getName() + " you must reinforce the country you have just" +
+        info = info + " " + (countries[a].getRuler().getName() + " you must reinforce the country you have just" +
                 " conquered with a minimum of " + dice + " armies.");
-        return k;
-
+        System.out.println(info);
+        return info;
     }
 
 }

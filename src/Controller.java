@@ -113,7 +113,7 @@ public class Controller implements ActionListener {
 
     private void mainScreenPerformed(ActionEvent e) {
         boolean notAdjacent = false;
-        model.stateOfMap();
+
         JButton placeHolder = (JButton) e.getSource();
 
         if ((!placeHolder.getText().equals("PASS")) && (!placeHolder.getText().equals("FORTIFY!!"))
@@ -145,19 +145,16 @@ public class Controller implements ActionListener {
             if (placeHolder.getText().equals("ATTACK!!")) {
                 if (country1 == null) {
                     view.wrongChoice(placeHolder.getText());
-                    System.out.println("1");
                     country1 = null;
                     country2 = null;
                     numOfAttackDice = 0;
                 } else if (country2 == null) {
                     view.wrongChoice(placeHolder.getText());
-                    System.out.println("2");
                     country1 = null;
                     country2 = null;
                     numOfAttackDice = 0;
                 } else if (numOfAttackDice == 0) {
                     view.wrongChoice(placeHolder.getText());
-                    System.out.println("3");
                     country1 = null;
                     country2 = null;
                     numOfAttackDice = 0;
@@ -174,27 +171,28 @@ public class Controller implements ActionListener {
 
                 } else if (country1 != null && country2 != null && numOfAttackDice > 0) {
                     System.out.println(numOfAttackDice);
-                    String m = model.attack(country1, country2, numOfAttackDice);
-                    view.attackResult(m);
-
+                    String attackMsg = model.attack(country1, country2, numOfAttackDice);
+                    view.attackResult(attackMsg);
 
                     if (model.getCountries(country2Index).getArmies() == 0) {
-                        String b;
-                        b = model.conquered(country1, country2, numOfAttackDice);
-                        view.conquered(b);
+                        String conquerInfo;
+                        conquerInfo = model.conquered(country1, country2, numOfAttackDice);
+                        view.conquered(conquerInfo);
 
                         int numOfArmyReinforce = view.armyToReinforce();
 
-                        while(!(numOfArmyReinforce>=numOfAttackDice && numOfArmyReinforce < model.getCountries(country1Index).getArmies())){
-                            numOfArmyReinforce=view.armyToReinforce();
+                        while (!(numOfArmyReinforce >= numOfAttackDice || numOfArmyReinforce < model.getCountries(country1Index).getArmies())) {
+                            numOfArmyReinforce = view.armyToReinforce();
                         }
-                        model.fortify(country1,country2,numOfArmyReinforce);
+                        model.fortify(country1, country2, numOfArmyReinforce);
                     }
+                    country1 = null;
+                    country2 = null;
+                    numOfAttackDice = 0;
                 }
-                country1 = null;
-                country2 = null;
-                numOfAttackDice = 0;
+
             }
+        }
 
 
             if (placeHolder.getText().equals("1 Die")) {
@@ -264,5 +262,5 @@ public class Controller implements ActionListener {
             System.out.println(country2Index);
         }
 
-    }
+
 }
