@@ -15,7 +15,7 @@ public class Controller implements ActionListener {
     private int menu;
 
     private int numPlayers, numOfAttackDice, playerNumber, country1Index, country2Index;
-    private String country1, country2, info, temp, temp2;
+    private String country1, country2, info, temp;
 
     /**
      * The constructor for the Controller class
