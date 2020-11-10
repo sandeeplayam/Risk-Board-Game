@@ -1,10 +1,11 @@
+/*
+@author Yusuf J, Danish Butt
+ */
+
 import org.junit.Test;
-
-
 import java.util.ArrayList;
-//
 import static org.junit.Assert.*;
-///-author Yusuf J, Danish Butt
+
 public class BoardTest {
     Board board = new Board(2); //Creating board with 2 players
     private final Country[] countries = new Country[42];
