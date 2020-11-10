@@ -2,6 +2,14 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+
+/**
+ * The Controller class represents the Controller in the MVC pattern for this project, and this class acts as the
+ * middleman between the View and Model.
+ *
+ * @Author: Sudarsana Sandeep, Danish Butt
+ */
+
 public class Controller implements ActionListener {
 
     private Board model;
@@ -9,9 +17,12 @@ public class Controller implements ActionListener {
     private int menu;
 
     private int numPlayers, numOfAttackDice, playerNumber, country1Index, country2Index;
-    private String country1, country2, info, temp, temp2;
+    private String country1, country2, info, temp;
 
-
+    /**
+     * The constructor for the Controller class
+     * @param view Takes in an instance of the view to invoke operations on it
+     */
     public Controller(View view) {
 
         this.view = view;
@@ -21,6 +32,11 @@ public class Controller implements ActionListener {
     }
 
     @Override
+    /**
+     * The actionPerformed method handles any action events which occur on the view, and based on the source of the
+     * event will delegate to other performed methods
+     * @param e An action event which is generated anytime something on the view occurs
+     */
     public void actionPerformed(ActionEvent e) {
 
         if (e.getSource().getClass() == JMenuItem.class) {
@@ -43,6 +59,12 @@ public class Controller implements ActionListener {
 
     }
 
+
+    /**
+     * This method is a delegate method of actionPerformed, and will handle any events that occur on the first
+     * screen/panel of the game
+     * @param e An action event which is generated anytime something on the view occurs
+     */
     private void startPerformed(ActionEvent e) {
         String input;
 
@@ -60,6 +82,11 @@ public class Controller implements ActionListener {
     }
 
 
+    /**
+     * This method is a delegate method of actionPerformed, and will handle any events that occur on the menu bar in
+     * the GUI
+     * @param e An action event which is generated anytime something on the view occurs
+     */
     private void jMenuBarPerformed(ActionEvent e) {
         String input;
         info = "";
@@ -85,6 +112,12 @@ public class Controller implements ActionListener {
         }
     }
 
+
+    /**
+     * This method is a delegate method of actionPerformed, and will handle any events that occur on the second
+     * screen/panel of the game
+     * @param e An action event which is generated anytime something on the view occurs
+     */
     private void selectLevelPerformed(ActionEvent e) {
         String input;
 
@@ -111,6 +144,12 @@ public class Controller implements ActionListener {
         }
     }
 
+
+    /**
+     * This method is a delegate method of actionPerformed, and will handle any events that occur on the main game screen
+     * where the board is located.
+     * @param e An action event which is generated anytime something on the view occurs
+     */
     private void mainScreenPerformed(ActionEvent e) {
         boolean notAdjacent = false;
 
@@ -196,85 +235,79 @@ public class Controller implements ActionListener {
             }
         }
 
-
-        if (placeHolder.getText().equals("1 Die")) {
-            if (country1 == null || country2 == null) {
-                view.wrongSelection();
-            } else {
-                numOfAttackDice = 1;
-            }
-        } else if (placeHolder.getText().equals("2 Dice")) {
-            if (country1 == null || country2 == null) {
-                view.wrongSelection();
-            } else {
-                numOfAttackDice = 2;
-                if (model.getCountries(country1Index).getArmies() <= numOfAttackDice) {
-                    view.notEnoughArmy();
-                    numOfAttackDice = 0;
-                    country1 = null;
-                    country2 = null;
-                }
-            }
-        } else if (placeHolder.getText().equals("3 Dice")) {
-            if (country1 == null || country2 == null) {
-                view.wrongSelection();
-            } else {
-                numOfAttackDice = 3;
-                if (model.getCountries(country1Index).getArmies() <= numOfAttackDice) {
-                    view.notEnoughArmy();
-                    numOfAttackDice = 0;
-                    country1 = null;
-                    country2 = null;
-                }
-            }
-        }
-
-
-        if (placeHolder.getText().equals("PASS")) {
-            view.pass();
-            if (view.choice == 0) {
-                if (playerNumber == (model.playerArray.size() - 1)) {
-                    playerNumber = 0;
+            if (placeHolder.getText().equals("1 Die")) {
+                if (country1 == null || country2 == null) {
+                    view.wrongSelection();
                 } else {
-                    playerNumber++;
+                    numOfAttackDice = 1;
                 }
-                view.passForSure(playerNumber + 1);
+            } else if (placeHolder.getText().equals("2 Dice")) {
+                if (country1 == null || country2 == null) {
+                    view.wrongSelection();
+                } else {
+                    numOfAttackDice = 2;
+                    if (model.getCountries(country1Index).getArmies() <= numOfAttackDice) {
+                        view.notEnoughArmy();
+                        numOfAttackDice = 0;
+                        country1 = null;
+                        country2 = null;
+                    }
+                }
+            } else if (placeHolder.getText().equals("3 Dice")) {
+                if (country1 == null || country2 == null) {
+                    view.wrongSelection();
+                } else {
+                    numOfAttackDice = 3;
+                    if (model.getCountries(country1Index).getArmies() <= numOfAttackDice) {
+                        view.notEnoughArmy();
+                        numOfAttackDice = 0;
+                        country1 = null;
+                        country2 = null;
+                    }
+                }
             }
-        }
 
-        if (placeHolder.getText().equals("FORTIFY!!")) {
-            if (country1 == null || country2 == null) {
-                view.selectCountries();
-            } else if (!model.getCountries(country1Index).getRuler().getName().equals(model.getCountries(country2Index).getRuler().getName())) {
-                view.notRuled();
-                country1 = null;
-                country2 = null;
-            } else {
-                try {
-                    int amount = view.armyAmount();
-                    String fortifyDetail = model.fortify(country1, country2, amount);
+
+            if (placeHolder.getText().equals("PASS")) {
+                view.pass();
+                if (view.choice == 0) {
+                    if (playerNumber == (model.playerArray.size() - 1)) {
+                        playerNumber = 0;
+                    } else {
+                        playerNumber++;
+                    }
+                    view.passForSure(playerNumber + 1);
+                }
+            }
+
+            if (placeHolder.getText().equals("FORTIFY!!")) {
+                if (country1 == null || country2 == null) {
+                    view.selectCountries();
+                } else if (!model.getCountries(country1Index).getRuler().getName().equals(model.getCountries(country2Index).getRuler().getName())) {
+                    view.notRuled();
                     country1 = null;
                     country2 = null;
-                    view.fortifyResult(fortifyDetail);
-                } catch (Exception exception) {
-                    view.cancelFortify();
-                    country1 = null;
-                    country2 = null;
+                } else {
+                    try {
+                        int amount = view.armyAmount();
+                        String fortifyDetail = model.fortify(country1, country2, amount);
+                        country1 = null;
+                        country2 = null;
+                        view.fortifyResult(fortifyDetail);
+                    } catch (Exception exception) {
+                        view.cancelFortify();
+                        country1 = null;
+                        country2 = null;
+                    }
+
                 }
+            }
 
+            if (country1 != null) {
+                if (notAdjacent) {
+                    country1 = null;
+                }
             }
         }
-
-        if (country1 != null) {
-            if (notAdjacent) {
-                country1 = null;
-            }
-        }
-
-        System.out.println(country1);
-        System.out.println(country1Index);
-        System.out.println(country2Index);
-    }
-
 
 }

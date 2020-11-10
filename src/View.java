@@ -499,17 +499,17 @@ public class View {
     public void showRules() {
         JOptionPane.showMessageDialog(this.frame,
                 "1. The winner is the first player to eliminate every opponent by " +
-                        "capturing all 42 territories on the board.\n"
-                        + "2. You can only attack a country that is adjacent to a country you control.\n"
-                        + "3. At the start of each turn you will receive at least 3 armies or the # of territories " +
-                        "you own divided by 3 (which ever one is higher).\n"
-                        + "4. You can only attack a country if you own at least 2 armies in the attacking country.\n"
-                        + "5. When attacking the person who is attacking can choose to roll up to 3 dice.\n"
-                        + "6. The person defending can roll up to 2 dice but must have at least 2 armies in the " +
-                        "defending country (if not they can only roll one dice).\n"
-                        + "7. When you capture a territory, you must move at least as many armies as " +
-                        "dice you rolled in your last attack.\n" +
-                        "                                  ", "Rules", JOptionPane.INFORMATION_MESSAGE,
+                "capturing all 42 territories on the board.\n"
+                + "2. You can only attack a country that is adjacent to a country you control.\n"
+                + "3. At the start of each turn you will receive at least 3 armies or the # of territories " +
+                "you own divided by 3 (which ever one is higher).\n"
+                + "4. You can only attack a country if you own at least 2 armies in the attacking country.\n"
+                + "5. When attacking the person who is attacking can choose to roll up to 3 dice.\n"
+                + "6. The person defending can roll up to 2 dice but must have at least 2 armies in the " +
+                "defending country (if not they can only roll one dice).\n"
+                + "7. When you capture a territory, you must move at least as many armies as " +
+                "dice you rolled in your last attack.\n" +
+                "                                  ", "Rules", JOptionPane.INFORMATION_MESSAGE,
 
                 new ImageIcon(getClass().getResource("res/riskLogo.png")));
     }
@@ -643,18 +643,19 @@ public class View {
      */
     public void help() {
         JOptionPane.showMessageDialog(this.frame,"1. The player has 3 options (Attack, Fortify, Pass)\n"
-                        + "2. To attack the user needs to first press the country they are attacking from, " +
+                + "2. To attack the user needs to first press the country they are attacking from, " +
                         "the country they want to attack, the number of dice to roll and then press Attack\n"
-                        + "3. To fortify the user needs to first press the country they are fortifying from, the country they " +
+                + "3. To fortify the user needs to first press the country they are fortifying from, the country they " +
                         "want to fortify to, then press Fortify and finally input how many armies to fortify with\n"
-                        + "4. Important Note: If during attack or fortify a clause is triggered (example, country is not adjacent, " +
+                + "4. Important Note: If during attack or fortify a clause is triggered (example, country is not adjacent, " +
                         "you own the country, etc.) restart move from beginning.\n"
-                        +"5. To pass the user needs to press Pass. The game will then have a pop up which will st" +
+                +"5. To pass the user needs to press Pass. The game will then have a pop up which will st" +
                         "ate the next players turn\n" +
-                        "6. If the user clicks Rules the rules will be displayed\n" +
-                        "7. If the user clicks Map State, the state of the map will be displayed" +
+                "6. If the user clicks Rules the rules will be displayed\n" +
+                "7. If the user clicks Map State, the state of the map will be displayed" +
                         " with which players owns which country and how many armies in each country\n"
-                        + "8. If the user clicks Quit, they exit the game\n"
+                + "8. If the user clicks Quit, they exit the game\n"
+
                 ,
                 "Help", JOptionPane.INFORMATION_MESSAGE, new ImageIcon(getClass().getResource("res/riskLogo.png")));
     }
@@ -714,7 +715,7 @@ public class View {
      */
     public void conquered(String b) {
         JOptionPane.showMessageDialog(this.frame, b,
-                "Message", JOptionPane.WARNING_MESSAGE, new ImageIcon(getClass().getResource("res/riskLogo.png")));
+            "Message", JOptionPane.WARNING_MESSAGE, new ImageIcon(getClass().getResource("res/riskLogo.png")));
     }
 
     /**
@@ -736,6 +737,4 @@ public class View {
                         " attacking from than the amount of dice you want to roll.",
                 "Warning", JOptionPane.WARNING_MESSAGE, new ImageIcon(getClass().getResource("res/riskLogo.png")));
     }
-
-
 }
