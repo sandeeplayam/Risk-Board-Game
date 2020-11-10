@@ -609,9 +609,13 @@ public class View {
     }
 
     public int armyToReinforce() {
-
         return Integer.parseInt(JOptionPane.showInputDialog("How many armies would you like to REINFORCE with?"));
+    }
 
+    public void notEnoughArmy() {
+        JOptionPane.showMessageDialog(this.frame, "You must have one more army in the country you are" +
+                        " attacking from than the amount of dice you want to roll.",
+                "Warning", JOptionPane.WARNING_MESSAGE, new ImageIcon(getClass().getResource("res/riskLogo.png")));
     }
 
 

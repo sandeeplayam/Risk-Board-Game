@@ -176,6 +176,7 @@ public class Controller implements ActionListener {
 
                     if (model.getCountries(country2Index).getArmies() == 0) {
                         String conquerInfo;
+                        String fortifyInfo;
                         conquerInfo = model.conquered(country1, country2, numOfAttackDice);
                         view.conquered(conquerInfo);
 
@@ -184,7 +185,8 @@ public class Controller implements ActionListener {
                         while (!(numOfArmyReinforce >= numOfAttackDice || numOfArmyReinforce < model.getCountries(country1Index).getArmies())) {
                             numOfArmyReinforce = view.armyToReinforce();
                         }
-                        model.fortify(country1, country2, numOfArmyReinforce);
+                        fortifyInfo = model.fortify(country1, country2, numOfArmyReinforce);
+                        view.fortifyResult(fortifyInfo);
                     }
                     country1 = null;
                     country2 = null;
@@ -206,12 +208,24 @@ public class Controller implements ActionListener {
                     view.wrongSelection();
                 } else {
                     numOfAttackDice = 2;
+                    if (model.getCountries(country1Index).getArmies() <= numOfAttackDice) {
+                        view.notEnoughArmy();
+                        numOfAttackDice = 0;
+                        country1 = null;
+                        country2 = null;
+                    }
                 }
             } else if (placeHolder.getText().equals("3 Dice")) {
                 if (country1 == null || country2 == null) {
                     view.wrongSelection();
                 } else {
                     numOfAttackDice = 3;
+                    if (model.getCountries(country1Index).getArmies() <= numOfAttackDice) {
+                        view.notEnoughArmy();
+                        numOfAttackDice = 0;
+                        country1 = null;
+                        country2 = null;
+                    }
                 }
             }
 
