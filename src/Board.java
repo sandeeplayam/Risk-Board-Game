@@ -1,7 +1,11 @@
-//@author Sudarsana Sandeep, Danish Butt, Yusuf Jamaac
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * @Author Sudarsana Sandeep, Danish Butt
+ * The Board class is the Model in the MVC pattern for this project,
+ * and is where most of the data manipulation and game logic occurs.
+ */
 public class Board {
 
     private final Country[] countries = new Country[42];
@@ -9,6 +13,11 @@ public class Board {
     public ArrayList<Player> playerArray;
     private Dice red1, red2, red3, white1, white2;
 
+    /**
+     * The constructor for the board class which takes an integer as a parameter to initialize the board with that
+     * amount of players.
+     * @param players An integer which lets the board know the number of player
+     */
     public Board(int players) {
 
         continents = new ArrayList<>();
@@ -26,29 +35,36 @@ public class Board {
         white2 = new Dice();
     }
 
+    /**
+     * This method creates all the player objects required for the game and adds them all to an arraylist
+     * @param players An integer which indicates the amount of players playing
+     */
     private void createPlayer(int players) {
         int i;
 
         for (i = 0; i < players; i++) {
 
             if (players == 2) {
-                playerArray.add(new Player("player" + (i + 1), 50));
+                playerArray.add(new Player("Player " + (i + 1), 50));
 
             } else if (players == 3) {
-                playerArray.add(new Player("player" + (i + 1), 35));
+                playerArray.add(new Player("Player " + (i + 1), 35));
 
             } else if (players == 4) {
-                playerArray.add(new Player("player" + (i + 1), 30));
+                playerArray.add(new Player("Player " + (i + 1), 30));
 
             } else if (players == 5) {
-                playerArray.add(new Player("player" + (i + 1), 25));
+                playerArray.add(new Player("Player " + (i + 1), 25));
 
             } else if (players == 6) {
-                playerArray.add(new Player("player" + (i + 1), 20));
+                playerArray.add(new Player("Player " + (i + 1), 20));
             }
         }
     }
 
+    /**
+     * This method creates all the country objects required for the game and places them into an array
+     */
     private void createCountries() {
 
         //Australia
@@ -106,6 +122,9 @@ public class Board {
         countries[41] = new Country("Western United States");
     }
 
+    /**
+     * This method creates all the continent objects in the game and add them to an arraylist
+     */
     private void createContinents() {
 
         //Australia
@@ -157,6 +176,11 @@ public class Board {
         }
     }
 
+    /**
+     * Since our implementation of the game is always auto setup, this method sets up the initial armies for each
+     * player based on the amount of players that are playing
+     * @param players An integer which lets the board know the number of player
+     */
     private void setInitialArmies(int players) {
         int i;
 
@@ -206,6 +230,11 @@ public class Board {
         }
     }
 
+    /**
+     * Since our implementation of the game is always auto setup, this method sets up the initial rulers/owners of each
+     * country
+     * @param players An integer which lets the board know the number of player
+     */
     private void setInitialRulers(int players) {
         int i;
         int playerNum = 0;
@@ -216,6 +245,9 @@ public class Board {
         }
     }
 
+    /**
+     * This method sets all the adjacent countries for every single country object on the map
+     */
     private void setAdjacentCountries() {
 
         //setting adjacent countries for Eastern Australia
@@ -467,6 +499,12 @@ public class Board {
         countries[41].setAdjacentCountries(countries[35]);
     }
 
+    /**
+     * This method converts the name of a country into an index so that the country object can be retrieved when given
+     * a String
+     * @param country
+     * @return The index which represent a particular country in the array
+     */
     public int mapCountryToIndex(String country) {
         int i;
         for (i = 0; i < countries.length; i++) {
@@ -477,8 +515,11 @@ public class Board {
         return -1;
     }
 
-    //public getAdjacentCountries() {} Sandeep
-
+    /**
+     * This method retrieves the continent object from the arraylist when given a name as a String
+     * @param name String representation of the continent object
+     * @return The continent object
+     */
     public Continent getContinent(String name) {
         switch (name) {
             case "Australia":
@@ -496,31 +537,45 @@ public class Board {
         }
     }
 
-    //public ArrayList<Country> getCountriesByContinent(String continent) {} Sandeep
-
+    /**
+     * This method gets a country object from the array when given an index
+     * @param index An integer which will be used as a index in an array
+     * @return Country object
+     */
     public Country getCountries(int index) {
         return countries[index];
     }
 
+    /**
+     * This method checks if two countries are adjacent
+     * @param country First country object
+     * @param country2 Second country object
+     * @return boolean True if adjacent, false otherwise
+     */
     public boolean checkAdjacentCountries(Country country, Country country2) {
         return country.getAdjacentCountries().contains(country2);
     }
 
-    public void stateOfMap() {
-        for (Player p : playerArray) {
-            System.out.println(p.getName() + " rules: ");
-            p.getRuledCountriesInfo();
-            System.out.println();
-        }
-    }
-
-
-    public void attack(String attackFrom, String attackTo, int attackDice, int defendDice) {
-
+    /**
+     * This is the method which handles the attack function in the game of Risk
+     * @param attackFrom Country that one is attacking from
+     * @param attackTo Country that is going to be attacked
+     * @param attackDice Number of dice the attacker has chosen
+     * @return String representation of the attack details
+     */
+    public String attack(String attackFrom, String attackTo, int attackDice) {
+        String result ="";
         int a = mapCountryToIndex(attackFrom); //will be used to represent attacker
         int b = mapCountryToIndex(attackTo); //will be used represent defender
+        int defendDice;
         int r1, r2, r3, w1, w2, reinforceNumber;
         Scanner s = new Scanner(System.in);
+
+        if (countries[b].getArmies() >= 2) {
+            defendDice = 2;
+        } else {
+            defendDice = 1;
+        }
 
             if ((countries[a].getArmies() >= 2)) {
                 if (attackDice == 1 && defendDice == 1) {
@@ -531,20 +586,20 @@ public class Board {
                         countries[a].getRuler().decreaseArmyCount(1);
                         countries[b].increaseArmyCount(1);
                         countries[b].getRuler().increaseArmyCount(1);
-                        System.out.println(countries[b].getRuler().getName() + " has won the attack");
+                        result=countries[b].getRuler().getName() + " has won the attack";
 
                     } else if (r1 > w1) {
                         countries[b].decreaseArmyCount(1);
                         countries[b].getRuler().decreaseArmyCount(1);
                         countries[a].increaseArmyCount(1);
                         countries[a].getRuler().increaseArmyCount(1);
-                        System.out.println(countries[a].getRuler().getName() + " has won the attack");
+                        result = (countries[a].getRuler().getName() + " has won the attack");
                     } else {
                         countries[a].decreaseArmyCount(1);
                         countries[a].getRuler().decreaseArmyCount(1);
                         countries[b].increaseArmyCount(1);
                         countries[b].getRuler().increaseArmyCount(1);
-                        System.out.println(countries[b].getRuler().getName() + " has won the attack");
+                        result=(countries[b].getRuler().getName() + " has won the attack");
                     }
                 } else if (attackDice == 2 && defendDice == 1) {
                     r1 = red1.roll();
@@ -555,19 +610,19 @@ public class Board {
                         countries[b].getRuler().decreaseArmyCount(1);
                         countries[a].increaseArmyCount(1);
                         countries[a].getRuler().increaseArmyCount(1);
-                        System.out.println(countries[a].getRuler().getName() + " has won the attack");
+                        result=(countries[a].getRuler().getName() + " has won the attack");
                     } else if ((r1 < w1) && (r2 < w1)) {
                         countries[a].decreaseArmyCount(1);
                         countries[a].getRuler().decreaseArmyCount(1);
                         countries[b].increaseArmyCount(1);
                         countries[b].getRuler().increaseArmyCount(1);
-                        System.out.println(countries[b].getRuler().getName() + " has won the attack");
+                        result=(countries[b].getRuler().getName() + " has won the attack");
                     } else {
                         countries[a].decreaseArmyCount(1);
                         countries[a].getRuler().decreaseArmyCount(1);
                         countries[b].increaseArmyCount(1);
                         countries[b].getRuler().increaseArmyCount(1);
-                        System.out.println(countries[b].getRuler().getName() + " has won the attack");
+                        result=(countries[b].getRuler().getName() + " has won the attack");
                     }
                 } else if (attackDice == 1 && defendDice == 2) {
                     r1 = red1.roll();
@@ -578,19 +633,19 @@ public class Board {
                         countries[a].getRuler().decreaseArmyCount(1);
                         countries[b].increaseArmyCount(1);
                         countries[b].getRuler().increaseArmyCount(1);
-                        System.out.println(countries[b].getRuler().getName() + " has won the attack");
+                        result=(countries[b].getRuler().getName() + " has won the attack");
                     } else if ((r1 > w1) && (r1 > w2)) {
                         countries[b].decreaseArmyCount(1);
                         countries[b].getRuler().decreaseArmyCount(1);
                         countries[a].increaseArmyCount(1);
                         countries[a].getRuler().increaseArmyCount(1);
-                        System.out.println(countries[a].getRuler().getName() + " has won the attack");
+                        result=(countries[a].getRuler().getName() + " has won the attack");
                     } else {
                         countries[a].decreaseArmyCount(1);
                         countries[a].getRuler().decreaseArmyCount(1);
                         countries[b].increaseArmyCount(1);
                         countries[b].getRuler().increaseArmyCount(1);
-                        System.out.println(countries[b].getRuler().getName() + " has won the attack");
+                        result=(countries[b].getRuler().getName() + " has won the attack");
                     }
                 } else if (attackDice == 2 && defendDice == 2) {
                     r1 = red1.roll();
@@ -626,19 +681,19 @@ public class Board {
                         countries[b].getRuler().decreaseArmyCount(1);
                         countries[a].increaseArmyCount(1);
                         countries[a].getRuler().increaseArmyCount(1);
-                        System.out.println(countries[a].getRuler().getName() + " has won the first part of the attack");
+                        result=(countries[a].getRuler().getName() + " has won the first part of the attack");
                     } else if (h1w > h1r) {
                         countries[a].decreaseArmyCount(1);
                         countries[a].getRuler().decreaseArmyCount(1);
                         countries[b].increaseArmyCount(1);
                         countries[b].getRuler().increaseArmyCount(1);
-                        System.out.println(countries[b].getRuler().getName() + " has won the first part of the attack");
+                        result=(countries[b].getRuler().getName() + " has won the first part of the attack");
                     } else {
                         countries[a].decreaseArmyCount(1);
                         countries[a].getRuler().decreaseArmyCount(1);
                         countries[b].increaseArmyCount(1);
                         countries[b].getRuler().increaseArmyCount(1);
-                        System.out.println(countries[b].getRuler().getName() + " has won the first part of the attack");
+                        result=(countries[b].getRuler().getName() + " has won the first part of the attack");
                     }
 
                     if (h2r > h2w) {
@@ -646,19 +701,19 @@ public class Board {
                         countries[b].getRuler().decreaseArmyCount(1);
                         countries[a].increaseArmyCount(1);
                         countries[a].getRuler().increaseArmyCount(1);
-                        System.out.println(countries[a].getRuler().getName() + " has won the second part of the attack");
+                        result=result +" and "+(countries[a].getRuler().getName() + " has won the second part of the attack");
                     } else if (h2w > h2r) {
                         countries[a].decreaseArmyCount(1);
                         countries[a].getRuler().decreaseArmyCount(1);
                         countries[b].increaseArmyCount(1);
                         countries[b].getRuler().increaseArmyCount(1);
-                        System.out.println(countries[b].getRuler().getName() + " has won the second part of the attack");
+                        result=result +" and " + (countries[b].getRuler().getName() + " has won the second part of the attack");
                     } else {
                         countries[a].decreaseArmyCount(1);
                         countries[a].getRuler().decreaseArmyCount(1);
                         countries[b].increaseArmyCount(1);
                         countries[b].getRuler().increaseArmyCount(1);
-                        System.out.println(countries[b].getRuler().getName() + " has won the second part of the attack");
+                        result=  result +" and " + (countries[b].getRuler().getName() + " has won the second part of the attack");
                     }
                 } else if (attackDice == 3 && defendDice == 1) {
                     r1 = red1.roll();
@@ -671,20 +726,20 @@ public class Board {
                         countries[a].increaseArmyCount(1);
                         countries[a].getRuler().increaseArmyCount(1);
 
-                        System.out.println(countries[a].getRuler().getName() + " has won the attack");
+                        result=(countries[a].getRuler().getName() + " has won the attack");
 
                     } else if ((r1 < w1) && (r2 < w1) && (r3 < w1)) {
                         countries[a].decreaseArmyCount(1);
                         countries[a].getRuler().decreaseArmyCount(1);
                         countries[b].increaseArmyCount(1);
                         countries[b].getRuler().increaseArmyCount(1);
-                        System.out.println(countries[b].getRuler().getName() + " has won the attack");
+                        result=(countries[b].getRuler().getName() + " has won the attack");
                     } else {
                         countries[a].decreaseArmyCount(1);
                         countries[a].getRuler().decreaseArmyCount(1);
                         countries[b].increaseArmyCount(1);
                         countries[b].getRuler().increaseArmyCount(1);
-                        System.out.println(countries[b].getRuler().getName() + " has won the attack");
+                        result=(countries[b].getRuler().getName() + " has won the attack");
                     }
                 } else if (attackDice == 3 && defendDice == 2) {
                     r1 = red1.roll();
@@ -743,19 +798,19 @@ public class Board {
                         countries[b].getRuler().decreaseArmyCount(1);
                         countries[a].increaseArmyCount(1);
                         countries[a].getRuler().increaseArmyCount(1);
-                        System.out.println(countries[a].getRuler().getName() + " has won the first part of the attack");
+                        result=(countries[a].getRuler().getName() + " has won the first part of the attack");
                     } else if (h1w > h1r) {
                         countries[a].decreaseArmyCount(1);
                         countries[a].getRuler().decreaseArmyCount(1);
                         countries[b].increaseArmyCount(1);
                         countries[b].getRuler().increaseArmyCount(1);
-                        System.out.println(countries[b].getRuler().getName() + " has won the first part of the attack");
+                        result=(countries[b].getRuler().getName() + " has won the first part of the attack");
                     } else {
                         countries[a].decreaseArmyCount(1);
                         countries[a].getRuler().decreaseArmyCount(1);
                         countries[b].increaseArmyCount(1);
                         countries[b].getRuler().increaseArmyCount(1);
-                        System.out.println(countries[b].getRuler().getName() + " has won the first part of the attack");
+                        result=(countries[b].getRuler().getName() + " has won the first part of the attack");
                     }
 
                     if (h2r > h2w) {
@@ -763,78 +818,76 @@ public class Board {
                         countries[b].getRuler().decreaseArmyCount(1);
                         countries[a].increaseArmyCount(1);
                         countries[a].getRuler().increaseArmyCount(1);
-                        System.out.println(countries[a].getRuler().getName() + " has won the second part of the attack");
+                        result= result+ " and " +  (countries[a].getRuler().getName() + " has won the second part of the attack");
                     } else if (h2w > h2r) {
                         countries[a].decreaseArmyCount(1);
                         countries[a].getRuler().decreaseArmyCount(1);
                         countries[b].increaseArmyCount(1);
                         countries[b].getRuler().increaseArmyCount(1);
-                        System.out.println(countries[b].getRuler().getName() + " has won the second part of the attack");
+                        result=result+ " and " + (countries[b].getRuler().getName() + " has won the second part of the attack");
                     } else {
                         countries[a].decreaseArmyCount(1);
                         countries[a].getRuler().decreaseArmyCount(1);
                         countries[b].increaseArmyCount(1);
                         countries[b].getRuler().increaseArmyCount(1);
-                        System.out.println(countries[b].getRuler().getName() + " has won the second part of the attack");
+                        result=result + " and " + (countries[b].getRuler().getName() + " has won the second part of the attack");
                     }
                 }
 
-                if (countries[b].getArmies() == 0) {
-                    System.out.println(countries[b].getRuler().getName() + " you have no armies remaining in "
-                            + countries[b].getName());
-
-                    System.out.println(countries[a].getRuler().getName() + " has conquered your country.");
-
-                    countries[b].getRuler().removeCountry(countries[b]);
-                    countries[b].setRuler(countries[a].getRuler());
-                    countries[a].getRuler().addCountry(countries[b]);
-
-                    System.out.println(countries[a].getRuler().getName() + " you must reinforce the country you have just" +
-                            " conquered with a minimum of " + attackDice + " armies.");
-
-                    System.out.println("How many armies would you like to reinforce " + countries[b].getName() + ": ");
-                    reinforceNumber = s.nextInt();
-
-                    while (!((reinforceNumber >= attackDice) && (reinforceNumber < countries[a].getArmies()))) {
-                        System.out.println("How many armies would you like to reinforce " + countries[b].getName() + ": ");
-                        reinforceNumber = s.nextInt();
-                    }
-
-                    //fortify(countries[a], countries[b], reinforceNumber);
-
-
-                }
-
-            } else {
-                System.out.println("You do not have enough armies on " + countries[a].getName() + " to attack." +
-                        " You need a minimum of two armies.");
             }
+            return result;
         }
 
-
-    public void fortify(String moveFrom, String moveTo, int armyAmount) {
+    /**
+     * This method handles the fortify function in the game
+     * @param moveFrom Country that armies are being moved from
+     * @param moveTo Country that armies are being moved to
+     * @param armyAmount Amount of armies being moved/fortified
+     * @return String representation of fortify details
+     */
+    public String fortify(String moveFrom, String moveTo, int armyAmount) {
         int m = mapCountryToIndex(moveFrom);
         int n = mapCountryToIndex(moveTo);
 
-        if(countries[m].getRuler()==countries[n].getRuler()) {
-
-            if (checkAdjacentCountries(countries[m], countries[n])) {
-
-                if (armyAmount - 1 < countries[m].getArmies()) {
+                if (armyAmount + 1 <= countries[m].getArmies()) {
 
                     countries[m].decreaseArmyCount(armyAmount);
                     countries[n].increaseArmyCount(armyAmount);
-                    System.out.println("Successful Fortify");
+                    return "Successful Fortify";
 
-                } else if (armyAmount > countries[m].getArmies()) {
-                    System.out.println("armyAmount exceeds countries current Army");
-                } else {
-                    System.out.println("The two countries are not adjacent. Can not fortify");
+                } else  {
+                    return "Army transfer amount exceeds the amount of armies in the origin country.";
                 }
-            }
-        }
-        System.out.println("The countries are not owned by the same person");
     }
+
+    /**
+     * This method concatenates multiple strings which must be displayed when a country is conquered by a player
+     * @param c1
+     * @param c2
+     * @param dice Number of dice
+     * @return
+     */
+    public String conquered(String c1, String c2, int dice){
+        String info;
+        int a, b;
+        a= mapCountryToIndex(c1);
+        b=mapCountryToIndex(c2);
+
+        info = (countries[b].getRuler().getName() + " you have no armies remaining in "
+                + countries[b].getName());
+
+        info = info + " " + (countries[a].getRuler().getName() + " has conquered your country.");
+
+        countries[b].getRuler().removeCountry(countries[b]);
+        countries[b].setRuler(countries[a].getRuler());
+        countries[a].getRuler().addCountry(countries[b]);
+
+        info = info + " " + (countries[a].getRuler().getName() + " you must reinforce the country you have just" +
+                " conquered with a minimum of " + dice + " armies.");
+        System.out.println(info);
+        return info;
+    }
+
 }
 
 
