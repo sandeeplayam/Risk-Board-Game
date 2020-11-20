@@ -18,7 +18,7 @@ public class Controller implements ActionListener {
     private int menu;
 
     private int numPlayers, numOfAttackDice, playerNumber, country1Index, country2Index;
-    private String country1, country2, info, temp;
+    private String country1, country2, info, temp, info1,info2;
 
     /**
      * The constructor for the Controller class
@@ -121,6 +121,7 @@ public class Controller implements ActionListener {
      */
     private void selectLevelPerformed(ActionEvent e) {
         String input;
+        info2="";
 
         if (e.getSource().getClass() == JButton.class) {
             JButton placeHolder = (JButton) e.getSource();
@@ -142,6 +143,13 @@ public class Controller implements ActionListener {
                 menu = 2;
                 playerNumber=0;
 
+                for (Player p : model.playerArray) {
+                    temp = "\n" + p.getName() + " rules:\n";
+                    info2 = info2.concat(temp);
+                    info2 = info2.concat(p.getRuledCountriesInfo());
+                }
+                view.stateOfTheMap(info2);
+
                 //Assign bonus armies (3 or more)
                 int newArmies = (model.playerArray.get(playerNumber).getCountrySizes() / 3);
                 model.playerArray.get(playerNumber).increaseArmyCount(newArmies);
@@ -151,8 +159,11 @@ public class Controller implements ActionListener {
                 for(int b = 0; b < newArmies; b++) {
                     String country = view.addArmyToCountry();
                     int g = model.mapCountryToIndex(country);
+                    System.out.print(country);
+                    System.out.print(model.playerArray.get(playerNumber).getRuledCountriesInfo());
 
-                    while(model.playerArray.get(playerNumber).ownsCountry(country)){
+                    while(model.playerArray.get(playerNumber).ownsCountry(country)==false){
+                        System.out.println(model.playerArray.get(playerNumber).ownsCountry(country));
                         view.notRuler();
                         country = view.addArmyToCountry();
                         g=model.mapCountryToIndex(country);
@@ -298,6 +309,14 @@ public class Controller implements ActionListener {
                     }
                     view.passForSure(playerNumber + 1);
                 }
+                info1="";
+
+                for (Player p : model.playerArray) {
+                    temp = "\n" + p.getName() + " rules:\n";
+                    info1 = info1.concat(temp);
+                    info1 = info1.concat(p.getRuledCountriesInfo());
+                }
+                view.stateOfTheMap(info1);
 
                 //Continent Bonus
                 int newArmies =0;

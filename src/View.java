@@ -745,6 +745,7 @@ public class View {
 
     public String addArmyToCountry (){
         return String.valueOf(JOptionPane.showInputDialog("Which country would you like to add an army too?"));
+
     }
 
     public void notRuler(){

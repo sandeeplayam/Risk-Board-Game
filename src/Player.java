@@ -60,7 +60,7 @@ public class Player {
      */
     public boolean ownsCountry(String name) {
         for (int i = 0; i < getCountrySizes(); i++) {
-            if(ruleCountries.get(i).equals(name)) {
+            if(ruleCountries.get(i).getName().equals(name)) {
                 return true;
             }
         }
