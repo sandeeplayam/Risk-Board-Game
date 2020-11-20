@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 
 /**
@@ -141,7 +142,7 @@ public class Controller implements ActionListener {
                 menu = 2;
                 playerNumber=0;
 
-                //Assign bonus armies for first player
+                //Assign bonus armies (3 or more)
                 int newArmies = (model.playerArray.get(playerNumber).getCountrySizes() / 3);
                 model.playerArray.get(playerNumber).increaseArmyCount(newArmies);
 
@@ -151,9 +152,10 @@ public class Controller implements ActionListener {
                     String country = view.addArmyToCountry();
                     int g = model.mapCountryToIndex(country);
 
-                    while((model.playerArray.get(playerNumber).ownsCountry(country))){
+                    while(model.playerArray.get(playerNumber).ownsCountry(country)){
                         view.notRuler();
                         country = view.addArmyToCountry();
+                        g=model.mapCountryToIndex(country);
                     }
 
                     model.getCountries(g).increaseArmyCount(1);
@@ -296,8 +298,20 @@ public class Controller implements ActionListener {
                     }
                     view.passForSure(playerNumber + 1);
                 }
+
+                //Continent Bonus
+                int newArmies =0;
+                ArrayList<String> continentOwned;
+                continentOwned=model.ownContinent(playerNumber);
+
+                if(continentOwned.size()>0){
+                    for(int i =0;i<continentOwned.size();i++){
+                        newArmies= newArmies + model.continentBonus(continentOwned.get(i));
+                    }
+                }
+
                 //Assign bonus armies (3 or more)
-                int newArmies = (model.playerArray.get(playerNumber).getCountrySizes() / 3);
+                newArmies = (model.playerArray.get(playerNumber).getCountrySizes() / 3) + newArmies;
                 model.playerArray.get(playerNumber).increaseArmyCount(newArmies);
 
                 view.bonusArmies(model.playerArray.get(playerNumber).getName(),newArmies);
@@ -306,9 +320,10 @@ public class Controller implements ActionListener {
                     String country = view.addArmyToCountry();
                     int g = model.mapCountryToIndex(country);
 
-                    while((model.playerArray.get(playerNumber).ownsCountry(country))){
+                    while(model.playerArray.get(playerNumber).ownsCountry(country)){
                         view.notRuler();
                         country = view.addArmyToCountry();
+                        g=model.mapCountryToIndex(country);
                     }
 
                     model.getCountries(g).increaseArmyCount(1);
