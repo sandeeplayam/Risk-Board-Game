@@ -139,8 +139,26 @@ public class Controller implements ActionListener {
                 model = new Board(numPlayers);
                 view.mainScreen();
                 menu = 2;
+                playerNumber=0;
+
+                //Assign bonus armies for first player
+                int newArmies = (model.playerArray.get(playerNumber).getCountrySizes() / 3);
+                model.playerArray.get(playerNumber).increaseArmyCount(newArmies);
+
+                view.bonusArmies(model.playerArray.get(playerNumber).getName(),newArmies);
+
+                for(int b = 0; b < newArmies; b++) {
+                    String country = view.addArmyToCountry();
+                    int g = model.mapCountryToIndex(country);
+
+                    while((model.playerArray.get(playerNumber).ownsCountry(country))){
+                        view.notRuler();
+                        country = view.addArmyToCountry();
+                    }
+
+                    model.getCountries(g).increaseArmyCount(1);
+                }
             }
-            playerNumber = 0;
         }
     }
 
@@ -277,6 +295,23 @@ public class Controller implements ActionListener {
                         playerNumber++;
                     }
                     view.passForSure(playerNumber + 1);
+                }
+                //Assign bonus armies (3 or more)
+                int newArmies = (model.playerArray.get(playerNumber).getCountrySizes() / 3);
+                model.playerArray.get(playerNumber).increaseArmyCount(newArmies);
+
+                view.bonusArmies(model.playerArray.get(playerNumber).getName(),newArmies);
+
+                for(int b = 0; b < newArmies; b++) {
+                    String country = view.addArmyToCountry();
+                    int g = model.mapCountryToIndex(country);
+
+                    while((model.playerArray.get(playerNumber).ownsCountry(country))){
+                        view.notRuler();
+                        country = view.addArmyToCountry();
+                    }
+
+                    model.getCountries(g).increaseArmyCount(1);
                 }
             }
 

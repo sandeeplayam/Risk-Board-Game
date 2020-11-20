@@ -737,4 +737,18 @@ public class View {
                         " attacking from than the amount of dice you want to roll.",
                 "Warning", JOptionPane.WARNING_MESSAGE, new ImageIcon(getClass().getResource("res/riskLogo.png")));
     }
+
+    public void bonusArmies(String name, int numOfArmies){
+        JOptionPane.showMessageDialog(this.frame, name + " receives " + numOfArmies + " bonus armies ",
+                "Message", JOptionPane.WARNING_MESSAGE, new ImageIcon(getClass().getResource("res/riskLogo.png")));
+    }
+
+    public String addArmyToCountry (){
+        return String.valueOf(JOptionPane.showInputDialog("Which country would you like to add an army too?"));
+    }
+
+    public void notRuler(){
+        JOptionPane.showMessageDialog(this.frame, "You do not own this country. Please try again.",
+                "Message", JOptionPane.WARNING_MESSAGE, new ImageIcon(getClass().getResource("res/riskLogo.png")));
+    }
 }
