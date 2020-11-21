@@ -18,7 +18,7 @@ public class Controller implements ActionListener {
     private int menu;
 
     private int numPlayers, numOfAttackDice, playerNumber, country1Index, country2Index;
-    private String country1, country2, info, temp, info1,info2;
+    private String country1, country2, info, temp,temp1,temp2,info1,info2;
 
     /**
      * The constructor for the Controller class
@@ -30,6 +30,12 @@ public class Controller implements ActionListener {
         menu = 0;
         numPlayers = 0;
         numOfAttackDice = 0;
+        info="";
+        info1="";
+        info2="";
+        temp="";
+        temp1="";
+        temp2="";
     }
 
     @Override
@@ -90,7 +96,6 @@ public class Controller implements ActionListener {
      */
     private void jMenuBarPerformed(ActionEvent e) {
         String input;
-        info = "";
 
         JMenuItem placeHolder = (JMenuItem) e.getSource();
         input = placeHolder.getText();
@@ -121,7 +126,7 @@ public class Controller implements ActionListener {
      */
     private void selectLevelPerformed(ActionEvent e) {
         String input;
-        info2="";
+
 
         if (e.getSource().getClass() == JButton.class) {
             JButton placeHolder = (JButton) e.getSource();
@@ -144,8 +149,8 @@ public class Controller implements ActionListener {
                 playerNumber=0;
 
                 for (Player p : model.playerArray) {
-                    temp = "\n" + p.getName() + " rules:\n";
-                    info2 = info2.concat(temp);
+                    temp2 = "\n" + p.getName() + " rules:\n";
+                    info2 = info2.concat(temp2);
                     info2 = info2.concat(p.getRuledCountriesInfo());
                 }
                 view.stateOfTheMap(info2);
@@ -309,14 +314,14 @@ public class Controller implements ActionListener {
                     }
                     view.passForSure(playerNumber + 1);
                 }
-                info1="";
+                System.out.println(playerNumber);
 
-                for (Player p : model.playerArray) {
-                    temp = "\n" + p.getName() + " rules:\n";
-                    info1 = info1.concat(temp);
+               for (Player p : model.playerArray) {
+                    temp1 = "\n" + p.getName() + " rules:\n";
+                    info1 = info1.concat(temp1);
                     info1 = info1.concat(p.getRuledCountriesInfo());
                 }
-                view.stateOfTheMap(info1);
+               view.stateOfTheMap(info1);
 
                 //Continent Bonus
                 int newArmies =0;
@@ -339,7 +344,7 @@ public class Controller implements ActionListener {
                     String country = view.addArmyToCountry();
                     int g = model.mapCountryToIndex(country);
 
-                    while(model.playerArray.get(playerNumber).ownsCountry(country)){
+                    while(!(model.playerArray.get(playerNumber).ownsCountry(country))){
                         view.notRuler();
                         country = view.addArmyToCountry();
                         g=model.mapCountryToIndex(country);
