@@ -144,6 +144,8 @@ public class Controller implements ActionListener {
                 numPlayers = 6;
             } else if (input.equals("Start Game") && numPlayers != 0) {
                 model = new Board(numPlayers);
+                //view.selectAi(numPlayers);
+                model.setAi(view.selectAi(numPlayers));
                 view.mainScreen();
                 menu = 2;
                 playerNumber=0;
@@ -155,27 +157,39 @@ public class Controller implements ActionListener {
                 }
                 view.stateOfTheMap(info2);
 
-                //Assign bonus armies (3 or more)
-                int newArmies = (model.playerArray.get(playerNumber).getCountrySizes() / 3);
-                model.playerArray.get(playerNumber).increaseArmyCount(newArmies);
+                if (!model.playerArray.get(playerNumber).isPlayerAi()) {
 
-                view.bonusArmies(model.playerArray.get(playerNumber).getName(),newArmies);
+                    //Assign bonus armies (3 or more)
+                    int newArmies = (model.playerArray.get(playerNumber).getCountrySizes() / 3);
+                    model.playerArray.get(playerNumber).increaseArmyCount(newArmies);
 
-                for(int b = 0; b < newArmies; b++) {
-                    String country = view.addArmyToCountry();
-                    int g = model.mapCountryToIndex(country);
-                    System.out.print(country);
-                    System.out.print(model.playerArray.get(playerNumber).getRuledCountriesInfo());
+                    view.bonusArmies(model.playerArray.get(playerNumber).getName(),newArmies);
 
-                    while(model.playerArray.get(playerNumber).ownsCountry(country)==false){
-                        System.out.println(model.playerArray.get(playerNumber).ownsCountry(country));
-                        view.notRuler();
-                        country = view.addArmyToCountry();
-                        g=model.mapCountryToIndex(country);
+                    for(int b = 0; b < newArmies; b++) {
+                        String country = view.addArmyToCountry();
+                        int g = model.mapCountryToIndex(country);
+                        System.out.print(country);
+                        //System.out.print(model.playerArray.get(playerNumber).getRuledCountriesInfo());
+
+                        while(!model.playerArray.get(playerNumber).ownsCountry(country)){
+                            System.out.println(model.playerArray.get(playerNumber).ownsCountry(country));
+                            view.notRuler();
+                            country = view.addArmyToCountry();
+                            g=model.mapCountryToIndex(country);
+                        }
+
+                        model.getCountries(g).increaseArmyCount(1);
                     }
+                } else {
+                    String aiMove = "";
+                    int newArmies = (model.playerArray.get(playerNumber).getCountrySizes() / 3);
 
-                    model.getCountries(g).increaseArmyCount(1);
+                    for (int i = 0; i < newArmies; i++) {
+                        aiMove = aiMove.concat(model.aiAddBonusArmies(playerNumber) + "\n");
+                    }
+                    view.aiPlayerMoves(aiMove);
                 }
+
             }
         }
     }
@@ -313,45 +327,73 @@ public class Controller implements ActionListener {
                         playerNumber++;
                     }
                     view.passForSure(playerNumber + 1);
-                }
-                System.out.println(playerNumber);
 
-               for (Player p : model.playerArray) {
-                    temp1 = "\n" + p.getName() + " rules:\n";
-                    info1 = info1.concat(temp1);
-                    info1 = info1.concat(p.getRuledCountriesInfo());
-                }
-               view.stateOfTheMap(info1);
+                    if (!model.playerArray.get(playerNumber).isPlayerAi()) {
+                        for (Player p : model.playerArray) {
+                            temp1 = "\n" + p.getName() + " rules:\n";
+                            info1 = info1.concat(temp1);
+                            info1 = info1.concat(p.getRuledCountriesInfo());
+                        }
+                        view.stateOfTheMap(info1);
 
-                //Continent Bonus
-                int newArmies =0;
-                ArrayList<String> continentOwned;
-                continentOwned=model.ownContinent(playerNumber);
+                        //Continent Bonus
+                        int newArmies =0;
+                        ArrayList<String> continentOwned;
+                        continentOwned=model.ownContinent(playerNumber);
 
-                if(continentOwned.size()>0){
-                    for(int i =0;i<continentOwned.size();i++){
-                        newArmies= newArmies + model.continentBonus(continentOwned.get(i));
+                        if(continentOwned.size()>0){
+                            for(int i =0;i<continentOwned.size();i++){
+                                newArmies= newArmies + model.continentBonus(continentOwned.get(i));
+                            }
+                        }
+
+                        //Assign bonus armies (3 or more)
+                        newArmies = (model.playerArray.get(playerNumber).getCountrySizes() / 3) + newArmies;
+                        model.playerArray.get(playerNumber).increaseArmyCount(newArmies);
+
+                        view.bonusArmies(model.playerArray.get(playerNumber).getName(),newArmies);
+
+                        for(int b = 0; b < newArmies; b++) {
+                            String country = view.addArmyToCountry();
+                            int g = model.mapCountryToIndex(country);
+
+                            while(!(model.playerArray.get(playerNumber).ownsCountry(country))){
+                                view.notRuler();
+                                country = view.addArmyToCountry();
+                                g=model.mapCountryToIndex(country);
+                            }
+
+                            model.getCountries(g).increaseArmyCount(1);
+                        }
+                    } else {
+                        //Continent Bonus
+                        int newArmies =0;
+                        ArrayList<String> continentOwned;
+                        continentOwned=model.ownContinent(playerNumber);
+
+                        if(continentOwned.size()>0){
+                            for(int i =0;i<continentOwned.size();i++){
+                                newArmies= newArmies + model.continentBonus(continentOwned.get(i));
+                            }
+                        }
+
+                        //Assign bonus armies (3 or more)
+                        newArmies = (model.playerArray.get(playerNumber).getCountrySizes() / 3) + newArmies;
+                        //model.playerArray.get(playerNumber).increaseArmyCount(newArmies);
+                        String aiMove = "";
+
+                        for (int i = 0; i < newArmies; i++) {
+                            aiMove = aiMove.concat(model.aiAddBonusArmies(playerNumber) + "\n");
+                        }
+
+                        view.aiPlayerMoves(aiMove);
                     }
+
+
                 }
+                //System.out.println(playerNumber);
 
-                //Assign bonus armies (3 or more)
-                newArmies = (model.playerArray.get(playerNumber).getCountrySizes() / 3) + newArmies;
-                model.playerArray.get(playerNumber).increaseArmyCount(newArmies);
 
-                view.bonusArmies(model.playerArray.get(playerNumber).getName(),newArmies);
-
-                for(int b = 0; b < newArmies; b++) {
-                    String country = view.addArmyToCountry();
-                    int g = model.mapCountryToIndex(country);
-
-                    while(!(model.playerArray.get(playerNumber).ownsCountry(country))){
-                        view.notRuler();
-                        country = view.addArmyToCountry();
-                        g=model.mapCountryToIndex(country);
-                    }
-
-                    model.getCountries(g).increaseArmyCount(1);
-                }
             }
 
             if (placeHolder.getText().equals("FORTIFY!!")) {

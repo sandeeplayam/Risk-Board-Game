@@ -1,6 +1,6 @@
 
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @Author Sudarsana Sandeep, Danish Butt
@@ -982,6 +982,46 @@ public class Board {
             armies=5;
         }
         return armies;
+    }
+
+    public void setAi(ArrayList<Boolean> aiChoices) {
+        int i = 0;
+        for (Player p: playerArray) {
+            if (aiChoices.get(i)) {
+                p.setPlayerAsAi();
+            }
+            i++;
+            //System.out.println("Is Player " + i + " AI?: " + p.isPlayerAi());
+        }
+    }
+
+    public String aiAddBonusArmies(int currentPlayer) {
+        float countryArmyCount, sum;
+        float ratio, difference = 0, tempDifference;
+        Country tempCountry, countryToIncrement = null;
+
+        for (int i = 0; i < playerArray.get(currentPlayer).getCountrySizes(); i++) {
+            tempCountry = playerArray.get(currentPlayer).getCountry(i);
+            countryArmyCount = playerArray.get(currentPlayer).getCountry(i).getArmies();
+
+            sum = 0;
+
+            for (int j = 0; j < tempCountry.getAdjacentCountrySize(); j++) {
+                sum = sum + tempCountry.getAdjacentCountries().get(j).getArmies();
+            }
+
+            ratio = sum / tempCountry.getAdjacentCountrySize();
+            tempDifference = ratio - countryArmyCount;
+
+            if (tempDifference >= difference) {
+                difference = tempDifference;
+                countryToIncrement = tempCountry;
+            }
+        }
+
+        countryToIncrement.increaseArmyCount(1);
+
+        return "AI Player " + (currentPlayer + 1) + " added an army to " + countryToIncrement.getName();
     }
 
 

@@ -104,6 +104,10 @@ public class Country {
         return this.adjacentCountries;
     }
 
+    public int getAdjacentCountrySize() {
+        return this.adjacentCountries.size();
+    }
+
     public boolean equals(String name) {
         if(this.name == name) {
             return true;
@@ -111,4 +115,5 @@ public class Country {
             return false;
         }
     }
+
 }

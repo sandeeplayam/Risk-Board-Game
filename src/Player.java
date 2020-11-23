@@ -10,6 +10,7 @@ public class Player {
     private ArrayList<Continent> ruleContinent;
     private int armies;
     private String name;
+    private boolean isAI;
 
     /**
      * Constructor to create the Player object
@@ -22,6 +23,7 @@ public class Player {
         ruleContinent = new ArrayList<Continent>();
         this.name = name;
         this.armies = armies;
+        this.isAI = false;
 
     }
 
@@ -119,6 +121,18 @@ public class Player {
     public void decreaseArmyCount(int numArmy) {
         armies = armies - numArmy;
         //System.out.println();
+    }
+
+    public boolean isPlayerAi() {
+        return this.isAI;
+    }
+
+    public void setPlayerAsAi() {
+        this.isAI = true;
+    }
+
+    public Country getCountry(int index) {
+        return this.ruleCountries.get(index);
     }
 
 }
