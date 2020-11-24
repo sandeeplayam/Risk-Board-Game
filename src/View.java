@@ -834,6 +834,8 @@ public class View {
 
         JOptionPane.showMessageDialog(this.frame, state, "AI Moves", JOptionPane.INFORMATION_MESSAGE,
                 new ImageIcon(getClass().getResource("res/riskLogo.png")));
+
+        UIManager.put("OptionPane.minimumSize", new Dimension(200, 200));
     }
 
     public void invalidValue(){
