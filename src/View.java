@@ -1,8 +1,7 @@
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.Color;
-import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 /**
  * This class is used to display the view of the game
@@ -736,5 +735,104 @@ public class View {
         JOptionPane.showMessageDialog(this.frame, "You must have one more army in the country you are" +
                         " attacking from than the amount of dice you want to roll.",
                 "Warning", JOptionPane.WARNING_MESSAGE, new ImageIcon(getClass().getResource("res/riskLogo.png")));
+    }
+
+    public void bonusArmies(String name, int numOfArmies){
+        JOptionPane.showMessageDialog(this.frame, name + " receives " + numOfArmies + " bonus armies ",
+                "Message", JOptionPane.WARNING_MESSAGE, new ImageIcon(getClass().getResource("res/riskLogo.png")));
+    }
+
+    public String addArmyToCountry (){
+        return String.valueOf(JOptionPane.showInputDialog("Which country would you like to add an army too?"));
+
+    }
+
+    public void notRuler(){
+        JOptionPane.showMessageDialog(this.frame, "You do not own this country. Please try again.",
+                "Message", JOptionPane.WARNING_MESSAGE, new ImageIcon(getClass().getResource("res/riskLogo.png")));
+    }
+
+    public ArrayList selectAi(int numPlayers) {
+
+        ArrayList aiPlayerList = new ArrayList<Boolean>();
+        String msg = "Please select which players you would like for to be an AI player";
+        Object[] content;
+
+        JCheckBox p1 = null, p2 = null, p3 = null, p4 = null, p5 = null, p6 = null;
+
+        if (numPlayers == 2) {
+            p1 = new JCheckBox("Player 1");
+            p2 = new JCheckBox("Player 2");
+            content = new Object[]{msg, p1, p2};
+        } else if (numPlayers == 3) {
+            p1 = new JCheckBox("Player 1");
+            p2 = new JCheckBox("Player 2");
+            p3 = new JCheckBox("Player 3");
+            content = new Object[]{msg, p1, p2, p3};
+        } else if (numPlayers == 4) {
+            p1 = new JCheckBox("Player 1");
+            p2 = new JCheckBox("Player 2");
+            p3 = new JCheckBox("Player 3");
+            p4 = new JCheckBox("Player 4");
+            content = new Object[]{msg, p1, p2, p3, p4};
+        } else if (numPlayers == 5) {
+            p1 = new JCheckBox("Player 1");
+            p2 = new JCheckBox("Player 2");
+            p3 = new JCheckBox("Player 3");
+            p4 = new JCheckBox("Player 4");
+            p5 = new JCheckBox("Player 5");
+            content = new Object[]{msg, p1, p2, p3, p4, p5};
+        } else {
+            p1 = new JCheckBox("Player 1");
+            p2 = new JCheckBox("Player 2");
+            p3 = new JCheckBox("Player 3");
+            p4 = new JCheckBox("Player 4");
+            p5 = new JCheckBox("Player 5");
+            p6 = new JCheckBox("Player 6");
+            content = new Object[]{msg, p1, p2, p3, p4, p5, p6};
+        }
+
+        JOptionPane.showMessageDialog(this.frame,content, "AI", JOptionPane.OK_OPTION,
+                new ImageIcon(getClass().getResource("res/riskLogo.png")));
+
+        if (numPlayers == 2) {
+            aiPlayerList.add(p1.isSelected());
+            aiPlayerList.add(p2.isSelected());
+        } else if (numPlayers == 3) {
+            aiPlayerList.add(p1.isSelected());
+            aiPlayerList.add(p2.isSelected());
+            aiPlayerList.add(p3.isSelected());
+        } else if (numPlayers == 4) {
+            aiPlayerList.add(p1.isSelected());
+            aiPlayerList.add(p2.isSelected());
+            aiPlayerList.add(p3.isSelected());
+            aiPlayerList.add(p4.isSelected());
+        } else if (numPlayers == 5) {
+            aiPlayerList.add(p1.isSelected());
+            aiPlayerList.add(p2.isSelected());
+            aiPlayerList.add(p3.isSelected());
+            aiPlayerList.add(p4.isSelected());
+            aiPlayerList.add(p5.isSelected());
+        } else {
+            aiPlayerList.add(p1.isSelected());
+            aiPlayerList.add(p2.isSelected());
+            aiPlayerList.add(p3.isSelected());
+            aiPlayerList.add(p4.isSelected());
+            aiPlayerList.add(p5.isSelected());
+            aiPlayerList.add(p6.isSelected());
+        }
+
+        return aiPlayerList;
+    }
+
+    public void aiPlayerMoves(String info) {
+        JTextArea infoArea = new JTextArea(20, 25);
+        infoArea.setText(info);
+        JScrollPane state = new JScrollPane(infoArea);
+
+        UIManager.put("OptionPane.minimumSize", new Dimension(1000, 500));
+
+        JOptionPane.showMessageDialog(this.frame, state, "AI Moves", JOptionPane.INFORMATION_MESSAGE,
+                new ImageIcon(getClass().getResource("res/riskLogo.png")));
     }
 }
