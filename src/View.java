@@ -830,6 +830,8 @@ public class View {
         infoArea.setText(info);
         JScrollPane state = new JScrollPane(infoArea);
 
+        UIManager.put("OptionPane.minimumSize", new Dimension(1000, 500));
+
         JOptionPane.showMessageDialog(this.frame, state, "AI Moves", JOptionPane.INFORMATION_MESSAGE,
                 new ImageIcon(getClass().getResource("res/riskLogo.png")));
     }

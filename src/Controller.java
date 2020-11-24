@@ -181,14 +181,44 @@ public class Controller implements ActionListener {
                         model.getCountries(g).increaseArmyCount(1);
                     }
                 } else {
-                    String aiMove = "";
-                    int newArmies = (model.playerArray.get(playerNumber).getCountrySizes() / 3);
+                    aiPlayerLoop();
 
-                    for (int i = 0; i < newArmies; i++) {
-                        aiMove = aiMove.concat(model.aiAddBonusArmies(playerNumber) + "\n");
+                    for (Player p : model.playerArray) {
+                        temp1 = "\n" + p.getName() + " rules:\n";
+                        info1 = info1.concat(temp1);
+                        info1 = info1.concat(p.getRuledCountriesInfo());
                     }
-                    aiMove = aiMove.concat(model.aiAttackMove(playerNumber));
-                    view.aiPlayerMoves(aiMove);
+                    view.stateOfTheMap(info1);
+
+                    //Continent Bonus
+                    int newArmies =0;
+                    ArrayList<String> continentOwned;
+                    continentOwned=model.ownContinent(playerNumber);
+
+                    if(continentOwned.size()>0){
+                        for(int i =0;i<continentOwned.size();i++){
+                            newArmies= newArmies + model.continentBonus(continentOwned.get(i));
+                        }
+                    }
+
+                    //Assign bonus armies (3 or more)
+                    newArmies = (model.playerArray.get(playerNumber).getCountrySizes() / 3) + newArmies;
+                    model.playerArray.get(playerNumber).increaseArmyCount(newArmies);
+
+                    view.bonusArmies(model.playerArray.get(playerNumber).getName(),newArmies);
+
+                    for(int b = 0; b < newArmies; b++) {
+                        String country = view.addArmyToCountry();
+                        int g = model.mapCountryToIndex(country);
+
+                        while(!(model.playerArray.get(playerNumber).ownsCountry(country))){
+                            view.notRuler();
+                            country = view.addArmyToCountry();
+                            g=model.mapCountryToIndex(country);
+                        }
+
+                        model.getCountries(g).increaseArmyCount(1);
+                    }
                 }
 
             }
@@ -367,6 +397,16 @@ public class Controller implements ActionListener {
                             model.getCountries(g).increaseArmyCount(1);
                         }
                     } else {
+                        aiPlayerLoop();
+                        
+
+                        for (Player p : model.playerArray) {
+                            temp1 = "\n" + p.getName() + " rules:\n";
+                            info1 = info1.concat(temp1);
+                            info1 = info1.concat(p.getRuledCountriesInfo());
+                        }
+                        view.stateOfTheMap(info1);
+
                         //Continent Bonus
                         int newArmies =0;
                         ArrayList<String> continentOwned;
@@ -380,15 +420,22 @@ public class Controller implements ActionListener {
 
                         //Assign bonus armies (3 or more)
                         newArmies = (model.playerArray.get(playerNumber).getCountrySizes() / 3) + newArmies;
-                        //model.playerArray.get(playerNumber).increaseArmyCount(newArmies);
-                        String aiMove = "";
+                        model.playerArray.get(playerNumber).increaseArmyCount(newArmies);
 
-                        for (int i = 0; i < newArmies; i++) {
-                            aiMove = aiMove.concat(model.aiAddBonusArmies(playerNumber) + "\n");
+                        view.bonusArmies(model.playerArray.get(playerNumber).getName(),newArmies);
+
+                        for(int b = 0; b < newArmies; b++) {
+                            String country = view.addArmyToCountry();
+                            int g = model.mapCountryToIndex(country);
+
+                            while(!(model.playerArray.get(playerNumber).ownsCountry(country))){
+                                view.notRuler();
+                                country = view.addArmyToCountry();
+                                g=model.mapCountryToIndex(country);
+                            }
+
+                            model.getCountries(g).increaseArmyCount(1);
                         }
-
-                        aiMove = aiMove.concat(model.aiAttackMove(playerNumber));
-                        view.aiPlayerMoves(aiMove);
                     }
 
 
@@ -426,6 +473,40 @@ public class Controller implements ActionListener {
                     country1 = null;
                 }
             }
+    }
+
+    private void aiPlayerLoop() {
+        int newArmies =0;
+        ArrayList<String> continentOwned;
+        continentOwned=model.ownContinent(playerNumber);
+
+        if(continentOwned.size()>0){
+            for(int i =0;i<continentOwned.size();i++){
+                newArmies= newArmies + model.continentBonus(continentOwned.get(i));
+            }
         }
+
+        //Assign bonus armies (3 or more)
+        newArmies = (model.playerArray.get(playerNumber).getCountrySizes() / 3) + newArmies;
+        //model.playerArray.get(playerNumber).increaseArmyCount(newArmies);
+        String aiMove = "";
+
+        for (int i = 0; i < newArmies; i++) {
+            aiMove = aiMove.concat(model.aiAddBonusArmies(playerNumber) + "\n");
+        }
+
+        aiMove = aiMove.concat(model.aiAttackMove(playerNumber));
+        view.aiPlayerMoves(aiMove);
+        if (playerNumber == (model.playerArray.size() - 1)) {
+            playerNumber = 0;
+        } else {
+            playerNumber++;
+        }
+        view.passForSure(playerNumber + 1);
+
+        if (model.playerArray.get(playerNumber).isPlayerAi()) {
+            aiPlayerLoop();
+        }
+    }
 
 }

@@ -859,7 +859,7 @@ public class Board {
             }
 
         }
-        return result;
+        return result + "\n";
     }
 
     /**
@@ -878,7 +878,7 @@ public class Board {
 
             countries[m].decreaseArmyCount(armyAmount);
             countries[n].increaseArmyCount(armyAmount);
-            return "Successful Fortify";
+            return "Successful Fortify \n";
 
         } else {
             return "Army transfer amount exceeds the amount of armies in the origin country.";
