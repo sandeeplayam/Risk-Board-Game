@@ -187,6 +187,7 @@ public class Controller implements ActionListener {
                     for (int i = 0; i < newArmies; i++) {
                         aiMove = aiMove.concat(model.aiAddBonusArmies(playerNumber) + "\n");
                     }
+                    aiMove = aiMove.concat(model.aiAttackMove(playerNumber));
                     view.aiPlayerMoves(aiMove);
                 }
 
@@ -386,6 +387,7 @@ public class Controller implements ActionListener {
                             aiMove = aiMove.concat(model.aiAddBonusArmies(playerNumber) + "\n");
                         }
 
+                        aiMove = aiMove.concat(model.aiAttackMove(playerNumber));
                         view.aiPlayerMoves(aiMove);
                     }
 

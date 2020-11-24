@@ -910,7 +910,7 @@ public class Board {
 
         info = info + " " + (countries[a].getRuler().getName() + " you must reinforce the country you have just" +
                 " conquered with a minimum of " + dice + " armies.");
-        System.out.println(info);
+        //System.out.println(info);
         return info;
     }
 
@@ -1024,5 +1024,142 @@ public class Board {
         return "AI Player " + (currentPlayer + 1) + " added an army to " + countryToIncrement.getName();
     }
 
+    public String aiAttackMove(int currentPlayer) {
+        String info = "";
+        double ratio, difference = 0, tempDifference;
+        Country tempMyCountry, tempEnemyCountry, myCountry = null, enemyCountry = null,
+                bestToAttack = null, bestToAttackFrom = null;
+        int numOfAttackDice = 0;
 
+        Map<Country, Country> prospectCountriesToAttack = new HashMap<>();
+
+        for (int k = 0; k < 3; k++) {
+            for (int i = 0; i < playerArray.get(currentPlayer).getCountrySizes(); i++) {
+                tempMyCountry = playerArray.get(currentPlayer).getCountry(i);
+
+                if (tempMyCountry.getArmies() > 2) {
+                    for (int j = 0; j < tempMyCountry.getAdjacentCountrySize(); j++) {
+
+                        if (!tempMyCountry.getRuler().getName()
+                                .equals(tempMyCountry.getAdjacentCountries().get(j).getRuler().getName())) {
+
+                            tempEnemyCountry = tempMyCountry.getAdjacentCountries().get(j);
+                            tempDifference = tempMyCountry.getArmies() - tempEnemyCountry.getArmies();
+
+                            if (tempDifference >= difference) {
+                                difference = tempDifference;
+                                myCountry = tempMyCountry;
+                                enemyCountry = tempEnemyCountry;
+                            }
+                        }
+
+                    }
+                    prospectCountriesToAttack.put(myCountry, enemyCountry);
+                }
+
+            }
+
+            difference = 0;
+
+            for (int i = 0; i < prospectCountriesToAttack.size(); i++) {
+
+                tempMyCountry = playerArray.get(currentPlayer).getCountry(i);
+
+                if (prospectCountriesToAttack.containsKey(tempMyCountry)) {
+
+                    tempEnemyCountry = prospectCountriesToAttack.get(tempMyCountry);
+                    tempDifference = tempMyCountry.getArmies() - tempEnemyCountry.getArmies();
+
+                    if (tempDifference >= difference) {
+                        difference = tempDifference;
+                        bestToAttack = tempEnemyCountry;
+                        bestToAttackFrom = tempMyCountry;
+                    }
+                }
+
+            }
+
+            //assert bestToAttackFrom != null;
+            if (bestToAttackFrom.getArmies() > 3) {
+                numOfAttackDice = 3;
+
+                info = info.concat("AI Player " + (currentPlayer + 1) + " chose to attack " + bestToAttack.getName()
+                        + " from " + bestToAttackFrom.getName() + " with " + numOfAttackDice + " armies" + "\n");
+
+                info = info.concat(attack(bestToAttackFrom.getName(), bestToAttack.getName(), numOfAttackDice));
+
+            } else if (bestToAttackFrom.getArmies() > 2) {
+                numOfAttackDice = 2;
+
+                info = info.concat("AI Player " + (currentPlayer + 1) + " chose to attack " + bestToAttack.getName()
+                        + " from " + bestToAttackFrom.getName() + " with " + numOfAttackDice + " armies" + "\n");
+
+                info = info.concat(attack(bestToAttackFrom.getName(), bestToAttack.getName(), numOfAttackDice));
+
+            } else if (bestToAttackFrom.getArmies() == 2) {
+                numOfAttackDice = 1;
+
+                info = info.concat("AI Player " + (currentPlayer + 1) + " chose to attack " + bestToAttack.getName()
+                        + " from " + bestToAttackFrom.getName() + " with " + numOfAttackDice + " armies" + "\n");
+
+                info = info.concat(attack(bestToAttackFrom.getName(), bestToAttack.getName(), numOfAttackDice));
+            }
+
+            int index = mapCountryToIndex(bestToAttack.getName());
+            bestToAttack = countries[index];
+            index = mapCountryToIndex(bestToAttackFrom.getName());
+            bestToAttackFrom = countries[index];
+
+            if (bestToAttack.getArmies() == 0) {
+                info = info.concat(conquered(bestToAttackFrom.getName(), bestToAttack.getName(), numOfAttackDice));
+                info = info.concat(fortify(bestToAttackFrom.getName(), bestToAttack.getName(), numOfAttackDice));
+            }
+
+            prospectCountriesToAttack.clear();
+//            bestToAttack = null;
+//            bestToAttackFrom = null;
+
+            aiFortifyMove(currentPlayer);
+        }
+
+        aiFortifyMove(currentPlayer);
+        return info;
+    }
+
+    public String aiFortifyMove(int currentPlayer) {
+        String info = "";
+        Country originCountry, destCountry;
+
+        for (int i = 0; i < playerArray.get(currentPlayer).getCountrySizes(); i++) {
+
+            if (playerArray.get(currentPlayer).getCountry(i).getArmies() >= 3) {
+                originCountry = playerArray.get(currentPlayer).getCountry(i);
+
+                for (int j = 0; j < originCountry.getAdjacentCountrySize(); j++) {
+                    destCountry = originCountry.getAdjacentCountries().get(j);
+
+                    if (originCountry.getRuler().getName().equals(destCountry.getRuler().getName())) {
+                        if ((destCountry.getArmies() < 2) && (originCountry.getArmies() >= 5)) {
+
+                            info = info.concat(fortify(originCountry.getName(), destCountry.getName(), 2));
+                            info = info.concat("AI Player " + (currentPlayer + 1) + " fortified from "
+                                    + originCountry.getName() + " to " + destCountry.getName()
+                                    + " with 2 armies");
+
+                        } else if ((destCountry.getArmies() <= 2) && (originCountry.getArmies() >= 3)) {
+
+                            info = info.concat(fortify(originCountry.getName(), destCountry.getName(), 1));
+                            info = info.concat("AI Player " + (currentPlayer + 1) + " fortified from "
+                                    + originCountry.getName() + " to " + destCountry.getName()
+                                    + " with 1 army");
+
+                        }
+                    }
+
+                }
+            }
+        }
+
+        return info;
+    }
 }
