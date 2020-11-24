@@ -285,6 +285,7 @@ public class Board {
         countries[4].setAdjacentCountries(countries[6]);
         countries[4].setAdjacentCountries(countries[10]);
         countries[4].setAdjacentCountries(countries[14]);
+        countries[4].setAdjacentCountries(countries[27]);
 
         //setting adjacent countries for China
         countries[5].setAdjacentCountries(countries[6]);
@@ -1161,5 +1162,65 @@ public class Board {
         }
 
         return info;
+    }
+
+    /**
+     * This method performs a depth search path to find all possible paths from one country
+     * to another country
+     * @param CountryA
+     * @param CountryB
+     * @param visitedIndex
+     * @param paths
+     */
+    public void dfsSearch(String CountryA, String CountryB, boolean[] visitedIndex, ArrayList<String> paths) {
+
+        //Mark first country as visited
+        int a = mapCountryToIndex(CountryA);
+        visitedIndex[a] = true;
+
+        int i;
+
+        for (i = 0; i < countries[a].getAdjacentCountries().size(); i++) {
+            System.out.println("H:" + i);
+
+            if ((!visitedIndex[mapCountryToIndex(countries[a].getAdjacentCountries().get(i).getName())])
+                    && (countries[a].getAdjacentCountries().get(i).getRuler().equals(countries[a].getRuler()))) {
+
+                //if destination country reached
+                if ((countries[a].getAdjacentCountries().get(i).getName().equals(CountryB))) {
+                    paths.add("t");
+
+                } else {
+                    dfsSearch(countries[a].getAdjacentCountries().get(i).getName(), CountryB, visitedIndex, paths);
+                }
+
+            } else {
+                paths.add("f");
+            }
+        }
+
+    }
+
+    /**
+     * This method takes in 2 countries and runs the dfs search
+     * It contains the paths array which will return which paths are valid (based on the
+     * counties the player owns)
+     * @param CountryA
+     * @param CountryB
+     * @return
+     */
+    public String runDFS(String CountryA, String CountryB){
+        boolean[] visitedIndex= new boolean[42];
+        ArrayList<String> paths = new ArrayList<>();
+        String Result;
+
+        dfsSearch(CountryA,CountryB,visitedIndex,paths);
+
+        if(paths.contains("t")){
+            return Result = "true";
+        }else{
+            return Result ="false";
+        }
+
     }
 }

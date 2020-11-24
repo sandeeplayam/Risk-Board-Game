@@ -835,4 +835,51 @@ public class View {
         JOptionPane.showMessageDialog(this.frame, state, "AI Moves", JOptionPane.INFORMATION_MESSAGE,
                 new ImageIcon(getClass().getResource("res/riskLogo.png")));
     }
+
+    public void invalidValue(){
+        JOptionPane.showMessageDialog(this.frame, "You have entered an invalid value. Please try again.",
+                "Message", JOptionPane.WARNING_MESSAGE, new ImageIcon(getClass().getResource("res/riskLogo.png")));
+    }
+
+    public String troupeMovement (){
+        return String.valueOf(JOptionPane.showInputDialog("Would you like to do troupe movement?"));
+    }
+
+    public String troupeCountryA (){
+        return String.valueOf(JOptionPane.showInputDialog("Which country would you like to move armies from?"));
+    }
+
+    public String troupeCountryB (){
+        return String.valueOf(JOptionPane.showInputDialog("Which country would you like to add armies too?"));
+    }
+
+    public void bothSameCountry(){
+        JOptionPane.showMessageDialog(this.frame, "You have entered the same country for moving/adding. Please try again",
+                "Message", JOptionPane.WARNING_MESSAGE, new ImageIcon(getClass().getResource("res/riskLogo.png")));
+    }
+
+    public int numOfTroupeArmies() {
+        return Integer.parseInt(JOptionPane.showInputDialog("How many armies would you like to move in TROUPE MOVEMENT?"));
+    }
+
+    public void armiesGreater(){
+        JOptionPane.showMessageDialog(this.frame, "You do not own this many armies in the country you are moving armies from. Please try again",
+                "Message", JOptionPane.WARNING_MESSAGE, new ImageIcon(getClass().getResource("res/riskLogo.png")));
+    }
+
+    public void leaveOne(){
+        JOptionPane.showMessageDialog(this.frame, "You must leave at least 1 army in the country you are moving armies from. Please try again",
+                "Message", JOptionPane.WARNING_MESSAGE, new ImageIcon(getClass().getResource("res/riskLogo.png")));
+    }
+
+    public void TroupeDone(){
+        JOptionPane.showMessageDialog(this.frame, "Troupe Movement Successful",
+                "Message", JOptionPane.WARNING_MESSAGE, new ImageIcon(getClass().getResource("res/riskLogo.png")));
+    }
+
+    public void noTroupeDone(){
+        JOptionPane.showMessageDialog(this.frame, "Troupe movement not successful. There are no possible paths.",
+                "Message", JOptionPane.WARNING_MESSAGE, new ImageIcon(getClass().getResource("res/riskLogo.png")));
+    }
+
 }

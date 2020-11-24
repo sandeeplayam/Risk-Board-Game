@@ -171,14 +171,19 @@ public class Controller implements ActionListener {
                         System.out.print(country);
                         //System.out.print(model.playerArray.get(playerNumber).getRuledCountriesInfo());
 
-                        while(!model.playerArray.get(playerNumber).ownsCountry(country)){
-                            System.out.println(model.playerArray.get(playerNumber).ownsCountry(country));
-                            view.notRuler();
-                            country = view.addArmyToCountry();
-                            g=model.mapCountryToIndex(country);
-                        }
+                        while (model.playerArray.get(playerNumber).ownsCountry(country) == false || g == -1) {
 
-                        model.getCountries(g).increaseArmyCount(1);
+                            if (g == -1) {
+                                view.invalidValue();
+                                country = view.addArmyToCountry();
+                                g = model.mapCountryToIndex(country);
+                            } else {
+                                view.notRuler();
+                                country = view.addArmyToCountry();
+                                g = model.mapCountryToIndex(country);
+                            }
+
+                        }
                     }
                 } else {
                     aiPlayerLoop();
@@ -311,6 +316,79 @@ public class Controller implements ActionListener {
                     country1 = null;
                     country2 = null;
                     numOfAttackDice = 0;
+
+                    //Troupe Movement
+                    String troupe = view.troupeMovement();
+
+                    if (troupe.equals("yes")) {
+                        String countryA = view.troupeCountryA();
+                        int a = model.mapCountryToIndex(countryA);
+
+                        //Check if first country is valid/owned by the player
+                        while (model.playerArray.get(playerNumber).ownsCountry(countryA) == false || a == -1) {
+                            if (a == -1) {
+                                view.invalidValue();
+                                countryA = view.troupeCountryA();
+                                a = model.mapCountryToIndex(countryA);
+                            } else {
+                                view.notRuler();
+                                countryA = view.troupeCountryA();
+                                a = model.mapCountryToIndex(countryA);
+                            }
+                        }
+
+                        String countryB = view.troupeCountryB();
+                        int b = model.mapCountryToIndex(countryB);
+
+                        //Check if second country is valid/owned by the player and that the same country was not entered
+                        while (model.playerArray.get(playerNumber).ownsCountry(countryB) == false || b == -1 || b == a) {
+
+                            if (b == -1) {
+                                view.invalidValue();
+                                countryB = view.troupeCountryB();
+                                b = model.mapCountryToIndex(countryB);
+                            } else if (b == a) {
+                                view.bothSameCountry();
+                                countryB = view.troupeCountryB();
+                                b = model.mapCountryToIndex(countryB);
+
+                            } else {
+                                view.notRuler();
+                                countryB = view.troupeCountryB();
+                                b = model.mapCountryToIndex(countryB);
+                            }
+                        }
+
+
+                        int numOfTroupeArmies = view.numOfTroupeArmies();
+
+                        //Check number of armies given is valid(according to rules)
+                        while (numOfTroupeArmies > model.getCountries(a).getArmies() || numOfTroupeArmies == model.getCountries(a).getArmies() - 1) {
+
+                            //check if armies is not greater than armies owned in country
+                            if (numOfTroupeArmies > model.getCountries(a).getArmies()) {
+                                view.armiesGreater();
+                                numOfTroupeArmies = view.numOfTroupeArmies();
+
+                                //Must leave 1 army behind in the country that they are moving armies from
+                            } else {
+                                view.leaveOne();
+                                numOfTroupeArmies = view.numOfTroupeArmies();
+                            }
+                        }
+
+                        //Call Troupe Movement
+                        String r = model.runDFS(countryA, countryB);
+
+                        if (r == "true") {
+                            view.TroupeDone();
+                            model.getCountries(model.mapCountryToIndex(countryA)).decreaseArmyCount(numOfTroupeArmies);
+                            model.getCountries(model.mapCountryToIndex(countryB)).increaseArmyCount(numOfTroupeArmies);
+                        } else {
+                            view.noTroupeDone();
+                        }
+                    }
+
                 }
 
             }
@@ -388,12 +466,18 @@ public class Controller implements ActionListener {
                             String country = view.addArmyToCountry();
                             int g = model.mapCountryToIndex(country);
 
-                            while(!(model.playerArray.get(playerNumber).ownsCountry(country))){
-                                view.notRuler();
-                                country = view.addArmyToCountry();
-                                g=model.mapCountryToIndex(country);
-                            }
+                            while(model.playerArray.get(playerNumber).ownsCountry(country)==false || g==-1){
 
+                                if(g==-1){
+                                    view.invalidValue();
+                                    country = view.addArmyToCountry();
+                                    g=model.mapCountryToIndex(country);
+                                }else{
+                                    view.notRuler();
+                                    country = view.addArmyToCountry();
+                                    g=model.mapCountryToIndex(country);
+                                }
+                            }
                             model.getCountries(g).increaseArmyCount(1);
                         }
                     } else {
