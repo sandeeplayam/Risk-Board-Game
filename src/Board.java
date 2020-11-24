@@ -903,14 +903,14 @@ public class Board {
         info = (countries[b].getRuler().getName() + " you have no armies remaining in "
                 + countries[b].getName());
 
-        info = info + " " + (countries[a].getRuler().getName() + " has conquered your country.");
+        info = info + " " + (countries[a].getRuler().getName() + " has conquered your country. \n");
 
         countries[b].getRuler().removeCountry(countries[b]);
         countries[b].setRuler(countries[a].getRuler());
         countries[a].getRuler().addCountry(countries[b]);
 
-        info = info + " " + (countries[a].getRuler().getName() + " you must reinforce the country you have just" +
-                " conquered with a minimum of " + dice + " armies.");
+        info = info + (countries[a].getRuler().getName() + " you must reinforce the country you have just" +
+                " conquered with a minimum of " + dice + " armies. \n");
         //System.out.println(info);
         return info;
     }
