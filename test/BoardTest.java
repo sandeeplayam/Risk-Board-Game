@@ -87,5 +87,33 @@ public class BoardTest {
         assertTrue(board.getCountries(n).getArmies()==3);
     }
 
+    @Test
+    public void continentBonusTest(){
+        //Asia should be assigned 7 armies
+        int armies = board.continentBonus("Asia");
+
+        //Check that Asia was assigned 7 armies
+        assertEquals(armies, 7);
+    }
+
+    @Test
+    public void ownContinentTest(){
+        //Check if player 2 owns any continents
+        //At the start of the game they shouldn't won any continents
+        // so the size of the array returned by this method should be 0
+        assertTrue(board.ownContinent(1).size()==0);
+    }
+
+    @Test
+    public void runDFSTest(){
+
+        //There is a path from India to Siam (with countries owned by this player
+        //so should return true
+        assertEquals(board.runDFS("India","Siam"),"true");
+
+        //There is no path from India to Alaska (with countries owned by this player
+        //so should return false
+        assertEquals(board.runDFS("India","Alaska"),"false");
+    }
 
 }
