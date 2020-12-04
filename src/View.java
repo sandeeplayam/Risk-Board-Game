@@ -884,4 +884,13 @@ public class View {
                 "Message", JOptionPane.WARNING_MESSAGE, new ImageIcon(getClass().getResource("res/riskLogo.png")));
     }
 
+    public void addAdditionalArmies(String name, int numOfArmies){
+        JOptionPane.showMessageDialog(this.frame, "Bonus Army Placement Successful\n" + name + " can add " + numOfArmies + " more bonus armies ",
+                "Message", JOptionPane.WARNING_MESSAGE, new ImageIcon(getClass().getResource("res/riskLogo.png")));
+    }
+
+    public void bonusArmySuccess(){
+        JOptionPane.showMessageDialog(this.frame, "Bonus Army Placement Successful",
+                "Message", JOptionPane.WARNING_MESSAGE, new ImageIcon(getClass().getResource("res/riskLogo.png")));
+    }
 }

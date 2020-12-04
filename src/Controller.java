@@ -104,6 +104,8 @@ public class Controller implements ActionListener {
         if (input.equals("Rules")) {
             view.showRules();
         } else if (input.equals("Map State")) {
+            temp="";
+            info="";
             for (Player p : model.playerArray) {
                 temp = "\n" + p.getName() + " rules:\n";
                 info = info.concat(temp);
@@ -150,12 +152,6 @@ public class Controller implements ActionListener {
                 menu = 2;
                 playerNumber=0;
 
-                for (Player p : model.playerArray) {
-                    temp2 = "\n" + p.getName() + " rules:\n";
-                    info2 = info2.concat(temp2);
-                    info2 = info2.concat(p.getRuledCountriesInfo());
-                }
-                view.stateOfTheMap(info2);
 
                 if (!model.playerArray.get(playerNumber).isPlayerAi()) {
 
@@ -166,6 +162,16 @@ public class Controller implements ActionListener {
                     view.bonusArmies(model.playerArray.get(playerNumber).getName(),newArmies);
 
                     for(int b = 0; b < newArmies; b++) {
+
+                        temp2="";
+                        info2="";
+                        for (Player p : model.playerArray) {
+                            temp2 = "\n" + p.getName() + " rules:\n";
+                            info2 = info2.concat(temp2);
+                            info2 = info2.concat(p.getRuledCountriesInfo());
+                        }
+                        view.stateOfTheMap(info2);
+
                         String country = view.addArmyToCountry();
                         int g = model.mapCountryToIndex(country);
                         System.out.print(country);
@@ -177,17 +183,39 @@ public class Controller implements ActionListener {
                                 view.invalidValue();
                                 country = view.addArmyToCountry();
                                 g = model.mapCountryToIndex(country);
+
                             } else {
                                 view.notRuler();
+
+                                temp2="";
+                                info2="";
+                                for (Player p : model.playerArray) {
+                                    temp2 = "\n" + p.getName() + " rules:\n";
+                                    info2 = info2.concat(temp2);
+                                    info2 = info2.concat(p.getRuledCountriesInfo());
+                                }
+                                view.stateOfTheMap(info2);
+
                                 country = view.addArmyToCountry();
                                 g = model.mapCountryToIndex(country);
+
                             }
 
                         }
+                        model.getCountries(g).increaseArmyCount(1);
+                        int newNum= newArmies-b-1;
+                        if(newNum!=0){
+                            view.addAdditionalArmies(model.playerArray.get(playerNumber).getName(),newNum);
+                        }else {
+                        view.bonusArmySuccess();
+                    }
+
                     }
                 } else {
                     aiPlayerLoop();
 
+                    temp1="";
+                    info1="";
                     for (Player p : model.playerArray) {
                         temp1 = "\n" + p.getName() + " rules:\n";
                         info1 = info1.concat(temp1);
@@ -207,22 +235,59 @@ public class Controller implements ActionListener {
                     }
 
                     //Assign bonus armies (3 or more)
-                    newArmies = (model.playerArray.get(playerNumber).getCountrySizes() / 3) + newArmies;
+                    newArmies = (model.playerArray.get(playerNumber).getCountrySizes() / 3);
                     model.playerArray.get(playerNumber).increaseArmyCount(newArmies);
 
                     view.bonusArmies(model.playerArray.get(playerNumber).getName(),newArmies);
 
                     for(int b = 0; b < newArmies; b++) {
+
+                        temp2 = "";
+                        info2 = "";
+                        for (Player p : model.playerArray) {
+                            temp2 = "\n" + p.getName() + " rules:\n";
+                            info2 = info2.concat(temp2);
+                            info2 = info2.concat(p.getRuledCountriesInfo());
+                        }
+                        view.stateOfTheMap(info2);
+
                         String country = view.addArmyToCountry();
                         int g = model.mapCountryToIndex(country);
+                        System.out.print(country);
+                        //System.out.print(model.playerArray.get(playerNumber).getRuledCountriesInfo());
 
-                        while(!(model.playerArray.get(playerNumber).ownsCountry(country))){
-                            view.notRuler();
-                            country = view.addArmyToCountry();
-                            g=model.mapCountryToIndex(country);
+                        while (model.playerArray.get(playerNumber).ownsCountry(country) == false || g == -1) {
+
+                            if (g == -1) {
+                                view.invalidValue();
+                                country = view.addArmyToCountry();
+                                g = model.mapCountryToIndex(country);
+                            } else {
+                                view.notRuler();
+
+                                temp2="";
+                                info2="";
+                                for (Player p : model.playerArray) {
+                                    temp2 = "\n" + p.getName() + " rules:\n";
+                                    info2 = info2.concat(temp2);
+                                    info2 = info2.concat(p.getRuledCountriesInfo());
+                                }
+                                view.stateOfTheMap(info2);
+
+                                country = view.addArmyToCountry();
+                                g = model.mapCountryToIndex(country);
+
+                            }
+
+                        }
+                        model.getCountries(g).increaseArmyCount(1);
+                        int newNum = newArmies - b - 1;
+                        if (newNum != 0) {
+                            view.addAdditionalArmies(model.playerArray.get(playerNumber).getName(), newNum);
+                        } else {
+                            view.bonusArmySuccess();
                         }
 
-                        model.getCountries(g).increaseArmyCount(1);
                     }
                 }
 
@@ -438,12 +503,7 @@ public class Controller implements ActionListener {
                     view.passForSure(playerNumber + 1);
 
                     if (!model.playerArray.get(playerNumber).isPlayerAi()) {
-                        for (Player p : model.playerArray) {
-                            temp1 = "\n" + p.getName() + " rules:\n";
-                            info1 = info1.concat(temp1);
-                            info1 = info1.concat(p.getRuledCountriesInfo());
-                        }
-                        view.stateOfTheMap(info1);
+
 
                         //Continent Bonus
                         int newArmies =0;
@@ -463,6 +523,15 @@ public class Controller implements ActionListener {
                         view.bonusArmies(model.playerArray.get(playerNumber).getName(),newArmies);
 
                         for(int b = 0; b < newArmies; b++) {
+
+                            info1="";
+                            temp1="";
+                            for (Player p : model.playerArray) {
+                                temp1 = "\n" + p.getName() + " rules:\n";
+                                info1 = info1.concat(temp1);
+                                info1 = info1.concat(p.getRuledCountriesInfo());
+                            }
+                            view.stateOfTheMap(info1);
                             String country = view.addArmyToCountry();
                             int g = model.mapCountryToIndex(country);
 
@@ -474,16 +543,33 @@ public class Controller implements ActionListener {
                                     g=model.mapCountryToIndex(country);
                                 }else{
                                     view.notRuler();
+
+                                    temp2="";
+                                    info2="";
+                                    for (Player p : model.playerArray) {
+                                        temp2 = "\n" + p.getName() + " rules:\n";
+                                        info2 = info2.concat(temp2);
+                                        info2 = info2.concat(p.getRuledCountriesInfo());
+                                    }
+                                    view.stateOfTheMap(info2);
+
                                     country = view.addArmyToCountry();
                                     g=model.mapCountryToIndex(country);
                                 }
                             }
                             model.getCountries(g).increaseArmyCount(1);
+                            int newNum1= newArmies-b-1;
+                            if(newNum1!=0){
+                                view.addAdditionalArmies(model.playerArray.get(playerNumber).getName(),newNum1);
+                            }else {
+                                view.bonusArmySuccess();
+                            }
                         }
                     } else {
                         aiPlayerLoop();
                         
-
+                        temp1="";
+                        info1="";
                         for (Player p : model.playerArray) {
                             temp1 = "\n" + p.getName() + " rules:\n";
                             info1 = info1.concat(temp1);
@@ -509,16 +595,48 @@ public class Controller implements ActionListener {
                         view.bonusArmies(model.playerArray.get(playerNumber).getName(),newArmies);
 
                         for(int b = 0; b < newArmies; b++) {
+
+                            info1 = "";
+                            temp1 = "";
+                            for (Player p : model.playerArray) {
+                                temp1 = "\n" + p.getName() + " rules:\n";
+                                info1 = info1.concat(temp1);
+                                info1 = info1.concat(p.getRuledCountriesInfo());
+                            }
+                            view.stateOfTheMap(info1);
                             String country = view.addArmyToCountry();
                             int g = model.mapCountryToIndex(country);
 
-                            while(!(model.playerArray.get(playerNumber).ownsCountry(country))){
-                                view.notRuler();
-                                country = view.addArmyToCountry();
-                                g=model.mapCountryToIndex(country);
-                            }
+                            while (model.playerArray.get(playerNumber).ownsCountry(country) == false || g == -1) {
 
+                                if (g == -1) {
+                                    view.invalidValue();
+                                    country = view.addArmyToCountry();
+                                    g = model.mapCountryToIndex(country);
+                                } else {
+                                    view.notRuler();
+
+                                    temp2="";
+                                    info2="";
+                                    for (Player p : model.playerArray) {
+                                        temp2 = "\n" + p.getName() + " rules:\n";
+                                        info2 = info2.concat(temp2);
+                                        info2 = info2.concat(p.getRuledCountriesInfo());
+                                    }
+                                    view.stateOfTheMap(info2);
+
+                                    country = view.addArmyToCountry();
+                                    g = model.mapCountryToIndex(country);
+
+                                }
+                            }
                             model.getCountries(g).increaseArmyCount(1);
+                            int newNum1 = newArmies - b - 1;
+                            if (newNum1 != 0) {
+                                view.addAdditionalArmies(model.playerArray.get(playerNumber).getName(), newNum1);
+                            } else {
+                                view.bonusArmySuccess();
+                            }
                         }
                     }
 
