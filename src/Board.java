@@ -1,13 +1,13 @@
 
+import java.io.Serializable;
 import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * @Author Sudarsana Sandeep, Danish Butt
  * The Board class is the Model in the MVC pattern for this project,
  * and is where most of the data manipulation and game logic occurs.
  */
-public class Board {
+public class Board implements Serializable {
 
     private final Country[] countries = new Country[42];
     private final ArrayList<Continent> continents;
@@ -1222,5 +1222,9 @@ public class Board {
             return Result ="false";
         }
 
+    }
+
+    public Country[] getCountryList(){
+        return countries;
     }
 }

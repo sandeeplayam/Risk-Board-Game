@@ -11,7 +11,7 @@ public class View {
 
     private JFrame frame;
     private Controller controller;
-    private JMenuItem mapState, mainMenu, help;
+    private JMenuItem mapState, mainMenu, help, save;
     int choice;
     public static final Color pink= new Color(255,153,255);
     public static final Color brown = new Color(168,126,40);
@@ -54,17 +54,23 @@ public class View {
         help = new JMenuItem("Help");
         JMenuItem quit = new JMenuItem("Quit");
         mainMenu = new JMenuItem("Main Menu");
+        save = new JMenuItem("Save");
+
 
         options.add(help);
         options.add(rules);
         options.add(mapState);
         options.add(quit);
+        options.add(save);
 
         rules.addActionListener(controller);
         mapState.addActionListener(controller);
         quit.addActionListener(controller);
         help.addActionListener(controller);
+        save.addActionListener(controller);
         help.setVisible(false);
+        save.setVisible(false);
+
 
         frame.setVisible(true);
         startMenu();
@@ -80,6 +86,7 @@ public class View {
         mapState.setVisible(false);
         mainMenu.setVisible(false);
         help.setVisible(false);
+        save.setVisible(false);
 
         frame.getContentPane().removeAll();
 
@@ -97,7 +104,7 @@ public class View {
         JPanel buttons = new JPanel(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
 
-        JButton start = new JButton("Start");
+        JButton start = new JButton("Start New Game");
         start.setFont(new Font("Calibri", Font.PLAIN, 40));
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
@@ -113,9 +120,19 @@ public class View {
         c.ipady = 50;
         rules.addActionListener(controller);
 
+        JButton load = new JButton("Load Game");
+        load.setFont(new Font("Calibri", Font.PLAIN, 40));
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 2;
+        c.gridy = 0;
+        c.ipady = 50;
+        load.addActionListener(controller);
+
+
         //Add buttons to startMenu frame
         buttons.add(rules);
         buttons.add(start);
+        buttons.add(load);
         startMenu.add(buttons, BorderLayout.CENTER);
 
         frame.validate();
@@ -130,6 +147,7 @@ public class View {
     public void createNumOfPlayers() {
 
         help.setVisible(false);
+        save.setVisible(false);
         frame.getContentPane().removeAll();
 
         //Create numOfPlayers panel
@@ -193,6 +211,7 @@ public class View {
 
         help.setVisible(true);
         mapState.setVisible(true);
+        save.setVisible(true);
         frame.getContentPane().removeAll();
 
         //Create main screen panel
@@ -484,10 +503,6 @@ public class View {
         mainScreen.add(controls, BorderLayout.EAST);
         frame.validate();
         frame.repaint();
-
-        //Display starting game message
-        JOptionPane.showMessageDialog(this.frame, "The game shall begin with Player 1",
-                "Info",JOptionPane.INFORMATION_MESSAGE, new ImageIcon(getClass().getResource("res/riskLogo.png")));
 
 
     }
@@ -892,5 +907,21 @@ public class View {
     public void bonusArmySuccess(){
         JOptionPane.showMessageDialog(this.frame, "Bonus Army Placement Successful",
                 "Message", JOptionPane.WARNING_MESSAGE, new ImageIcon(getClass().getResource("res/riskLogo.png")));
+    }
+
+    public void saveConfirmed(){
+        JOptionPane.showMessageDialog(this.frame, "Game has been saved",
+                "Message", JOptionPane.WARNING_MESSAGE, new ImageIcon(getClass().getResource("res/riskLogo.png")));
+    }
+
+    public void playerTurn(int n){
+        JOptionPane.showMessageDialog(this.frame, "Game has been loaded. It is Player " + n + " 's turn.",
+                "Message", JOptionPane.WARNING_MESSAGE, new ImageIcon(getClass().getResource("res/riskLogo.png")));
+    }
+
+    public void gameShallBegin(){
+        //Display starting game message
+        JOptionPane.showMessageDialog(this.frame, "The game shall begin with Player 1",
+                "Info",JOptionPane.INFORMATION_MESSAGE, new ImageIcon(getClass().getResource("res/riskLogo.png")));
     }
 }

@@ -1,11 +1,12 @@
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * This class represents the Continent objects in the game of Risk
  * @author Sudarsana Sandeep
  */
-public class Continent {
+public class Continent implements Serializable {
 
     private String name;
     private int bonusArmy;

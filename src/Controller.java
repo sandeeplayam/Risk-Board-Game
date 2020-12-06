@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.ArrayList;
 
 
@@ -16,8 +17,9 @@ public class Controller implements ActionListener {
     private Board model;
     private View view;
     private int menu;
+    private SaveAndLoad saveLoad;
 
-    private int numPlayers, numOfAttackDice, playerNumber, country1Index, country2Index;
+    private int numPlayers, numOfAttackDice, playerNumber, country1Index, country2Index, saveDone;
     private String country1, country2, info, temp, temp1, temp2, info1, info2;
 
     /**
@@ -25,6 +27,7 @@ public class Controller implements ActionListener {
      * @param view Takes in an instance of the view to invoke operations on it
      */
     public Controller(View view) {
+        saveLoad = new SaveAndLoad();
 
         this.view = view;
         menu = 0;
@@ -36,7 +39,10 @@ public class Controller implements ActionListener {
         temp="";
         temp1="";
         temp2="";
+        saveDone=0;
     }
+
+
 
     @Override
     /**
@@ -47,12 +53,22 @@ public class Controller implements ActionListener {
     public void actionPerformed(ActionEvent e) {
 
         if (e.getSource().getClass() == JMenuItem.class) {
-            jMenuBarPerformed(e);
+            try {
+                jMenuBarPerformed(e);
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
         } else {
 
             switch (menu) {
                 case 0:
-                    startPerformed(e);
+                    try {
+                        startPerformed(e);
+                    } catch (IOException ioException) {
+                        ioException.printStackTrace();
+                    } catch (ClassNotFoundException classNotFoundException) {
+                        classNotFoundException.printStackTrace();
+                    }
                     break;
 
                 case 1:
@@ -72,18 +88,26 @@ public class Controller implements ActionListener {
      * screen/panel of the game
      * @param e An action event which is generated anytime something on the view occurs
      */
-    private void startPerformed(ActionEvent e) {
+    private void startPerformed(ActionEvent e) throws IOException, ClassNotFoundException {
         String input;
 
         if (e.getSource().getClass() == JButton.class) {
             JButton placeHolder = (JButton) e.getSource();
             input = placeHolder.getText();
 
-            if (input.equals("Start")) {
+            if (input.equals("Start New Game")) {
                 view.createNumOfPlayers();
                 menu = 1;
             } else if (input.equals("Rules")) {
                 view.showRules();
+            } else if (input.equals ("Load Game")){
+                
+                model= saveLoad.loadBoard();
+                view.mainScreen();
+                playerNumber=saveLoad.loadPlayerNum();
+
+                view.playerTurn(playerNumber+1);
+                menu=2;
             }
         }
     }
@@ -94,7 +118,7 @@ public class Controller implements ActionListener {
      * the GUI
      * @param e An action event which is generated anytime something on the view occurs
      */
-    private void jMenuBarPerformed(ActionEvent e) {
+    private void jMenuBarPerformed(ActionEvent e) throws IOException {
         String input;
 
         JMenuItem placeHolder = (JMenuItem) e.getSource();
@@ -117,6 +141,13 @@ public class Controller implements ActionListener {
             view.quit();
         } else if (input.equals("Help")) {
             view.help();
+        } else if(input.equals("Save")){
+
+            saveLoad.saveBoard(model);
+           //saveLoad.saveMapState(model.getCountryList());
+           saveLoad.savePlayerNum(playerNumber);
+           view.saveConfirmed();
+           saveDone=1;
         }
     }
 
@@ -149,6 +180,7 @@ public class Controller implements ActionListener {
                 //view.selectAi(numPlayers);
                 model.setAi(view.selectAi(numPlayers));
                 view.mainScreen();
+                view.gameShallBegin();
                 menu = 2;
                 playerNumber=0;
 
@@ -710,5 +742,7 @@ public class Controller implements ActionListener {
             aiPlayerLoop();
         }
     }
+
+
 
 }

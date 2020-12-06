@@ -1,10 +1,11 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * This class represents the Country objects on the map
  * @author Sudarsana Sandeep
  */
-public class Country {
+public class Country implements Serializable {
 
     private int armies;
     private String name;

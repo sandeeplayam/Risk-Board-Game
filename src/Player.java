@@ -1,10 +1,11 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * This class is for the Player objects being used in the model
  * @author Sudarsana Sandeep
  */
-public class Player {
+public class Player implements Serializable {
 
     private ArrayList<Country> ruleCountries;
     private ArrayList<Continent> ruleContinent;

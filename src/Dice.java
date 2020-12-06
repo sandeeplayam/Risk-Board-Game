@@ -1,9 +1,10 @@
 
 //@author Yasin Jamaac
 
+import java.io.Serializable;
 import java.util.*;
 
-public class Dice {
+public class Dice implements Serializable {
 
     /*
      /there is 5 dice in total, 2 white(defender) and 3 red(attacker)
