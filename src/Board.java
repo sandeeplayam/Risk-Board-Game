@@ -930,8 +930,10 @@ public class Board implements Serializable {
                 }
             }
 
-            if(s.contains("t")){
+            if(!(s.contains("f"))){
                 continentOwned.add(continents.get(i).getName());
+            }else{
+                
             }
         }
         return continentOwned;
