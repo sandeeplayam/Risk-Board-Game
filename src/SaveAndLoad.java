@@ -27,28 +27,6 @@ public class SaveAndLoad implements Serializable{
         return board;
     }
 
-    public void saveDone(int save, int n) throws IOException {
-        FileOutputStream fout = new FileOutputStream("Save Done" + n +".ser");
-        ObjectOutputStream oout = new ObjectOutputStream(fout);
-        oout.writeObject(save);
-        oout.close();
-        fout.close();
-
-    }
-
-    public int loadSaveDone(int n) throws IOException, ClassNotFoundException {
-        int value = 0;
-
-        FileInputStream fin = new FileInputStream("Save Done" + n + ".ser");
-        ObjectInputStream oin = new ObjectInputStream(fin);
-        value = (int) oin.readObject();
-        oin.close();
-        fin.close();
-
-        return value;
-    }
-
-
 
     public void savePlayerNum(int number, int n) throws IOException {
 

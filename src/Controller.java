@@ -19,7 +19,7 @@ public class Controller implements ActionListener {
     private int menu;
     private SaveAndLoad saveLoad;
 
-    private int numPlayers, numOfAttackDice, playerNumber, country1Index, country2Index, saveDone;
+    private int numPlayers, numOfAttackDice, playerNumber, country1Index, country2Index;
     private String country1, country2, info, temp, temp1, temp2, info1, info2;
 
     /**
@@ -39,7 +39,6 @@ public class Controller implements ActionListener {
         temp="";
         temp1="";
         temp2="";
-        saveDone=0;
 
     }
 
@@ -103,11 +102,6 @@ public class Controller implements ActionListener {
                 view.showRules();
             } else if (input.equals ("Load Game 1")){
 
-                int n1=saveLoad.loadSaveDone(1);
-
-                if(n1!=1){
-                    view.noLoad();
-                }else{
                     model= saveLoad.loadBoard(1);
 
                     view.mainScreen();
@@ -115,13 +109,8 @@ public class Controller implements ActionListener {
 
                     view.playerTurn(playerNumber+1);
                     menu=2;
-                }
 
             } else if (input.equals("Load Game 2")){
-
-                if(saveLoad.loadSaveDone(2) !=1){
-                    view.noLoad();
-                }else{
                     model= saveLoad.loadBoard(2);
 
                     view.mainScreen();
@@ -129,14 +118,8 @@ public class Controller implements ActionListener {
 
                     view.playerTurn(playerNumber+1);
                     menu=2;
-                }
 
             }else if(input.equals("Load Game 3")){
-                int n3=saveLoad.loadSaveDone(3);
-
-                if(n3!=1){
-                    view.noLoad();
-                }else{
                     model= saveLoad.loadBoard(3);
 
                     view.mainScreen();
@@ -144,7 +127,7 @@ public class Controller implements ActionListener {
 
                     view.playerTurn(playerNumber+1);
                     menu=2;
-                }
+
             }
         }
     }
@@ -188,8 +171,6 @@ public class Controller implements ActionListener {
             }
                 saveLoad.saveBoard(model,saveValue);
                 saveLoad.savePlayerNum(playerNumber,saveValue);
-                saveDone=1;
-                saveLoad.saveDone(saveDone,saveValue);
                 view.saveConfirmed();
         }
     }
