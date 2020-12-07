@@ -916,55 +916,27 @@ public class Board implements Serializable {
     }
 
     public ArrayList<String> ownContinent(int player) {
-        ArrayList<String> continent = new ArrayList<>();
+        ArrayList<String> continentOwned = new ArrayList<>();
 
-        //Australia
-        if (playerArray.get(player).ownsCountry(countries[0].getName()) && playerArray.get(player).ownsCountry(countries[1].getName())
-                && playerArray.get(player).ownsCountry(countries[2].getName()) && playerArray.get(player).ownsCountry(countries[3].getName())) {
+        for(int i=0;i<continents.size();i++){
+            String s ="";
 
-            continent.add("Australia");
+            for(int j=0;j<continents.get(i).getSize();j++){
 
-            //Asia
-        } else if (playerArray.get(player).ownsCountry(countries[4].getName()) && playerArray.get(player).ownsCountry(countries[5].getName())
-                && playerArray.get(player).ownsCountry(countries[6].getName()) && playerArray.get(player).ownsCountry(countries[7].getName())
-                && playerArray.get(player).ownsCountry(countries[8].getName()) && playerArray.get(player).ownsCountry(countries[9].getName())
-                && playerArray.get(player).ownsCountry(countries[10].getName()) && playerArray.get(player).ownsCountry(countries[11].getName())
-                && playerArray.get(player).ownsCountry(countries[12].getName()) && playerArray.get(player).ownsCountry(countries[13].getName())
-                && playerArray.get(player).ownsCountry(countries[14].getName()) && playerArray.get(player).ownsCountry(countries[15].getName())) {
+                if(playerArray.get(player).ownsCountry(continents.get(i).getCountries().get(j).getName())){
+                    s = s + "t";
+                }else{
+                    s = s + "f";
+                }
+            }
 
-            continent.add("Asia");
-
-            //Africa
-        } else if (playerArray.get(player).ownsCountry(countries[16].getName()) && playerArray.get(player).ownsCountry(countries[17].getName())
-                && playerArray.get(player).ownsCountry(countries[18].getName()) && playerArray.get(player).ownsCountry(countries[19].getName())
-                && playerArray.get(player).ownsCountry(countries[20].getName()) && playerArray.get(player).ownsCountry(countries[21].getName())) {
-
-            continent.add("Africa");
-
-            //Europe
-        } else if (playerArray.get(player).ownsCountry(countries[22].getName()) && playerArray.get(player).ownsCountry(countries[23].getName())
-                && playerArray.get(player).ownsCountry(countries[24].getName()) && playerArray.get(player).ownsCountry(countries[25].getName())
-                && playerArray.get(player).ownsCountry(countries[26].getName()) && playerArray.get(player).ownsCountry(countries[27].getName()) &&
-                playerArray.get(player).ownsCountry(countries[28].getName())) {
-
-            continent.add("Europe");
-
-            //South America
-        }else if(playerArray.get(player).ownsCountry(countries[29].getName()) && playerArray.get(player).ownsCountry(countries[30].getName())
-                && playerArray.get(player).ownsCountry(countries[31].getName()) && playerArray.get(player).ownsCountry(countries[32].getName())){
-
-            continent.add("South America");
-
-            //North America
-        }else if(playerArray.get(player).ownsCountry(countries[33].getName()) && playerArray.get(player).ownsCountry(countries[34].getName())
-                && playerArray.get(player).ownsCountry(countries[35].getName()) && playerArray.get(player).ownsCountry(countries[36].getName())
-                && playerArray.get(player).ownsCountry(countries[37].getName()) && playerArray.get(player).ownsCountry(countries[38].getName())
-                && playerArray.get(player).ownsCountry(countries[39].getName()) && playerArray.get(player).ownsCountry(countries[40].getName())
-                && playerArray.get(player).ownsCountry(countries[41].getName())){
-            continent.add("North America");
+            if(s.contains("t")){
+                continentOwned.add(continents.get(i).getName());
+            }
         }
-        return continent;
+        return continentOwned;
     }
+
 
     public int continentBonus(String continent){
         int armies=0;
@@ -1224,7 +1196,4 @@ public class Board implements Serializable {
 
     }
 
-    public Country[] getCountryList(){
-        return countries;
-    }
 }

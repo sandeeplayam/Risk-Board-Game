@@ -18,6 +18,10 @@ public class Continent implements Serializable {
         this.bonusArmy = bonusArmy;
     }
 
+    public int getSize(){
+        return countries.size();
+    }
+
     public int getBonusArmy() {
         return this.bonusArmy;
     }
