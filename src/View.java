@@ -245,95 +245,95 @@ public class View {
         mainScreen.add(logo, BorderLayout.CENTER);
 
         //Create panel for country buttons
-        JPanel countries = new JPanel(new GridLayout(15, 3));
+        JPanel countries = new JPanel(new GridLayout(23, 2));
 
         //Adding country buttons
-        JButton EasternAustralia = new JButton("Eastern Australia");
+        JButton EasternAustralia = new JButton("EASTERN AUSTRALIA");
         EasternAustralia.setBackground(pink);
         countries.add(EasternAustralia);
         EasternAustralia.addActionListener(controller);
 
-        JButton Indonesia = new JButton("Indonesia");
+        JButton Indonesia = new JButton("INDONESIA");
         Indonesia.setBackground(pink);
         countries.add(Indonesia);
         Indonesia.addActionListener(controller);
 
-        JButton NewGuinea = new JButton("New Guinea");
+        JButton NewGuinea = new JButton("NEW GUINEA");
         NewGuinea.setBackground(pink);
         countries.add(NewGuinea);
         NewGuinea.addActionListener(controller);
 
-        JButton WesternAustralia = new JButton("Western Australia");
+        JButton WesternAustralia = new JButton("WESTERN AUSTRALIA");
         WesternAustralia.setBackground(pink);
         countries.add(WesternAustralia);
         WesternAustralia.addActionListener(controller);
 
-        JButton Afghanistan = new JButton("Afghanistan");
+        JButton Afghanistan = new JButton("AFGHANISTAN");
         countries.add(Afghanistan);
         Afghanistan.setBackground(green);
         Afghanistan.addActionListener(controller);
 
-        JButton China = new JButton("China");
+        JButton China = new JButton("CHINA");
         countries.add(China);
         China.setBackground(green);
         China.addActionListener(controller);
 
-        JButton India = new JButton("India");
+        JButton India = new JButton("INDIA");
         countries.add(India);
         India.setBackground(green);
         India.addActionListener(controller);
 
-        JButton Irkutsk = new JButton("Irkutsk");
+        JButton Irkutsk = new JButton("IRKUTSK");
         countries.add(Irkutsk);
         Irkutsk.setBackground(green);
         Irkutsk.addActionListener(controller);
 
-        JButton Japan = new JButton("Japan");
+        JButton Japan = new JButton("JAPAN");
         countries.add(Japan);
         Japan.setBackground(green);
         Japan.addActionListener(controller);
 
-        JButton Kamchatka = new JButton("Kamchatka");
+        JButton Kamchatka = new JButton("KAMCHATKA");
         countries.add(Kamchatka);
         Kamchatka.setBackground(green);
         Kamchatka.addActionListener(controller);
 
-        JButton MiddleEast = new JButton("Middle East");
+        JButton MiddleEast = new JButton("MIDDLE EAST");
         countries.add(MiddleEast);
         MiddleEast.setBackground(green);
         MiddleEast.addActionListener(controller);
 
-        JButton Mongolia = new JButton("Mongolia");
+        JButton Mongolia = new JButton("MONGOLIA");
         countries.add(Mongolia);
         Mongolia.setBackground(green);
         Mongolia.addActionListener(controller);
 
-        JButton Siam = new JButton("Siam");
+        JButton Siam = new JButton("SIAM");
         countries.add(Siam);
         Siam.setBackground(green);
         Siam.addActionListener(controller);
 
-        JButton Siberia = new JButton("Siberia");
+        JButton Siberia = new JButton("SIBERIA");
         countries.add(Siberia);
         Siberia.setBackground(green);
         Siberia.addActionListener(controller);
 
-        JButton Ural = new JButton("Ural");
+        JButton Ural = new JButton("URAL");
         countries.add(Ural);
         Ural.setBackground(green);
         Ural.addActionListener(controller);
 
-        JButton Yakutsk = new JButton("Yakutsk");
+        JButton Yakutsk = new JButton("YAKUTSK");
         countries.add(Yakutsk);
         Yakutsk.setBackground(green);
         Yakutsk.addActionListener(controller);
 
-        JButton Congo = new JButton("Congo");
+        JButton Congo = new JButton("CONGO");
         countries.add(Congo);
         Congo.setBackground(brown);
         Congo.addActionListener(controller);
 
-        JButton EastAfrica = new JButton("East Africa");
+        JButton EastAfrica = new JButton("EAST AFRICA");
         countries.add(EastAfrica);
         EastAfrica.setBackground(brown);
         EastAfrica.addActionListener(controller);
@@ -343,117 +343,117 @@ public class View {
         Egypt.setBackground(brown);
         Egypt.addActionListener(controller);
 
-        JButton Madagascar = new JButton("Madagascar");
+        JButton Madagascar = new JButton("MADAGASCAR");
         countries.add(Madagascar);
         Madagascar.setBackground(brown);
         Madagascar.addActionListener(controller);
 
-        JButton NorthAfrica = new JButton("North Africa");
+        JButton NorthAfrica = new JButton("NORTH AFRICA");
         countries.add(NorthAfrica);
         NorthAfrica.setBackground(brown);
         NorthAfrica.addActionListener(controller);
 
-        JButton SouthAfrica = new JButton("South Africa");
+        JButton SouthAfrica = new JButton("SOUTH AFRICA");
         countries.add(SouthAfrica);
         SouthAfrica.setBackground(brown);
         SouthAfrica.addActionListener(controller);
 
-        JButton GreatBritain = new JButton("Great Britain");
+        JButton GreatBritain = new JButton("GREAT BRITAIN");
         countries.add(GreatBritain);
         GreatBritain.setBackground(blue);
         GreatBritain.addActionListener(controller);
 
-        JButton Iceland = new JButton("Iceland");
+        JButton Iceland = new JButton("ICELAND");
         countries.add(Iceland);
         Iceland.setBackground(blue);
         Iceland.addActionListener(controller);
 
-        JButton NorthernEurope = new JButton("Northern Europe");
+        JButton NorthernEurope = new JButton("NORTHERN EUROPE");
         countries.add(NorthernEurope);
         NorthernEurope.setBackground(blue);
         NorthernEurope.addActionListener(controller);
 
-        JButton Scandinavia = new JButton("Scandinavia");
+        JButton Scandinavia = new JButton("SCANDINAVIA");
         countries.add(Scandinavia);
         Scandinavia.setBackground(blue);
         Scandinavia.addActionListener(controller);
 
-        JButton SouthernEurope = new JButton("Southern Europe");
+        JButton SouthernEurope = new JButton("SOUTHERN EUROPE");
         countries.add(SouthernEurope);
         SouthernEurope.setBackground(blue);
         SouthernEurope.addActionListener(controller);
 
-        JButton Ukraine = new JButton("Ukraine");
+        JButton Ukraine = new JButton("UKRAINE");
         countries.add(Ukraine);
         Ukraine.setBackground(blue);
         Ukraine.addActionListener(controller);
 
-        JButton WesternEurope = new JButton("Western Europe");
+        JButton WesternEurope = new JButton("WESTERN EUROPE");
         countries.add(WesternEurope);
         WesternEurope.setBackground(blue);
         WesternEurope.addActionListener(controller);
 
-        JButton Argentina = new JButton("Argentina");
+        JButton Argentina = new JButton("ARGENTINA");
         countries.add(Argentina);
         Argentina.setBackground(yellow);
         Argentina.addActionListener(controller);
 
-        JButton Brazil = new JButton("Brazil");
+        JButton Brazil = new JButton("BRAZIL");
         countries.add(Brazil);
         Brazil.setBackground(yellow);
         Brazil.addActionListener(controller);
 
-        JButton Peru = new JButton("Peru");
+        JButton Peru = new JButton("PERU");
         countries.add(Peru);
         Peru.setBackground(yellow);
         Peru.addActionListener(controller);
 
-        JButton Venezuela = new JButton("Venezuela");
+        JButton Venezuela = new JButton("VENEZUELA");
         countries.add(Venezuela);
         Venezuela.setBackground(yellow);
         Venezuela.addActionListener(controller);
 
-        JButton Alaska = new JButton("Alaska");
+        JButton Alaska = new JButton("ALASKA");
         countries.add(Alaska);
         Alaska.setBackground(orange);
         Alaska.addActionListener(controller);
 
-        JButton Alberta = new JButton("Alberta");
+        JButton Alberta = new JButton("ALBERTA");
         countries.add(Alberta);
         Alberta.setBackground(orange);
         Alberta.addActionListener(controller);
 
-        JButton CentralAmerica = new JButton("Central America");
+        JButton CentralAmerica = new JButton("CENTRAL AMERICA");
         countries.add(CentralAmerica);
         CentralAmerica.setBackground(orange);
         CentralAmerica.addActionListener(controller);
 
-        JButton EasternUnitedStates = new JButton("Eastern United States");
+        JButton EasternUnitedStates = new JButton("EASTERN UNITED STATES");
         countries.add(EasternUnitedStates);
         EasternUnitedStates.setBackground(orange);
         EasternUnitedStates.addActionListener(controller);
 
-        JButton Greenland = new JButton("Greenland");
+        JButton Greenland = new JButton("GREENLAND");
         countries.add(Greenland);
         Greenland.setBackground(orange);
         Greenland.addActionListener(controller);
 
-        JButton NorthwestTerritories = new JButton("Northwest Territories");
+        JButton NorthwestTerritories = new JButton("NORTHWEST TERRITORIES");
         countries.add(NorthwestTerritories);
         NorthwestTerritories.setBackground(orange);
         NorthwestTerritories.addActionListener(controller);
 
-        JButton Ontario = new JButton("Ontario");
+        JButton Ontario = new JButton("ONTARIO");
         countries.add(Ontario);
         Ontario.setBackground(orange);
         Ontario.addActionListener(controller);
 
-        JButton Quebec = new JButton("Quebec");
+        JButton Quebec = new JButton("QUEBEC");
         countries.add(Quebec);
         Quebec.setBackground(orange);
         Quebec.addActionListener(controller);
 
-        JButton WesternUnitedStates = new JButton("Western United States");
+        JButton WesternUnitedStates = new JButton("WESTERN UNITED STATES");
         countries.add(WesternUnitedStates);
         WesternUnitedStates.setBackground(orange);
         WesternUnitedStates.addActionListener(controller);

@@ -74,58 +74,58 @@ public class Board implements Serializable {
     private void createCountries() {
 
         //Australia
-        countries[0] = new Country("Eastern Australia");
-        countries[1] = new Country("Indonesia");
-        countries[2] = new Country("New Guinea");
-        countries[3] = new Country("Western Australia");
+        countries[0] = new Country("EASTERN AUSTRALIA");
+        countries[1] = new Country("INDONESIA");
+        countries[2] = new Country("NEW GUINEA");
+        countries[3] = new Country("WESTERN AUSTRALIA");
 
         //Asia
-        countries[4] = new Country("Afghanistan");
-        countries[5] = new Country("China");
-        countries[6] = new Country("India");
-        countries[7] = new Country("Irkutsk");
-        countries[8] = new Country("Japan");
-        countries[9] = new Country("Kamchatka");
-        countries[10] = new Country("Middle East");
-        countries[11] = new Country("Mongolia");
-        countries[12] = new Country("Siam");
-        countries[13] = new Country("Siberia");
-        countries[14] = new Country("Ural");
-        countries[15] = new Country("Yakutsk");
+        countries[4] = new Country("AFGHANISTAN");
+        countries[5] = new Country("CHINA");
+        countries[6] = new Country("INDIA");
+        countries[7] = new Country("IRKUTSK");
+        countries[8] = new Country("JAPAN");
+        countries[9] = new Country("KAMCHATKA");
+        countries[10] = new Country("MIDDLE EAST");
+        countries[11] = new Country("MONGOLIA");
+        countries[12] = new Country("SIAM");
+        countries[13] = new Country("SIBERIA");
+        countries[14] = new Country("URAL");
+        countries[15] = new Country("YAKUTSK");
 
         //Africa
-        countries[16] = new Country("Congo");
-        countries[17] = new Country("East Africa");
-        countries[18] = new Country("Egypt");
-        countries[19] = new Country("Madagascar");
-        countries[20] = new Country("North Africa");
-        countries[21] = new Country("South Africa");
+        countries[16] = new Country("CONGO");
+        countries[17] = new Country("EAST AFRICA");
+        countries[18] = new Country("EGYPT");
+        countries[19] = new Country("MADAGASCAR");
+        countries[20] = new Country("NORTH AFRICA");
+        countries[21] = new Country("SOUTH AFRICA");
 
         //Europe
-        countries[22] = new Country("Great Britain");
-        countries[23] = new Country("Iceland");
-        countries[24] = new Country("Northern Europe");
-        countries[25] = new Country("Scandinavia");
-        countries[26] = new Country("Southern Europe");
-        countries[27] = new Country("Ukraine");
-        countries[28] = new Country("Western Europe");
+        countries[22] = new Country("GREAT BRITAIN");
+        countries[23] = new Country("ICELAND");
+        countries[24] = new Country("NORTHERN EUROPE");
+        countries[25] = new Country("SCANDINAVIA");
+        countries[26] = new Country("SOUTHERN EUROPE");
+        countries[27] = new Country("UKRAINE");
+        countries[28] = new Country("WESTERN EUROPE");
 
         //South America
-        countries[29] = new Country("Argentina");
-        countries[30] = new Country("Brazil");
-        countries[31] = new Country("Peru");
-        countries[32] = new Country("Venezuela");
+        countries[29] = new Country("ARGENTINA");
+        countries[30] = new Country("BRAZIL");
+        countries[31] = new Country("PERU");
+        countries[32] = new Country("VENEZUELA");
 
         //North America
-        countries[33] = new Country("Alaska");
-        countries[34] = new Country("Alberta");
-        countries[35] = new Country("Central America");
-        countries[36] = new Country("Eastern United States");
-        countries[37] = new Country("Greenland");
-        countries[38] = new Country("Northwest Territories");
-        countries[39] = new Country("Ontario");
-        countries[40] = new Country("Quebec");
-        countries[41] = new Country("Western United States");
+        countries[33] = new Country("ALASKA");
+        countries[34] = new Country("ALBERTA");
+        countries[35] = new Country("CENTRAL AMERICA");
+        countries[36] = new Country("EASTERN UNITED STATES");
+        countries[37] = new Country("GREENLAND");
+        countries[38] = new Country("NORTHWEST TERRITORIES");
+        countries[39] = new Country("ONTARIO");
+        countries[40] = new Country("QUEBEC");
+        countries[41] = new Country("WESTERN UNITED STATES");
     }
 
 

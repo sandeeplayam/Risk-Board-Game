@@ -245,7 +245,7 @@ public class Controller implements ActionListener {
                         }
                         view.stateOfTheMap(info2);
 
-                        String country = view.addArmyToCountry();
+                        String country = view.addArmyToCountry().toUpperCase();
                         int g = model.mapCountryToIndex(country);
                         System.out.print(country);
                         //System.out.print(model.playerArray.get(playerNumber).getRuledCountriesInfo());
@@ -254,7 +254,7 @@ public class Controller implements ActionListener {
 
                             if (g == -1) {
                                 view.invalidValue();
-                                country = view.addArmyToCountry();
+                                country = view.addArmyToCountry().toUpperCase();
                                 g = model.mapCountryToIndex(country);
 
                             } else {
@@ -269,7 +269,7 @@ public class Controller implements ActionListener {
                                 }
                                 view.stateOfTheMap(info2);
 
-                                country = view.addArmyToCountry();
+                                country = view.addArmyToCountry().toUpperCase();
                                 g = model.mapCountryToIndex(country);
 
                             }
@@ -324,7 +324,7 @@ public class Controller implements ActionListener {
                         }
                         view.stateOfTheMap(info2);
 
-                        String country = view.addArmyToCountry();
+                        String country = view.addArmyToCountry().toUpperCase();
                         int g = model.mapCountryToIndex(country);
                         System.out.print(country);
                         //System.out.print(model.playerArray.get(playerNumber).getRuledCountriesInfo());
@@ -333,7 +333,7 @@ public class Controller implements ActionListener {
 
                             if (g == -1) {
                                 view.invalidValue();
-                                country = view.addArmyToCountry();
+                                country = view.addArmyToCountry().toUpperCase();
                                 g = model.mapCountryToIndex(country);
                             } else {
                                 view.notRuler();
@@ -347,7 +347,7 @@ public class Controller implements ActionListener {
                                 }
                                 view.stateOfTheMap(info2);
 
-                                country = view.addArmyToCountry();
+                                country = view.addArmyToCountry().toUpperCase();
                                 g = model.mapCountryToIndex(country);
 
                             }
@@ -459,23 +459,23 @@ public class Controller implements ActionListener {
                     String troupe = view.troupeMovement();
 
                     if (troupe.equals("yes")) {
-                        String countryA = view.troupeCountryA();
+                        String countryA = view.troupeCountryA().toUpperCase();
                         int a = model.mapCountryToIndex(countryA);
 
                         //Check if first country is valid/owned by the player
                         while (model.playerArray.get(playerNumber).ownsCountry(countryA) == false || a == -1) {
                             if (a == -1) {
                                 view.invalidValue();
-                                countryA = view.troupeCountryA();
+                                countryA = view.troupeCountryA().toUpperCase();
                                 a = model.mapCountryToIndex(countryA);
                             } else {
                                 view.notRuler();
-                                countryA = view.troupeCountryA();
+                                countryA = view.troupeCountryA().toUpperCase();
                                 a = model.mapCountryToIndex(countryA);
                             }
                         }
 
-                        String countryB = view.troupeCountryB();
+                        String countryB = view.troupeCountryB().toUpperCase();
                         int b = model.mapCountryToIndex(countryB);
 
                         //Check if second country is valid/owned by the player and that the same country was not entered
@@ -483,16 +483,16 @@ public class Controller implements ActionListener {
 
                             if (b == -1) {
                                 view.invalidValue();
-                                countryB = view.troupeCountryB();
+                                countryB = view.troupeCountryB().toUpperCase();
                                 b = model.mapCountryToIndex(countryB);
                             } else if (b == a) {
                                 view.bothSameCountry();
-                                countryB = view.troupeCountryB();
+                                countryB = view.troupeCountryB().toUpperCase();
                                 b = model.mapCountryToIndex(countryB);
 
                             } else {
                                 view.notRuler();
-                                countryB = view.troupeCountryB();
+                                countryB = view.troupeCountryB().toUpperCase();
                                 b = model.mapCountryToIndex(countryB);
                             }
                         }
@@ -605,14 +605,14 @@ public class Controller implements ActionListener {
                                 info1 = info1.concat(p.getRuledCountriesInfo());
                             }
                             view.stateOfTheMap(info1);
-                            String country = view.addArmyToCountry();
+                            String country = view.addArmyToCountry().toUpperCase();
                             int g = model.mapCountryToIndex(country);
 
                             while(model.playerArray.get(playerNumber).ownsCountry(country)==false || g==-1){
 
                                 if(g==-1){
                                     view.invalidValue();
-                                    country = view.addArmyToCountry();
+                                    country = view.addArmyToCountry().toUpperCase();
                                     g=model.mapCountryToIndex(country);
                                 }else{
                                     view.notRuler();
@@ -626,7 +626,7 @@ public class Controller implements ActionListener {
                                     }
                                     view.stateOfTheMap(info2);
 
-                                    country = view.addArmyToCountry();
+                                    country = view.addArmyToCountry().toUpperCase();
                                     g=model.mapCountryToIndex(country);
                                 }
                             }
@@ -677,14 +677,14 @@ public class Controller implements ActionListener {
                                 info1 = info1.concat(p.getRuledCountriesInfo());
                             }
                             view.stateOfTheMap(info1);
-                            String country = view.addArmyToCountry();
+                            String country = view.addArmyToCountry().toUpperCase();
                             int g = model.mapCountryToIndex(country);
 
                             while (model.playerArray.get(playerNumber).ownsCountry(country) == false || g == -1) {
 
                                 if (g == -1) {
                                     view.invalidValue();
-                                    country = view.addArmyToCountry();
+                                    country = view.addArmyToCountry().toUpperCase();
                                     g = model.mapCountryToIndex(country);
                                 } else {
                                     view.notRuler();
@@ -698,7 +698,7 @@ public class Controller implements ActionListener {
                                     }
                                     view.stateOfTheMap(info2);
 
-                                    country = view.addArmyToCountry();
+                                    country = view.addArmyToCountry().toUpperCase();
                                     g = model.mapCountryToIndex(country);
 
                                 }
