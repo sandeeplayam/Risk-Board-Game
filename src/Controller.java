@@ -1,7 +1,7 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 
 
@@ -90,6 +90,7 @@ public class Controller implements ActionListener {
      */
     private void startPerformed(ActionEvent e) throws IOException, ClassNotFoundException {
         String input;
+        File file1, file2, file3;
 
         if (e.getSource().getClass() == JButton.class) {
             JButton placeHolder = (JButton) e.getSource();
@@ -102,32 +103,48 @@ public class Controller implements ActionListener {
                 view.showRules();
             } else if (input.equals ("Load Game 1")){
 
+                try {
+                    BufferedReader in = new BufferedReader(new FileReader("SaveBoard1.ser"));
                     model= saveLoad.loadBoard(1);
 
                     view.mainScreen();
                     playerNumber=saveLoad.loadPlayerNum(1);
 
                     view.playerTurn(playerNumber+1);
-                    menu=2;
+                    menu = 2;
+                } catch (FileNotFoundException file) {
+                    view.noLoad();
+                }
 
             } else if (input.equals("Load Game 2")){
+
+                try {
+                    BufferedReader in = new BufferedReader(new FileReader("SaveBoard2.ser"));
                     model= saveLoad.loadBoard(2);
 
                     view.mainScreen();
                     playerNumber=saveLoad.loadPlayerNum(2);
 
                     view.playerTurn(playerNumber+1);
-                    menu=2;
+                    menu = 2;
+                } catch (FileNotFoundException file) {
+                    view.noLoad();
+                }
 
-            }else if(input.equals("Load Game 3")){
+            } else if(input.equals("Load Game 3")){
+
+                try {
+                    BufferedReader in = new BufferedReader(new FileReader("SaveBoard3.ser"));
                     model= saveLoad.loadBoard(3);
 
                     view.mainScreen();
                     playerNumber=saveLoad.loadPlayerNum(3);
 
                     view.playerTurn(playerNumber+1);
-                    menu=2;
-
+                    menu = 2;
+                } catch (FileNotFoundException file) {
+                    view.noLoad();
+                }
             }
         }
     }

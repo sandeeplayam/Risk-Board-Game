@@ -953,7 +953,7 @@ public class View {
     }
 
     public void noLoad(){
-        JOptionPane.showMessageDialog(this.frame, "There is not game saved in this slot",
+        JOptionPane.showMessageDialog(this.frame, "There is no game saved in this slot",
                 "Message", JOptionPane.WARNING_MESSAGE, new ImageIcon(getClass().getResource("res/riskLogo.png")));
     }
 }
