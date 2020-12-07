@@ -109,7 +109,7 @@ public class View {
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
         c.gridy = 0;
-        c.ipady = 50;
+       // c.ipady = 50;
         start.addActionListener(controller);
 
         JButton rules = new JButton("Rules");
@@ -117,22 +117,40 @@ public class View {
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 1;
         c.gridy = 0;
-        c.ipady = 50;
+        //c.ipady = 50;
         rules.addActionListener(controller);
 
-        JButton load = new JButton("Load Game");
-        load.setFont(new Font("Calibri", Font.PLAIN, 40));
+        JButton load1 = new JButton("Load Game 1");
+        load1.setFont(new Font("Calibri", Font.PLAIN, 40));
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 0;
+        c.gridy = 1;
+        //c.ipady = 50;
+        load1.addActionListener(controller);
+
+        JButton load2 = new JButton("Load Game 2");
+        load2.setFont(new Font("Calibri", Font.PLAIN, 40));
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 1;
+        c.gridy = 1;
+        //c.ipady = 50;
+        load2.addActionListener(controller);
+
+        JButton load3 = new JButton("Load Game 3");
+        load3.setFont(new Font("Calibri", Font.PLAIN, 40));
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 2;
-        c.gridy = 0;
-        c.ipady = 50;
-        load.addActionListener(controller);
+        c.gridy = 1;
+        //c.ipady = 50;
+        load3.addActionListener(controller);
 
 
         //Add buttons to startMenu frame
         buttons.add(rules);
         buttons.add(start);
-        buttons.add(load);
+        buttons.add(load1);
+        buttons.add(load2);
+        buttons.add(load3);
         startMenu.add(buttons, BorderLayout.CENTER);
 
         frame.validate();
@@ -923,5 +941,19 @@ public class View {
         //Display starting game message
         JOptionPane.showMessageDialog(this.frame, "The game shall begin with Player 1",
                 "Info",JOptionPane.INFORMATION_MESSAGE, new ImageIcon(getClass().getResource("res/riskLogo.png")));
+    }
+
+    public int saveValue() {
+        return Integer.parseInt(JOptionPane.showInputDialog("Which slot would you like to save the game in? 1,2 or 3"));
+    }
+
+    public void invalidSave(){
+        JOptionPane.showMessageDialog(this.frame, "Invalid Value. Please try again",
+                "Message", JOptionPane.WARNING_MESSAGE, new ImageIcon(getClass().getResource("res/riskLogo.png")));
+    }
+
+    public void noLoad(){
+        JOptionPane.showMessageDialog(this.frame, "There is not game saved in this slot",
+                "Message", JOptionPane.WARNING_MESSAGE, new ImageIcon(getClass().getResource("res/riskLogo.png")));
     }
 }

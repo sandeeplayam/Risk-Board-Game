@@ -40,6 +40,7 @@ public class Controller implements ActionListener {
         temp1="";
         temp2="";
         saveDone=0;
+
     }
 
 
@@ -100,14 +101,50 @@ public class Controller implements ActionListener {
                 menu = 1;
             } else if (input.equals("Rules")) {
                 view.showRules();
-            } else if (input.equals ("Load Game")){
-                
-                model= saveLoad.loadBoard();
-                view.mainScreen();
-                playerNumber=saveLoad.loadPlayerNum();
+            } else if (input.equals ("Load Game 1")){
 
-                view.playerTurn(playerNumber+1);
-                menu=2;
+                int n1=saveLoad.loadSaveDone(1);
+
+                if(n1!=1){
+                    view.noLoad();
+                }else{
+                    model= saveLoad.loadBoard(1);
+
+                    view.mainScreen();
+                    playerNumber=saveLoad.loadPlayerNum(1);
+
+                    view.playerTurn(playerNumber+1);
+                    menu=2;
+                }
+
+            } else if (input.equals("Load Game 2")){
+
+                if(saveLoad.loadSaveDone(2) !=1){
+                    view.noLoad();
+                }else{
+                    model= saveLoad.loadBoard(2);
+
+                    view.mainScreen();
+                    playerNumber=saveLoad.loadPlayerNum(2);
+
+                    view.playerTurn(playerNumber+1);
+                    menu=2;
+                }
+
+            }else if(input.equals("Load Game 3")){
+                int n3=saveLoad.loadSaveDone(3);
+
+                if(n3!=1){
+                    view.noLoad();
+                }else{
+                    model= saveLoad.loadBoard(3);
+
+                    view.mainScreen();
+                    playerNumber=saveLoad.loadPlayerNum(3);
+
+                    view.playerTurn(playerNumber+1);
+                    menu=2;
+                }
             }
         }
     }
@@ -143,11 +180,17 @@ public class Controller implements ActionListener {
             view.help();
         } else if(input.equals("Save")){
 
-            saveLoad.saveBoard(model);
-           //saveLoad.saveMapState(model.getCountryList());
-           saveLoad.savePlayerNum(playerNumber);
-           view.saveConfirmed();
-           saveDone=1;
+            int saveValue = view.saveValue();
+
+            while(saveValue<1 || saveValue>3){
+                view.invalidSave();
+                saveValue=view.saveValue();
+            }
+                saveLoad.saveBoard(model,saveValue);
+                saveLoad.savePlayerNum(playerNumber,saveValue);
+                saveDone=1;
+                saveLoad.saveDone(saveDone,saveValue);
+                view.saveConfirmed();
         }
     }
 
