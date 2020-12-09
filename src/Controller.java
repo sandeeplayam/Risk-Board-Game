@@ -155,6 +155,13 @@ public class Controller implements ActionListener {
             } else if(input.equals("Create Custom Map")){
                 view.customMap();
                 customMap = true;
+
+                int numOfCont= view.numberOfContinent();
+
+                for(int i=0; i<numOfCont;i++){
+                    String continentName=view.continentName();
+                    continents.add(continentName);
+                }
             }
         }
     }
@@ -546,7 +553,7 @@ public class Controller implements ActionListener {
                         //Call Troupe Movement
                         String r = model.runDFS(countryA, countryB);
 
-                        if (r == "true") {
+                        if (r == "t") {
                             view.TroupeDone();
                             model.getCountries(model.mapCountryToIndex(countryA)).decreaseArmyCount(numOfTroupeArmies);
                             model.getCountries(model.mapCountryToIndex(countryB)).increaseArmyCount(numOfTroupeArmies);

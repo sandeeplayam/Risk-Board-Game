@@ -107,7 +107,7 @@ public class View {
         startMenu.add(logo, BorderLayout.NORTH);
 
         //Create Buttons
-        JPanel buttons = new JPanel(new GridBagLayout());
+        JPanel buttons = new JPanel(new GridLayout(3,2));
         GridBagConstraints c = new GridBagConstraints();
 
         JButton start = new JButton("Start New Game");
@@ -538,6 +538,103 @@ public class View {
         frame.validate();
         frame.repaint();
 
+
+    }
+
+    public void customMainScreen(ArrayList country){
+
+        help.setVisible(true);
+        mapState.setVisible(true);
+        save.setVisible(true);
+        frame.getContentPane().removeAll();
+
+        //Create main screen panel
+        JPanel mainScreen = new JPanel(new BorderLayout());
+        mapState.setVisible(true);
+
+        frame.getContentPane().add(mainScreen);
+
+        //Add custom map image
+        ImageIcon logoImage = new ImageIcon(getClass().getResource("res/riskCustomMap.jpg"));
+        JLabel logo = new JLabel(logoImage);
+        logo.setPreferredSize(new Dimension(300, 300));
+        mainScreen.add(logo, BorderLayout.CENTER);
+
+        int n = country.size();
+
+        //Create panel for country buttons
+        JPanel countries = new JPanel(new GridLayout(((n/2)+1), 2));
+
+        for(int i =0; i< country.size();i++){
+            JButton custom1 = new JButton((String) country.get(i));
+            custom1.setBackground(blue);
+            countries.add(custom1);
+            custom1.addActionListener(controller);
+        }
+
+        //Add country panel to main screen panel
+        mainScreen.add(countries, BorderLayout.WEST);
+
+        //Add panel for the different operations and dice
+        JPanel controls = new JPanel(new GridBagLayout());
+        GridBagConstraints c = new GridBagConstraints();
+
+        //Add dice buttons
+        JButton dice1 = new JButton("1 Die");
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 0;
+        c.gridy = 0;
+        c.ipady = 30;
+        dice1.setBackground(Color.red);
+        dice1.addActionListener(controller);
+
+        controls.add(dice1, c);
+
+        JButton dice2 = new JButton("2 Dice");
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 1;
+        c.gridy = 0;
+        controls.add(dice2, c);
+        dice2.setBackground(Color.red);
+        dice2.addActionListener(controller);
+
+        JButton dice3 = new JButton("3 Dice");
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 2;
+        c.gridy = 0;
+        controls.add(dice3, c);
+        dice3.setBackground(Color.red);
+        dice3.addActionListener(controller);
+
+        //Add operation buttons
+        JButton Attack = new JButton("ATTACK!!");
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 0;
+        c.gridy = 1;
+        controls.add(Attack, c);
+        Attack.setBackground(Color.yellow);
+        Attack.addActionListener(controller);
+
+        JButton Fortify = new JButton("FORTIFY!!");
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 1;
+        c.gridy = 1;
+        controls.add(Fortify, c);
+        Fortify.setBackground(Color.yellow);
+        Fortify.addActionListener(controller);
+
+        JButton Pass = new JButton(("PASS"));
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 2;
+        c.gridy = 1;
+        controls.add(Pass, c);
+        Pass.setBackground(Color.yellow);
+        Pass.addActionListener(controller);
+
+        //Adding controls to main screen frame
+        mainScreen.add(controls, BorderLayout.EAST);
+        frame.validate();
+        frame.repaint();
 
     }
 
@@ -997,5 +1094,13 @@ public class View {
     public void noLoad(){
         JOptionPane.showMessageDialog(this.frame, "There is no game saved in this slot",
                 "Message", JOptionPane.WARNING_MESSAGE, new ImageIcon(getClass().getResource("res/riskLogo.png")));
+    }
+
+    public int numberOfContinent() {
+        return Integer.parseInt(JOptionPane.showInputDialog("How many continents would like to create?"));
+    }
+
+    public String continentName (){
+        return String.valueOf(JOptionPane.showInputDialog("Enter a continent name:"));
     }
 }

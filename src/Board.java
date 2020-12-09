@@ -1204,11 +1204,34 @@ public class Board implements Serializable {
         dfsSearch(CountryA,CountryB,visitedIndex,paths);
 
         if(paths.contains("t")){
-            return Result = "true";
+            return Result = "t";
         }else{
-            return Result ="false";
+            return Result ="f";
         }
 
+    }
+
+    public String validMap(){
+        String finalResult = "";
+
+        for(int i =0;i<countries.length;i++){
+            String countryResult ="";
+
+            for(int j =0;j<countries.length;j++){
+                countryResult= countryResult + runDFS(countries[i].getName(),countries[j].getName());
+            }
+
+            if(countryResult.contains("f")){
+                finalResult=finalResult+"f";
+            }else{
+                finalResult = finalResult+"t";
+            }
+        }
+        if(finalResult.contains("f")){
+            return "f";
+        }else{
+            return "t";
+        }
     }
 
 }
