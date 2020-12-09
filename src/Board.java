@@ -48,6 +48,7 @@ public class Board implements Serializable {
         countries = new Country[countries1.size()];
         this.countriesCustom = countries1;
         playerArray = new ArrayList<>();
+        setInitialRulers(players);
 
         createPlayer(players);
         createCustomCountries();
@@ -77,6 +78,27 @@ public class Board implements Serializable {
         }
     }
 
+    public void setInitalArmiesCustom(int players) {
+
+        int i;
+        int numOfArmies;
+
+        if (players == 2) {
+            numOfArmies = 50;
+
+            for (int j = 0; j < players; j++) {
+
+                while (numOfArmies > 0) {
+
+                    for (i = 0; i < playerArray.get(j).getCountrySizes(); i++) {
+
+                        playerArray.get(j).getCountry(i).setArmies(1);
+                        numOfArmies = numOfArmies - 1;
+                    }
+                }
+            }
+        }
+    }
 
     /**
      * This method creates all the player objects required for the game and adds them all to an arraylist
@@ -288,12 +310,13 @@ public class Board implements Serializable {
     private void setInitialRulers(int players) {
         int i;
         int playerNum = 0;
-        for (i = 0; i < 42; i++) {
+        for (i = 0; i < countries.length; i++) {
             playerArray.get(playerNum).addCountry(countries[i]);
             countries[i].setRuler(playerArray.get(playerNum));
             playerNum = (playerNum + 1) % players;
         }
     }
+
 
 
     /**
