@@ -27,7 +27,7 @@ public class Board implements Serializable {
         continents = new ArrayList<>();
         playerArray = new ArrayList<>();
         countriesCustom = new ArrayList<>();
-
+        countries = new Country[42];
         createPlayer(players);
         createCountries();
         createContinents();
@@ -39,7 +39,7 @@ public class Board implements Serializable {
         red3 = new Dice();
         white1 = new Dice();
         white2 = new Dice();
-        countries = new Country[42];
+
     }
 
     public Board(ArrayList<Continent> continents1, ArrayList<Country> countries1, int players) {
@@ -58,14 +58,6 @@ public class Board implements Serializable {
         white2 = new Dice();
     }
 
-    public Board(ArrayList<Continent> continents1, ArrayList<Country> countries1){
-        this.continents=continents1;
-        countries = new Country[countries1.size()];
-        this.countriesCustom=countries1;
-
-        createCustomCountries();
-        setCustomAdjacentCountries();
-    }
 
     public void createCustomCountries(){
         for(int i =0;i<countriesCustom.size();i++){

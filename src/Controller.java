@@ -19,9 +19,9 @@ public class Controller implements ActionListener {
     private View view;
     private int menu;
     private SaveAndLoad saveLoad;
-    private final ArrayList<String> countries;
-    private final ArrayList<Country> countriesBoard;
-    private final ArrayList<Continent> continents;
+    private ArrayList<String> countries;
+    private ArrayList<Country> countriesBoard;
+    private ArrayList<Continent> continents;
 
     private int numPlayers, numOfAttackDice, playerNumber, country1Index, country2Index;
     private String country1, country2, info, temp, temp1, temp2, info1, info2, countryName, continentName;
@@ -174,6 +174,23 @@ public class Controller implements ActionListener {
                     }
                     continents.add(new Continent(continentName,numOfBonus));
                 }
+            } else if(input.equals("Load Custom Map")){
+                try {
+                    continents.clear();
+                    countriesBoard.clear();
+                    countries.clear();
+
+                    //FIX NAME OF FILE
+                    BufferedReader in = new BufferedReader(new FileReader("SaveBoard3.ser"));
+                    continents= saveLoad.loadCustomContinents();
+                    countries= saveLoad.loadCustomCountriesView();
+                    countriesBoard=saveLoad.loadCustomCountriesModel();
+
+                    view.createNumOfPlayers();
+                    menu = 1;
+                } catch (FileNotFoundException file) {
+                    view.noMapSaved();
+                }
             }
         }
     }
@@ -270,6 +287,10 @@ public class Controller implements ActionListener {
                 customMap=true;
 
                 if (checkValidMap()) {
+                    saveLoad.saveCustomContinents(continents);
+                    saveLoad.saveCustomCountriesModel(countriesBoard);
+                    saveLoad.saveCustomCountriesView(countries);
+
                     view.createNumOfPlayers();
                     view.snipMap();
                     menu = 1;

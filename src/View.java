@@ -116,7 +116,7 @@ public class View {
         startMenu.add(logo, BorderLayout.NORTH);
 
         //Create Buttons
-        JPanel buttons = new JPanel(new GridLayout(3,2));
+        JPanel buttons = new JPanel(new GridLayout(4,2));
         GridBagConstraints c = new GridBagConstraints();
 
         JButton start = new JButton("Start New Game");
@@ -166,6 +166,12 @@ public class View {
         c.gridy = 1;
         createCustomMap.addActionListener(controller);
 
+        JButton loadMap = new JButton("Load Custom Map");
+        loadMap.setFont(new Font("Calibri", Font.PLAIN, 40));
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 3;
+        c.gridy = 1;
+        loadMap.addActionListener(controller);
 
         //Add buttons to startMenu frame
         buttons.add(rules);
@@ -174,6 +180,7 @@ public class View {
         buttons.add(load2);
         buttons.add(load3);
         buttons.add(createCustomMap);
+        buttons.add(loadMap);
 
         startMenu.add(buttons, BorderLayout.CENTER);
 
@@ -1166,5 +1173,10 @@ public class View {
         customMap.paint(img.getGraphics());
         File outputfile = new File("./src/res/customMap.png");
         ImageIO.write(img, "png", outputfile);
+    }
+
+    public void noMapSaved(){
+        JOptionPane.showMessageDialog(this.frame, "There is no custom map saved",
+                "Message", JOptionPane.WARNING_MESSAGE, new ImageIcon(getClass().getResource("res/riskLogo.png")));
     }
 }
