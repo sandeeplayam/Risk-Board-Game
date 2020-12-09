@@ -155,6 +155,10 @@ public class Controller implements ActionListener {
                     view.noLoad();
                 }
             } else if(input.equals("Create Custom Map")){
+                countries.clear();
+                continents.clear();
+                countriesBoard.clear();
+
                 view.customMap();
                 customMap = true;
 
@@ -239,6 +243,7 @@ public class Controller implements ActionListener {
                 while(indexContinent==-1){
                     view.continentNotExist();
                     continentName= view.continent();
+                    indexContinent = mapContinentToIndex(continentName);
                 }
 
                 indexContinent= mapContinentToIndex(continentName);
@@ -266,8 +271,11 @@ public class Controller implements ActionListener {
 
                 if (checkValidMap()) {
                     view.createNumOfPlayers();
+                    view.snipMap();
+                    menu = 1;
                 } else {
                     view.notValidMap();
+                    view.startMenu();
                 }
 
                /* model = new Board(continents,countriesBoard);
@@ -310,6 +318,7 @@ public class Controller implements ActionListener {
                 numPlayers = 6;
             } else if (input.equals("Start Game") && numPlayers != 0) {
                 if (customMap) {
+                    view.customMainScreen(countries);
                     //model = new Board(continents,countriesBoard,numPlayers);
 
                 } else {

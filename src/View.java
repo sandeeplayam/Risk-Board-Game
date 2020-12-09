@@ -1,6 +1,10 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.Color;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -564,7 +568,7 @@ public class View {
         frame.getContentPane().add(mainScreen);
 
         //Add custom map image
-        ImageIcon logoImage = new ImageIcon(getClass().getResource("res/riskCustomMap.jpg"));
+        ImageIcon logoImage = new ImageIcon(getClass().getResource("res/customMap.png"));
         JLabel logo = new JLabel(logoImage);
         logo.setPreferredSize(new Dimension(300, 300));
         mainScreen.add(logo, BorderLayout.CENTER);
@@ -1155,5 +1159,12 @@ public class View {
     public void notValidMap(){
         JOptionPane.showMessageDialog(this.frame, "The map is not valid. There are some countries are not reachable",
                 "Message", JOptionPane.WARNING_MESSAGE, new ImageIcon(getClass().getResource("res/riskLogo.png")));
+    }
+
+    public void snipMap() throws IOException {
+        BufferedImage img = new BufferedImage(customMap.getWidth(), customMap.getHeight(), BufferedImage.TYPE_INT_RGB);
+        customMap.paint(img.getGraphics());
+        File outputfile = new File("./src/res/customMap.png");
+        ImageIO.write(img, "png", outputfile);
     }
 }
