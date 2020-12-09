@@ -243,6 +243,7 @@ public class Controller implements ActionListener {
 
                 indexContinent= mapContinentToIndex(continentName);
                 continents.get(indexContinent).addCountry(c1);
+                c1.setContinent(continentName);
 
         } else if (input.equals("Done")){
                 view.AdjacentRules();
@@ -262,7 +263,14 @@ public class Controller implements ActionListener {
                 }
 
                 customMap=true;
-                model = new Board(continents,countriesBoard);
+
+                if (checkValidMap()) {
+                    view.createNumOfPlayers();
+                } else {
+                    view.notValidMap();
+                }
+
+               /* model = new Board(continents,countriesBoard);
 
                 if(model.validMap()==true){
                 view.createNumOfPlayers();
@@ -270,7 +278,7 @@ public class Controller implements ActionListener {
                 }else{
                 view.notValidMap();
                 //ADD EXIT
-                }
+                }*/
 
 
         }
@@ -895,14 +903,25 @@ public class Controller implements ActionListener {
     }
 
     private boolean checkValidMap(){
-        String finalResult="";
+        ArrayList<String> continentList = new ArrayList<>();
 
         for(int i=0; i< continents.size();i++){
 
             for(int j=0; j<continents.get(i).getSize();j++){
 
-                if(continents.get(i).getCountries().get(j).getAdjacentCountries().contains(continents.get(i+1)))
+                for (int k = 0; k < continents.get(i).getCountries().get(j).getAdjacentCountries().size(); k++) {
+                    if (!continentList.contains(continents.get(i).getCountries().get(j).getAdjacentCountries().get(k).getContinent())) {
+                        continentList.add(continents.get(i).getCountries().get(j).getAdjacentCountries().get(k).getContinent());
+                    }
+                }
+
             }
+        }
+
+        if (continentList.size() == continents.size()) {
+            return true;
+        } else {
+            return false;
         }
     }
 
