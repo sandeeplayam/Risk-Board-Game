@@ -11,7 +11,8 @@ public class View {
 
     private JFrame frame;
     private Controller controller;
-    private JMenuItem mapState, mainMenu, help, save;
+    private JMenuItem mapState, mainMenu, help, save, addCountry;
+    private JPanel customMap;
     int choice;
     public static final Color pink= new Color(255,153,255);
     public static final Color brown = new Color(168,126,40);
@@ -55,21 +56,25 @@ public class View {
         JMenuItem quit = new JMenuItem("Quit");
         mainMenu = new JMenuItem("Main Menu");
         save = new JMenuItem("Save");
-
+        addCountry = new JMenuItem("Add Country");
 
         options.add(help);
         options.add(rules);
         options.add(mapState);
         options.add(quit);
         options.add(save);
+        options.add(addCountry);
 
         rules.addActionListener(controller);
         mapState.addActionListener(controller);
         quit.addActionListener(controller);
         help.addActionListener(controller);
         save.addActionListener(controller);
+        addCountry.addActionListener(controller);
+
         help.setVisible(false);
         save.setVisible(false);
+        addCountry.setVisible(false);
 
 
         frame.setVisible(true);
@@ -87,6 +92,7 @@ public class View {
         mainMenu.setVisible(false);
         help.setVisible(false);
         save.setVisible(false);
+        addCountry.setVisible(false);
 
         frame.getContentPane().removeAll();
 
@@ -144,6 +150,13 @@ public class View {
         //c.ipady = 50;
         load3.addActionListener(controller);
 
+        JButton createCustomMap = new JButton("Create Custom Map");
+        createCustomMap.setFont(new Font("Calibri", Font.PLAIN, 40));
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 3;
+        c.gridy = 1;
+        createCustomMap.addActionListener(controller);
+
 
         //Add buttons to startMenu frame
         buttons.add(rules);
@@ -151,6 +164,8 @@ public class View {
         buttons.add(load1);
         buttons.add(load2);
         buttons.add(load3);
+        buttons.add(createCustomMap);
+
         startMenu.add(buttons, BorderLayout.CENTER);
 
         frame.validate();
@@ -163,7 +178,7 @@ public class View {
      * user to select the number of players playing
      */
     public void createNumOfPlayers() {
-
+        addCountry.setVisible(false);
         help.setVisible(false);
         save.setVisible(false);
         frame.getContentPane().removeAll();
@@ -227,6 +242,7 @@ public class View {
      */
     public void mainScreen() {
 
+        addCountry.setVisible(false);
         help.setVisible(true);
         mapState.setVisible(true);
         save.setVisible(true);
@@ -524,6 +540,34 @@ public class View {
 
 
     }
+
+    public void customMap(){
+
+        addCountry.setVisible(true);
+
+        frame.getContentPane().removeAll();
+
+        customMap= new JPanel();
+        frame.getContentPane().add(customMap);
+
+        frame.validate();
+        frame.repaint();
+    }
+
+
+    public void addNewCountry(MyDraggableComponent n){
+        customMap.add(n);
+
+    }
+
+    public String addCountry (){
+        return String.valueOf(JOptionPane.showInputDialog("What is the name of the country?"));
+    }
+
+    public String continent(){
+        return String.valueOf(JOptionPane.showInputDialog("Which continent is this country on?"));
+    }
+
 
     /**
      * This method shows the rules. This method is called when the user presses the rules button

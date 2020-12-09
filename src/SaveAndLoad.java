@@ -38,8 +38,6 @@ public class SaveAndLoad implements Serializable{
     }
 
 
-
-
     public int loadPlayerNum(int n) throws IOException, ClassNotFoundException {
         int number;
 

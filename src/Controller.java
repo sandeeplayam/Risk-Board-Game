@@ -77,6 +77,7 @@ public class Controller implements ActionListener {
 
                 case 2:
                     mainScreenPerformed(e);
+
             }
         }
 
@@ -145,6 +146,8 @@ public class Controller implements ActionListener {
                 } catch (FileNotFoundException file) {
                     view.noLoad();
                 }
+            } else if(input.equals("Create Custom Map")){
+                view.customMap();
             }
         }
     }
@@ -189,6 +192,11 @@ public class Controller implements ActionListener {
                 saveLoad.saveBoard(model,saveValue);
                 saveLoad.savePlayerNum(playerNumber,saveValue);
                 view.saveConfirmed();
+        } else if(input.equals("Add Country")){
+                String countryName = view.addCountry();
+                String continentName = view.continent();
+                MyDraggableComponent m1 = new MyDraggableComponent(countryName);
+                view.addNewCountry(m1);
         }
     }
 
