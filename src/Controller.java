@@ -20,7 +20,8 @@ public class Controller implements ActionListener {
     private int menu;
     private SaveAndLoad saveLoad;
     private final ArrayList<String> countries;
-    private final ArrayList<String> continents;
+    private final ArrayList<Country> countriesBoard;
+    private final ArrayList<Continent> continents;
 
     private int numPlayers, numOfAttackDice, playerNumber, country1Index, country2Index;
     private String country1, country2, info, temp, temp1, temp2, info1, info2, countryName, continentName;
@@ -43,8 +44,9 @@ public class Controller implements ActionListener {
         temp1="";
         temp2="";
         customMap = false;
-        continents = new ArrayList<>();
+        continents = new ArrayList<Continent>();
         countries = new ArrayList<>();
+        countriesBoard = new ArrayList<Country>();
 
     }
 
@@ -160,7 +162,13 @@ public class Controller implements ActionListener {
 
                 for(int i=0; i<numOfCont;i++){
                     String continentName=view.continentName();
-                    continents.add(continentName);
+                    int numOfBonus = view.bonusContinent();
+
+                    while(numOfBonus<0 || numOfBonus >5){
+                        view.toManyArmy();
+                        numOfBonus = view.bonusContinent();
+                    }
+                    continents.add(new Continent(continentName,numOfBonus));
                 }
             }
         }
@@ -206,18 +214,65 @@ public class Controller implements ActionListener {
                 saveLoad.saveBoard(model,saveValue);
                 saveLoad.savePlayerNum(playerNumber,saveValue);
                 view.saveConfirmed();
-        } else if(input.equals("Add Country")){
-                countryName = view.addCountry();
-                if (!countries.contains(countryName)) {
-                    countries.add(countryName);
-                } else {
 
+        } else if(input.equals("Add Country")){
+                countryName = view.addCountry().toUpperCase();
+
+                while(countries.contains(countryName)) {
+                    view.countryExists();
+                    countryName= view.addCountry().toUpperCase();
                 }
 
-                //if ()
-                continentName = view.continent();
+                countries.add(countryName);
+                Country c1 = new Country(countryName);
+                countriesBoard.add(c1);
+
                 CustomCountry m1 = new CustomCountry(countryName);
+
                 view.addNewCountry(m1);
+
+                continentName = view.continent();
+
+                int indexContinent= mapContinentToIndex(continentName);
+
+
+                while(indexContinent==-1){
+                    view.continentNotExist();
+                    continentName= view.continent();
+                }
+
+                indexContinent= mapContinentToIndex(continentName);
+                continents.get(indexContinent).addCountry(c1);
+
+        } else if (input.equals("Done")){
+                view.AdjacentRules();
+
+                for(int i =0; i<countries.size();i++){
+                    int numAdjacent= view.numAdjacent(countries.get(i));
+
+                    for(int j =0; j<numAdjacent; j++){
+                        String countryAdjacent = view.countryAdjacent(countries.get(i)).toUpperCase();
+
+                        while(!countries.contains(countryAdjacent)){
+                            view.countryNotExists();
+                            countryAdjacent = view.countryAdjacent(countries.get(i)).toUpperCase();
+                        }
+                        countriesBoard.get(i).setAdjacentCountries(countriesBoard.get(mapCountryToIndex(countryAdjacent)));
+                    }
+                }
+
+                customMap=true;
+                model = new Board(continents,countriesBoard);
+
+                if(model.validMap()==true){
+                view.createNumOfPlayers();
+
+                }else{
+                view.notValidMap();
+                //ADD EXIT
+                }
+
+
         }
     }
 
@@ -247,8 +302,8 @@ public class Controller implements ActionListener {
                 numPlayers = 6;
             } else if (input.equals("Start Game") && numPlayers != 0) {
                 if (customMap) {
-                    //model = new Board(map, );
-                    //view.customMainScreen(countries);
+                    //model = new Board(continents,countriesBoard,numPlayers);
+
                 } else {
                     model = new Board(numPlayers);
                 }
@@ -819,6 +874,37 @@ public class Controller implements ActionListener {
         }
     }
 
+    public int mapContinentToIndex(String continent) {
+        int i;
+        for (i = 0; i < continents.size(); i++) {
+            if (continents.get(i).getName().equals(continent)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public int mapCountryToIndex(String country) {
+        int i;
+        for (i = 0; i < countries.size(); i++) {
+            if (countriesBoard.get(i).getName().equals(country)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    private boolean checkValidMap(){
+        String finalResult="";
+
+        for(int i=0; i< continents.size();i++){
+
+            for(int j=0; j<continents.get(i).getSize();j++){
+
+                if(continents.get(i).getCountries().get(j).getAdjacentCountries().contains(continents.get(i+1)))
+            }
+        }
+    }
 
 
 }

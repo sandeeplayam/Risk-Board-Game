@@ -11,7 +11,7 @@ public class View {
 
     private JFrame frame;
     private Controller controller;
-    private JMenuItem mapState, mainMenu, help, save, addCountry;
+    private JMenuItem mapState, mainMenu, help, save, addCountry, Done;
     private JPanel customMap;
     int choice;
     public static final Color pink= new Color(255,153,255);
@@ -57,6 +57,7 @@ public class View {
         mainMenu = new JMenuItem("Main Menu");
         save = new JMenuItem("Save");
         addCountry = new JMenuItem("Add Country");
+        Done = new JMenuItem("Done");
 
         options.add(help);
         options.add(rules);
@@ -64,6 +65,7 @@ public class View {
         options.add(quit);
         options.add(save);
         options.add(addCountry);
+        options.add(Done);
 
         rules.addActionListener(controller);
         mapState.addActionListener(controller);
@@ -71,10 +73,12 @@ public class View {
         help.addActionListener(controller);
         save.addActionListener(controller);
         addCountry.addActionListener(controller);
+        Done.addActionListener(controller);
 
         help.setVisible(false);
         save.setVisible(false);
         addCountry.setVisible(false);
+        Done.setVisible(false);
 
 
         frame.setVisible(true);
@@ -93,6 +97,7 @@ public class View {
         help.setVisible(false);
         save.setVisible(false);
         addCountry.setVisible(false);
+        Done.setVisible(false);
 
         frame.getContentPane().removeAll();
 
@@ -181,6 +186,7 @@ public class View {
         addCountry.setVisible(false);
         help.setVisible(false);
         save.setVisible(false);
+        Done.setVisible(false);
         frame.getContentPane().removeAll();
 
         //Create numOfPlayers panel
@@ -246,7 +252,9 @@ public class View {
         help.setVisible(true);
         mapState.setVisible(true);
         save.setVisible(true);
+        Done.setVisible(false);
         frame.getContentPane().removeAll();
+
 
         //Create main screen panel
         JPanel mainScreen = new JPanel(new BorderLayout());
@@ -542,10 +550,11 @@ public class View {
     }
 
     public void customMainScreen(ArrayList country){
-
+        addCountry.setVisible(false);
         help.setVisible(true);
         mapState.setVisible(true);
         save.setVisible(true);
+        Done.setVisible(false);
         frame.getContentPane().removeAll();
 
         //Create main screen panel
@@ -639,7 +648,7 @@ public class View {
     }
 
     public void customMap(){
-
+        Done.setVisible(true);
         addCountry.setVisible(true);
 
         frame.getContentPane().removeAll();
@@ -1102,5 +1111,49 @@ public class View {
 
     public String continentName (){
         return String.valueOf(JOptionPane.showInputDialog("Enter a continent name:"));
+    }
+
+    public void countryExists(){
+        JOptionPane.showMessageDialog(this.frame, "This country already exists. Please enter another name",
+                "Message", JOptionPane.WARNING_MESSAGE, new ImageIcon(getClass().getResource("res/riskLogo.png")));
+    }
+
+    public void continentNotExist(){
+        JOptionPane.showMessageDialog(this.frame, "This continent does not exist. Please enter another name",
+                "Message", JOptionPane.WARNING_MESSAGE, new ImageIcon(getClass().getResource("res/riskLogo.png")));
+    }
+
+    public int bonusContinent() {
+        return Integer.parseInt(JOptionPane.showInputDialog("How many bonus armies should a player receive if they conquer this continent?"));
+    }
+
+    public void toManyArmy(){
+        JOptionPane.showMessageDialog(this.frame, "The number of bonus armies needs to be between 1 and 5.",
+                "Message", JOptionPane.WARNING_MESSAGE, new ImageIcon(getClass().getResource("res/riskLogo.png")));
+    }
+
+    public void AdjacentRules(){
+        JOptionPane.showMessageDialog(this.frame, "Now you have to enter the adjacent countries for each country\n"+
+                "1. Enter in the number of adjacent countries for the specified country\n"+
+                "2. Enter in the adjacent countries one at a time",
+                "Message", JOptionPane.WARNING_MESSAGE, new ImageIcon(getClass().getResource("res/riskLogo.png")));
+    }
+
+    public int numAdjacent(String s) {
+        return Integer.parseInt(JOptionPane.showInputDialog("How many adjacent countries does " + s +" have?"));
+    }
+
+    public String countryAdjacent (String s){
+        return String.valueOf(JOptionPane.showInputDialog("Enter an adjacent country for " + s +" :"));
+    }
+
+    public void countryNotExists(){
+        JOptionPane.showMessageDialog(this.frame, "This country does not exist. Please enter a different name.",
+                "Message", JOptionPane.WARNING_MESSAGE, new ImageIcon(getClass().getResource("res/riskLogo.png")));
+    }
+
+    public void notValidMap(){
+        JOptionPane.showMessageDialog(this.frame, "The map is not valid. There are some countries are not reachable",
+                "Message", JOptionPane.WARNING_MESSAGE, new ImageIcon(getClass().getResource("res/riskLogo.png")));
     }
 }

@@ -11,6 +11,7 @@ public class Board implements Serializable {
 
     private final Country[] countries;
     private final ArrayList<Continent> continents;
+    private final ArrayList<Country> countriesCustom;
     public ArrayList<Player> playerArray;
     private Dice red1, red2, red3, white1, white2;
 
@@ -25,6 +26,8 @@ public class Board implements Serializable {
 
         continents = new ArrayList<>();
         playerArray = new ArrayList<>();
+        countriesCustom = new ArrayList<>();
+
         createPlayer(players);
         createCountries();
         createContinents();
@@ -39,17 +42,46 @@ public class Board implements Serializable {
         countries = new Country[42];
     }
 
-    public Board(ArrayList<Continent> continents1, ArrayList countries1, int players) {
+    public Board(ArrayList<Continent> continents1, ArrayList<Country> countries1, int players) {
+
         this.continents = continents1;
         countries = new Country[countries1.size()];
+        this.countriesCustom = countries1;
+
         createPlayer(players);
-        //createCustomCountries();
-        //setCustomAdjacentCountries();
+        createCustomCountries();
+        setCustomAdjacentCountries();
         red1 = new Dice();
         red2 = new Dice();
         red3 = new Dice();
         white1 = new Dice();
         white2 = new Dice();
+    }
+
+    public Board(ArrayList<Continent> continents1, ArrayList<Country> countries1){
+        this.continents=continents1;
+        countries = new Country[countries1.size()];
+        this.countriesCustom=countries1;
+
+        createCustomCountries();
+        setCustomAdjacentCountries();
+    }
+
+    public void createCustomCountries(){
+        for(int i =0;i<countriesCustom.size();i++){
+            countries[i]=new Country(countriesCustom.get(i).getName());
+        }
+    }
+
+    public void setCustomAdjacentCountries(){
+
+        for(int i=0;i<countriesCustom.size();i++){
+
+            for(int j =0; j<countriesCustom.get(i).getAdjacentCountrySize();j++){
+
+                countries[i].setAdjacentCountries(countries[mapCountryToIndex(countriesCustom.get(j).getName())]);
+            }
+        }
     }
 
 
@@ -1151,6 +1183,75 @@ public class Board implements Serializable {
         return info;
     }
 
+
+    public void dfsValidMap(String CountryA, String CountryB, boolean[] visitedIndex, ArrayList<String> paths) {
+
+        //Mark first country as visited
+        int a = mapCountryToIndex(CountryA);
+        visitedIndex[a] = true;
+
+        int i;
+
+        for (i = 0; i < countries[a].getAdjacentCountries().size(); i++) {
+            System.out.println("H:" + i);
+
+            if ((!visitedIndex[mapCountryToIndex(countries[a].getAdjacentCountries().get(i).getName())])){
+
+                //if destination country reached
+                if ((countries[a].getAdjacentCountries().get(i).getName().equals(CountryB))) {
+                    paths.add("t");
+
+                } else {
+                    dfsValidMap(countries[a].getAdjacentCountries().get(i).getName(), CountryB, visitedIndex, paths);
+                }
+
+            }else{
+                paths.add("f");
+            }
+        }
+        System.out.print(paths +"\n");
+
+    }
+
+    public String runDFSValidMap(String CountryA, String CountryB){
+        boolean[] visitedIndex= new boolean[42];
+        ArrayList<String> paths = new ArrayList<>();
+        String Result;
+
+        dfsValidMap(CountryA,CountryB,visitedIndex,paths);
+
+        if(paths.contains("t")){
+            return Result = "t";
+        }else{
+            return Result ="f";
+        }
+
+    }
+
+    public boolean validMap(){
+        String finalResult = "";
+
+        for(int i =0;i<countries.length;i++){
+            String countryResult ="";
+
+            for(int j =0;j<countries.length;j++){
+                countryResult= countryResult + runDFSValidMap(countries[i].getName(),countries[j].getName());
+            }
+
+            if(countryResult.contains("f")){
+                finalResult=finalResult+"f";
+            }else{
+                finalResult = finalResult+"t";
+            }
+        }
+        if(finalResult.contains("f")){
+            return false;
+        }else{
+            return true;
+        }
+    }
+
+
     /**
      * This method performs a depth search path to find all possible paths from one country
      * to another country
@@ -1168,7 +1269,7 @@ public class Board implements Serializable {
         int i;
 
         for (i = 0; i < countries[a].getAdjacentCountries().size(); i++) {
-            System.out.println("H:" + i);
+
 
             if ((!visitedIndex[mapCountryToIndex(countries[a].getAdjacentCountries().get(i).getName())])
                     && (countries[a].getAdjacentCountries().get(i).getRuler().equals(countries[a].getRuler()))) {
@@ -1187,6 +1288,7 @@ public class Board implements Serializable {
         }
 
     }
+
 
     /**
      * This method takes in 2 countries and runs the dfs search
@@ -1208,30 +1310,8 @@ public class Board implements Serializable {
         }else{
             return Result ="f";
         }
-
     }
 
-    public String validMap(){
-        String finalResult = "";
 
-        for(int i =0;i<countries.length;i++){
-            String countryResult ="";
-
-            for(int j =0;j<countries.length;j++){
-                countryResult= countryResult + runDFS(countries[i].getName(),countries[j].getName());
-            }
-
-            if(countryResult.contains("f")){
-                finalResult=finalResult+"f";
-            }else{
-                finalResult = finalResult+"t";
-            }
-        }
-        if(finalResult.contains("f")){
-            return "f";
-        }else{
-            return "t";
-        }
-    }
 
 }
