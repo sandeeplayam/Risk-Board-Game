@@ -15,12 +15,15 @@ import java.util.ArrayList;
 public class Controller implements ActionListener {
 
     private Board model;
+    private boolean customMap;
     private View view;
     private int menu;
     private SaveAndLoad saveLoad;
+    private final ArrayList<String> countries;
+    private final ArrayList<String> continents;
 
     private int numPlayers, numOfAttackDice, playerNumber, country1Index, country2Index;
-    private String country1, country2, info, temp, temp1, temp2, info1, info2;
+    private String country1, country2, info, temp, temp1, temp2, info1, info2, countryName, continentName;
 
     /**
      * The constructor for the Controller class
@@ -39,6 +42,9 @@ public class Controller implements ActionListener {
         temp="";
         temp1="";
         temp2="";
+        customMap = false;
+        continents = new ArrayList<>();
+        countries = new ArrayList<>();
 
     }
 
@@ -148,6 +154,7 @@ public class Controller implements ActionListener {
                 }
             } else if(input.equals("Create Custom Map")){
                 view.customMap();
+                customMap = true;
             }
         }
     }
@@ -193,9 +200,16 @@ public class Controller implements ActionListener {
                 saveLoad.savePlayerNum(playerNumber,saveValue);
                 view.saveConfirmed();
         } else if(input.equals("Add Country")){
-                String countryName = view.addCountry();
-                String continentName = view.continent();
-                MyDraggableComponent m1 = new MyDraggableComponent(countryName);
+                countryName = view.addCountry();
+                if (!countries.contains(countryName)) {
+                    countries.add(countryName);
+                } else {
+
+                }
+
+                //if ()
+                continentName = view.continent();
+                CustomCountry m1 = new CustomCountry(countryName);
                 view.addNewCountry(m1);
         }
     }
@@ -225,7 +239,13 @@ public class Controller implements ActionListener {
             } else if (input.equals("6 Players")) {
                 numPlayers = 6;
             } else if (input.equals("Start Game") && numPlayers != 0) {
-                model = new Board(numPlayers);
+                if (customMap) {
+                    //model = new Board(map, );
+                    //view.customMainScreen(countries);
+                } else {
+                    model = new Board(numPlayers);
+                }
+
                 //view.selectAi(numPlayers);
                 model.setAi(view.selectAi(numPlayers));
                 view.mainScreen();

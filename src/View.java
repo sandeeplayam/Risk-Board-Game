@@ -554,14 +554,12 @@ public class View {
         frame.repaint();
     }
 
-
-    public void addNewCountry(MyDraggableComponent n){
+    public void addNewCountry(CustomCountry n){
         customMap.add(n);
-
     }
 
-    public String addCountry (){
-        return String.valueOf(JOptionPane.showInputDialog("What is the name of the country?"));
+    public String addCountry(){
+        return String.valueOf(JOptionPane.showInputDialog("What is the name of the country you would like to add?"));
     }
 
     public String continent(){

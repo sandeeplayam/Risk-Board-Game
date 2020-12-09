@@ -9,7 +9,7 @@ import java.util.*;
  */
 public class Board implements Serializable {
 
-    private final Country[] countries = new Country[42];
+    private final Country[] countries;
     private final ArrayList<Continent> continents;
     public ArrayList<Player> playerArray;
     private Dice red1, red2, red3, white1, white2;
@@ -31,6 +31,20 @@ public class Board implements Serializable {
         setAdjacentCountries();
         setInitialArmies(players);
         setInitialRulers(players);
+        red1 = new Dice();
+        red2 = new Dice();
+        red3 = new Dice();
+        white1 = new Dice();
+        white2 = new Dice();
+        countries = new Country[42];
+    }
+
+    public Board(ArrayList<Continent> continents1, ArrayList countries1, int players) {
+        this.continents = continents1;
+        countries = new Country[countries1.size()];
+        createPlayer(players);
+        //createCustomCountries();
+        //setCustomAdjacentCountries();
         red1 = new Dice();
         red2 = new Dice();
         red3 = new Dice();
