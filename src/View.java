@@ -568,7 +568,7 @@ public class View {
         frame.getContentPane().add(mainScreen);
 
         //Add custom map image
-        ImageIcon logoImage = new ImageIcon(getClass().getResource("res/customMap.png"));
+        ImageIcon logoImage = new ImageIcon(getClass().getResource("./res/customMap.png"));
         JLabel logo = new JLabel(logoImage);
         logo.setPreferredSize(new Dimension(300, 300));
         mainScreen.add(logo, BorderLayout.CENTER);

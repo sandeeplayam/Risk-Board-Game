@@ -270,8 +270,8 @@ public class Controller implements ActionListener {
                 customMap=true;
 
                 if (checkValidMap()) {
-                    view.createNumOfPlayers();
                     view.snipMap();
+                    view.createNumOfPlayers();
                     menu = 1;
                 } else {
                     view.notValidMap();
@@ -318,20 +318,19 @@ public class Controller implements ActionListener {
                 numPlayers = 6;
             } else if (input.equals("Start Game") && numPlayers != 0) {
                 if (customMap) {
+                    model = new Board(continents,countriesBoard,numPlayers);
+                    model.setAi(view.selectAi(numPlayers));
                     view.customMainScreen(countries);
-                    //model = new Board(continents,countriesBoard,numPlayers);
 
                 } else {
                     model = new Board(numPlayers);
+                    model.setAi(view.selectAi(numPlayers));
+                    view.mainScreen();
                 }
 
-                //view.selectAi(numPlayers);
-                model.setAi(view.selectAi(numPlayers));
-                view.mainScreen();
                 view.gameShallBegin();
                 menu = 2;
                 playerNumber=0;
-
 
                 if (!model.playerArray.get(playerNumber).isPlayerAi()) {
 

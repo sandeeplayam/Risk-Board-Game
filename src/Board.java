@@ -47,6 +47,7 @@ public class Board implements Serializable {
         this.continents = continents1;
         countries = new Country[countries1.size()];
         this.countriesCustom = countries1;
+        playerArray = new ArrayList<>();
 
         createPlayer(players);
         createCustomCountries();
