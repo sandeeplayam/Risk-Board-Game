@@ -1220,10 +1220,10 @@ public class View {
                         "3.\tEnter in the name of the country and the continent\n" +
                         "4.\tA country box will be created which can be dragged on the screen. \n" +
                         "5.\tTo add additional countries, click on add country\n" +
-                        "Assumption: It is assumed the player places the countries in each continent separate (not mixes them)\n" +
+                        "ASSUMPTION: It is assumed the player places the countries in each continent separate (not mixes them)\n" +
                         "6.\tWhen you are done creating the map click on options and done\n" +
                         "7.\tEnter in the adjacent countries for each country by first entering in the number of adjacent countries for the listed countries and then each adjacent country one by one\n" +
-                        "Assumption: It is assumed that the player enters the correct adjacent countries\n" +
+                        "ASSUMPTION: It is assumed that the player enters the correct adjacent countries\n" +
                         "8.\tThe program will check if the map is valid (path from every country to every country)\n" +
                         "9.\tIf the map is valid the program will save the map, output a confirmed message, and exit the game\n" +
                         "10.\tIf the map is not valid the program will go back to the main screen\n" +
