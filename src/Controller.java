@@ -162,14 +162,14 @@ public class Controller implements ActionListener {
                 view.customMap();
                 customMap = true;
 
-                int numOfCont= view.numberOfContinent();
+                int numOfCont = view.numberOfContinent();
 
-                for(int i=0; i<numOfCont;i++){
-                    String continentName=view.continentName().toUpperCase();
+                for(int i = 0; i < numOfCont; i++){
+                    String continentName = view.continentName();
 
-                    while(mapContinentToIndex(continentName) !=-1){
+                    while(mapContinentToIndex(continentName) != -1){
                         view.sameContinent();
-                        continentName=view.continentName().toUpperCase();
+                        continentName = view.continentName();
                     }
                     int numOfBonus = view.bonusContinent();
 
@@ -233,20 +233,20 @@ public class Controller implements ActionListener {
 
             int saveValue = view.saveValue();
 
-            while(saveValue<1 || saveValue>3){
+            while(saveValue < 1 || saveValue > 3){
                 view.invalidSave();
-                saveValue=view.saveValue();
+                saveValue = view.saveValue();
             }
                 saveLoad.saveBoard(model,saveValue);
                 saveLoad.savePlayerNum(playerNumber,saveValue);
                 view.saveConfirmed();
 
         } else if(input.equals("Add Country")){
-                countryName = view.addCountry().toUpperCase();
+                countryName = view.addCountry();
 
                 while(countries.contains(countryName)) {
                     view.countryExists();
-                    countryName= view.addCountry().toUpperCase();
+                    countryName = view.addCountry();
                 }
 
                 countries.add(countryName);
@@ -259,16 +259,16 @@ public class Controller implements ActionListener {
 
                 continentName = view.continent();
 
-                int indexContinent= mapContinentToIndex(continentName);
+                int indexContinent = mapContinentToIndex(continentName);
 
 
-                while(indexContinent==-1){
+                while(indexContinent == -1){
                     view.continentNotExist();
-                    continentName= view.continent();
+                    continentName = view.continent();
                     indexContinent = mapContinentToIndex(continentName);
                 }
 
-                indexContinent= mapContinentToIndex(continentName);
+                indexContinent = mapContinentToIndex(continentName);
                 continents.get(indexContinent).addCountry(c1);
                 c1.setContinent(continentName);
 
@@ -279,17 +279,17 @@ public class Controller implements ActionListener {
                     int numAdjacent= view.numAdjacent(countries.get(i));
 
                     for(int j =0; j<numAdjacent; j++){
-                        String countryAdjacent = view.countryAdjacent(countries.get(i)).toUpperCase();
+                        String countryAdjacent = view.countryAdjacent(countries.get(i));
 
                         while(!countries.contains(countryAdjacent)){
                             view.countryNotExists();
-                            countryAdjacent = view.countryAdjacent(countries.get(i)).toUpperCase();
+                            countryAdjacent = view.countryAdjacent(countries.get(i));
                         }
 
                         //CLAUSE NOT WORKING
                         while(countries.get(i).equals(numAdjacent)){
                             view.notSameCountry();
-                            countryAdjacent = view.countryAdjacent(countries.get(i)).toUpperCase();
+                            countryAdjacent = view.countryAdjacent(countries.get(i));
                         }
                         countriesBoard.get(i).setAdjacentCountries(countriesBoard.get(mapCountryToIndex(countryAdjacent)));
                     }

@@ -676,11 +676,11 @@ public class View {
     }
 
     public String addCountry(){
-        return String.valueOf(JOptionPane.showInputDialog("What is the name of the country you would like to add?"));
+        return String.valueOf(JOptionPane.showInputDialog("What is the name of the country you would like to add?")).toUpperCase();
     }
 
     public String continent(){
-        return String.valueOf(JOptionPane.showInputDialog("Which continent is this country on?"));
+        return String.valueOf(JOptionPane.showInputDialog("Which continent is this country on?")).toUpperCase();
     }
 
 
@@ -1121,7 +1121,7 @@ public class View {
     }
 
     public String continentName (){
-        return String.valueOf(JOptionPane.showInputDialog("Enter a continent name:"));
+        return String.valueOf(JOptionPane.showInputDialog("Enter a continent name:")).toUpperCase();
     }
 
     public void countryExists(){
@@ -1154,8 +1154,8 @@ public class View {
         return Integer.parseInt(JOptionPane.showInputDialog("How many adjacent countries does " + s +" have?"));
     }
 
-    public String countryAdjacent (String s){
-        return String.valueOf(JOptionPane.showInputDialog("Enter an adjacent country for " + s +" :"));
+    public String countryAdjacent (String s) {
+        return String.valueOf(JOptionPane.showInputDialog("Enter an adjacent country for " + s +" :")).toUpperCase();
     }
 
     public void countryNotExists(){
