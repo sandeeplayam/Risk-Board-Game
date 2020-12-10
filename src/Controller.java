@@ -85,7 +85,7 @@ public class Controller implements ActionListener {
 
                 case 2:
                     mainScreenPerformed(e);
-
+                    break;
             }
         }
 
@@ -275,10 +275,10 @@ public class Controller implements ActionListener {
         } else if (input.equals("Done")){
                 view.AdjacentRules();
 
-                for(int i =0; i<countries.size();i++){
-                    int numAdjacent= view.numAdjacent(countries.get(i));
+                for(int i = 0; i < countries.size(); i++){
+                    int numAdjacent = view.numAdjacent(countries.get(i));
 
-                    for(int j =0; j<numAdjacent; j++){
+                    for(int j = 0; j < numAdjacent; j++){
                         String countryAdjacent = view.countryAdjacent(countries.get(i));
 
                         while(!countries.contains(countryAdjacent)){
@@ -338,7 +338,8 @@ public class Controller implements ActionListener {
                 numPlayers = 6;
             } else if (input.equals("Start Game") && numPlayers != 0) {
                 if (customMap) {
-                    model = new Board(continents,countriesBoard,numPlayers);
+                    model = new Board(continents, countriesBoard, numPlayers);
+                    //System.out.println("It broke here");
                     model.setAi(view.selectAi(numPlayers));
                     view.customMainScreen(countries);
 
@@ -347,6 +348,7 @@ public class Controller implements ActionListener {
                     model.setAi(view.selectAi(numPlayers));
                     view.mainScreen();
                 }
+
 
                 view.gameShallBegin();
                 menu = 2;

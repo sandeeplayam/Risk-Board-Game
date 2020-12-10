@@ -53,7 +53,6 @@ public class Board implements Serializable {
         createPlayer(players);
         setInitialRulers(players);
         setInitialArmiesCustom(players);
-
         setCustomAdjacentCountries();
         red1 = new Dice();
         red2 = new Dice();
@@ -65,19 +64,21 @@ public class Board implements Serializable {
 
     public void createCustomCountries(){
         for(int i = 0; i < countriesCustom.size(); i++){
-            countries[i]=new Country(countriesCustom.get(i).getName());
+            countries[i] = new Country(countriesCustom.get(i).getName());
+            //System.out.println(countries[i].getName());
         }
     }
 
     public void setCustomAdjacentCountries(){
 
-        for(int i=0;i<countriesCustom.size();i++){
+        for(int i = 0; i < countries.length; i++){
 
-            for(int j =0; j<countriesCustom.get(i).getAdjacentCountrySize();j++){
-
-                countries[i].setAdjacentCountries(countries[mapCountryToIndex(countriesCustom.get(j).getName())]);
+            for(int j = 0; j < countriesCustom.get(i).getAdjacentCountries().size(); j++){
+                countries[i].setAdjacentCountries(countries[mapCountryToIndex(countriesCustom.get(i).getAdjacentCountries().get(j).getName())]);
             }
+
         }
+
     }
 
     public void setInitialArmiesCustom(int players) {
@@ -104,7 +105,7 @@ public class Board implements Serializable {
         for (int i = 0; i < players; i++) {
             armyCount = numOfArmies;
 
-            while (armyCount != 0) {
+            while (armyCount > 0) {
                 for (int k = 0; k < playerArray.get(i).getCountrySizes(); k++) {
                     playerArray.get(i).getCountry(k).increaseArmyCount(1);
                     armyCount = armyCount - 1;
