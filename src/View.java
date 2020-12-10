@@ -166,7 +166,7 @@ public class View {
         c.gridy = 1;
         createCustomMap.addActionListener(controller);
 
-        JButton loadMap = new JButton("Load Custom Map");
+        JButton loadMap = new JButton("Play with Custom Map");
         loadMap.setFont(new Font("Calibri", Font.PLAIN, 40));
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 3;
@@ -1177,6 +1177,23 @@ public class View {
 
     public void noMapSaved(){
         JOptionPane.showMessageDialog(this.frame, "There is no custom map saved",
+                "Message", JOptionPane.WARNING_MESSAGE, new ImageIcon(getClass().getResource("res/riskLogo.png")));
+    }
+
+    public void ValidMap(){
+        JOptionPane.showMessageDialog(this.frame, "The map is valid. The game will now exit.\n"+
+                "Please start the game again and click on play with custom map to use the map",
+                "Message", JOptionPane.WARNING_MESSAGE, new ImageIcon(getClass().getResource("res/riskLogo.png")));
+    }
+
+    public void sameContinent(){
+        JOptionPane.showMessageDialog(this.frame, "This continent already exists. Please enter another name",
+                "Message", JOptionPane.WARNING_MESSAGE, new ImageIcon(getClass().getResource("res/riskLogo.png")));
+    }
+
+    public void notSameCountry(){
+        JOptionPane.showMessageDialog(this.frame, "You have entered the country that you are assigning adjacent countries too.\n" +
+                        "Please try again",
                 "Message", JOptionPane.WARNING_MESSAGE, new ImageIcon(getClass().getResource("res/riskLogo.png")));
     }
 }

@@ -165,7 +165,12 @@ public class Controller implements ActionListener {
                 int numOfCont= view.numberOfContinent();
 
                 for(int i=0; i<numOfCont;i++){
-                    String continentName=view.continentName();
+                    String continentName=view.continentName().toUpperCase();
+
+                    while(mapContinentToIndex(continentName) !=-1){
+                        view.sameContinent();
+                        continentName=view.continentName().toUpperCase();
+                    }
                     int numOfBonus = view.bonusContinent();
 
                     while(numOfBonus<0 || numOfBonus >5){
@@ -174,14 +179,14 @@ public class Controller implements ActionListener {
                     }
                     continents.add(new Continent(continentName,numOfBonus));
                 }
-            } else if(input.equals("Load Custom Map")){
+            } else if(input.equals("Play with Custom Map")){
                 try {
+                    customMap=true;
                     continents.clear();
                     countriesBoard.clear();
                     countries.clear();
 
-                    //FIX NAME OF FILE
-                    BufferedReader in = new BufferedReader(new FileReader("SaveBoard3.ser"));
+                    BufferedReader in = new BufferedReader(new FileReader("./src/res/customMap.png"));
                     continents= saveLoad.loadCustomContinents();
                     countries= saveLoad.loadCustomCountriesView();
                     countriesBoard=saveLoad.loadCustomCountriesModel();
@@ -280,35 +285,30 @@ public class Controller implements ActionListener {
                             view.countryNotExists();
                             countryAdjacent = view.countryAdjacent(countries.get(i)).toUpperCase();
                         }
+
+                        //CLAUSE NOT WORKING
+                        while(countries.get(i).equals(numAdjacent)){
+                            view.notSameCountry();
+                            countryAdjacent = view.countryAdjacent(countries.get(i)).toUpperCase();
+                        }
                         countriesBoard.get(i).setAdjacentCountries(countriesBoard.get(mapCountryToIndex(countryAdjacent)));
                     }
                 }
 
-                customMap=true;
-
                 if (checkValidMap()) {
+                    customMap=true;
+
                     saveLoad.saveCustomContinents(continents);
                     saveLoad.saveCustomCountriesModel(countriesBoard);
                     saveLoad.saveCustomCountriesView(countries);
 
                     view.snipMap();
-                    view.createNumOfPlayers();
-                    menu = 1;
+                    view.ValidMap();
+                    System.exit(0);
                 } else {
                     view.notValidMap();
                     view.startMenu();
                 }
-
-               /* model = new Board(continents,countriesBoard);
-
-                if(model.validMap()==true){
-                view.createNumOfPlayers();
-
-                }else{
-                view.notValidMap();
-                //ADD EXIT
-                }*/
-
 
         }
     }
