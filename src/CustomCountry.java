@@ -16,7 +16,7 @@ public class CustomCountry extends JButton {
 
         setBorder(new LineBorder(Color.BLUE));
         setBackground(Color.WHITE);
-        setBounds(0, 0, 100, 100);
+        setBounds(0, 0, 50, 50);
         setOpaque(false);
         setText(name);
 

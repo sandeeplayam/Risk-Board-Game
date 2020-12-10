@@ -64,7 +64,7 @@ public class Board implements Serializable {
 
 
     public void createCustomCountries(){
-        for(int i =0;i<countriesCustom.size();i++){
+        for(int i = 0; i < countriesCustom.size(); i++){
             countries[i]=new Country(countriesCustom.get(i).getName());
         }
     }
@@ -82,38 +82,34 @@ public class Board implements Serializable {
 
     public void setInitialArmiesCustom(int players) {
 
-        int i;
-        int numOfArmies=0;
+        int numOfArmies = 0;
         int armyCount;
 
-        if(players==2){
+        if(players == 2){
             numOfArmies = 50;
 
-        }else if(players==3){
+        }else if(players == 3){
             numOfArmies = 35;
 
-        }else if(players==4) {
+        }else if(players == 4) {
             numOfArmies = 30;
 
-        }else if(players ==5){
+        }else if(players == 5){
             numOfArmies = 25;
 
         }else if(players == 6){
-            numOfArmies =20;
+            numOfArmies = 20;
         }
 
+        for (int i = 0; i < players; i++) {
+            armyCount = numOfArmies;
 
-        for (int j = 0; j < players; j++) {
-            armyCount=numOfArmies;
-
-            for(int b =0; b< armyCount;b++) {
-
-                for (i = 0; i < playerArray.get(j).getCountrySizes(); i++) {
-                    playerArray.get(j).getCountry(i).setArmies(1);
-                    armyCount=armyCount-1;
+            while (armyCount != 0) {
+                for (int k = 0; k < playerArray.get(i).getCountrySizes(); k++) {
+                    playerArray.get(i).getCountry(k).increaseArmyCount(1);
+                    armyCount = armyCount - 1;
                 }
             }
-
         }
     }
 

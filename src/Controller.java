@@ -286,8 +286,7 @@ public class Controller implements ActionListener {
                             countryAdjacent = view.countryAdjacent(countries.get(i));
                         }
 
-                        //CLAUSE NOT WORKING
-                        while(countries.get(i).equals(numAdjacent)){
+                        while(countries.get(i).equals(countryAdjacent)){
                             view.notSameCountry();
                             countryAdjacent = view.countryAdjacent(countries.get(i));
                         }

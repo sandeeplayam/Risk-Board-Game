@@ -51,7 +51,6 @@ public class Country implements Serializable {
      */
     public void increaseArmyCount(int numArmy) {
         armies = numArmy + armies;
-        //System.out.println();
     }
 
     /**
@@ -60,7 +59,6 @@ public class Country implements Serializable {
      */
     public void decreaseArmyCount(int numArmy) {
         armies = armies - numArmy;
-        //System.out.println();
     }
 
     /**

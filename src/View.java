@@ -665,6 +665,7 @@ public class View {
         frame.getContentPane().removeAll();
 
         customMap= new JPanel();
+        customMap.setSize(400, 400);
         frame.getContentPane().add(customMap);
 
         frame.validate();
