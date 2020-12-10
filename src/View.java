@@ -581,7 +581,7 @@ public class View {
         mapState.setVisible(true);
         save.setVisible(false);
         Done.setVisible(false);
-        saveCustomMap.setVisible(false);
+        saveCustomMap.setVisible(true);
         frame.getContentPane().removeAll();
 
         //Create main screen panel
