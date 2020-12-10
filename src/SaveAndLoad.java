@@ -1,10 +1,78 @@
 import java.io.*;
+import java.util.ArrayList;
 
+/**
+ * @Author Danish Butt
+ */
 public class SaveAndLoad implements Serializable{
 
     public SaveAndLoad(){
 
     };
+
+    public void saveCustomCountriesView(ArrayList<String> countries) throws IOException {
+        FileOutputStream fout = new FileOutputStream("SaveCustomCountriesView.ser");
+        ObjectOutputStream oout = new ObjectOutputStream(fout);
+        oout.writeObject(countries);
+        oout.close();
+        fout.close();
+
+    }
+
+    public ArrayList<String> loadCustomCountriesView() throws IOException, ClassNotFoundException {
+        ArrayList<String> countries;
+
+        FileInputStream fin = new FileInputStream ("SaveCustomCountriesView.ser");
+        ObjectInputStream oin = new ObjectInputStream(fin);
+        countries = (ArrayList<String>) oin.readObject();
+        oin.close();
+        fin.close();
+
+        return countries;
+    }
+
+    public void saveCustomCountriesModel(ArrayList<Country> countries) throws IOException {
+        FileOutputStream fout = new FileOutputStream("SaveCustomCountriesModel.ser");
+        ObjectOutputStream oout = new ObjectOutputStream(fout);
+        oout.writeObject(countries);
+        oout.close();
+        fout.close();
+
+    }
+
+    public ArrayList<Country> loadCustomCountriesModel() throws IOException, ClassNotFoundException {
+        ArrayList<Country> countries;
+
+        FileInputStream fin = new FileInputStream ("SaveCustomCountriesModel.ser");
+        ObjectInputStream oin = new ObjectInputStream(fin);
+        countries = (ArrayList<Country>) oin.readObject();
+        oin.close();
+        fin.close();
+
+        return countries;
+    }
+
+    public void saveCustomContinents(ArrayList<Continent> continent) throws IOException {
+        FileOutputStream fout = new FileOutputStream("SaveCustomContinent.ser");
+        ObjectOutputStream oout = new ObjectOutputStream(fout);
+        oout.writeObject(continent);
+        oout.close();
+        fout.close();
+
+    }
+
+    public ArrayList<Continent> loadCustomContinents() throws IOException, ClassNotFoundException {
+        ArrayList<Continent> continent;
+
+        FileInputStream fin = new FileInputStream ("SaveCustomContinent.ser");
+        ObjectInputStream oin = new ObjectInputStream(fin);
+        continent = (ArrayList<Continent>) oin.readObject();
+        oin.close();
+        fin.close();
+
+        return continent;
+    }
+
 
     public void saveBoard(Board b, int n) throws IOException {
         FileOutputStream fout = new FileOutputStream("SaveBoard" + n +".ser");
@@ -38,8 +106,6 @@ public class SaveAndLoad implements Serializable{
     }
 
 
-
-
     public int loadPlayerNum(int n) throws IOException, ClassNotFoundException {
         int number;
 
@@ -51,4 +117,73 @@ public class SaveAndLoad implements Serializable{
 
         return number;
     }
+
+    public void saveCustomCountriesViewSAVE(ArrayList<String> countries) throws IOException {
+        FileOutputStream fout = new FileOutputStream("SaveCustomCountriesViewSAVE.ser");
+        ObjectOutputStream oout = new ObjectOutputStream(fout);
+        oout.writeObject(countries);
+        oout.close();
+        fout.close();
+
+    }
+
+    public ArrayList<String> loadCustomCountriesViewSAVE() throws IOException, ClassNotFoundException {
+        ArrayList<String> countries;
+
+        FileInputStream fin = new FileInputStream ("SaveCustomCountriesViewSAVE.ser");
+        ObjectInputStream oin = new ObjectInputStream(fin);
+        countries = (ArrayList<String>) oin.readObject();
+        oin.close();
+        fin.close();
+
+        return countries;
+    }
+
+    public void saveBoardC(Board b) throws IOException {
+        FileOutputStream fout = new FileOutputStream("SaveBoardC.ser");
+        ObjectOutputStream oout = new ObjectOutputStream(fout);
+        oout.writeObject(b);
+        oout.close();
+        fout.close();
+
+    }
+
+    public Board loadBoardC() throws IOException, ClassNotFoundException {
+        Board board;
+
+        FileInputStream fin = new FileInputStream ("SaveBoardC.ser");
+        ObjectInputStream oin = new ObjectInputStream(fin);
+        board = (Board) oin.readObject();
+        oin.close();
+        fin.close();
+
+        return board;
+    }
+
+
+    public void savePlayerNumC(int number) throws IOException {
+
+        FileOutputStream fout = new FileOutputStream("SavePlayerNumberC.ser");
+        ObjectOutputStream oout = new ObjectOutputStream(fout);
+        oout.writeObject(number);
+        oout.close();
+        fout.close();
+    }
+
+
+    public int loadPlayerNumC() throws IOException, ClassNotFoundException {
+        int number;
+
+        FileInputStream fin = new FileInputStream("SavePlayerNumberC.ser");
+        ObjectInputStream oin = new ObjectInputStream(fin);
+        number = (int) oin.readObject();
+        oin.close();
+        fin.close();
+
+        return number;
+    }
+
+
+
+
 }

@@ -9,8 +9,9 @@ import java.util.*;
  */
 public class Board implements Serializable {
 
-    private final Country[] countries = new Country[42];
+    private final Country[] countries;
     private final ArrayList<Continent> continents;
+    private final ArrayList<Country> countriesCustom;
     public ArrayList<Player> playerArray;
     private Dice red1, red2, red3, white1, white2;
 
@@ -25,6 +26,8 @@ public class Board implements Serializable {
 
         continents = new ArrayList<>();
         playerArray = new ArrayList<>();
+        countriesCustom = new ArrayList<>();
+        countries = new Country[42];
         createPlayer(players);
         createCountries();
         createContinents();
@@ -36,8 +39,80 @@ public class Board implements Serializable {
         red3 = new Dice();
         white1 = new Dice();
         white2 = new Dice();
+
     }
 
+    public Board(ArrayList<Continent> continents1, ArrayList<Country> countries1, int players) {
+
+        this.continents = continents1;
+        countries = new Country[countries1.size()];
+        this.countriesCustom = countries1;
+        playerArray = new ArrayList<>();
+
+        createCustomCountries();
+        createPlayer(players);
+        setInitialRulers(players);
+        setInitialArmiesCustom(players);
+        setCustomAdjacentCountries();
+        red1 = new Dice();
+        red2 = new Dice();
+        red3 = new Dice();
+        white1 = new Dice();
+        white2 = new Dice();
+    }
+
+
+    public void createCustomCountries(){
+        for(int i = 0; i < countriesCustom.size(); i++){
+            countries[i] = new Country(countriesCustom.get(i).getName());
+            //System.out.println(countries[i].getName());
+        }
+    }
+
+    public void setCustomAdjacentCountries(){
+
+        for(int i = 0; i < countries.length; i++){
+
+            for(int j = 0; j < countriesCustom.get(i).getAdjacentCountries().size(); j++){
+                countries[i].setAdjacentCountries(countries[mapCountryToIndex(countriesCustom.get(i).getAdjacentCountries().get(j).getName())]);
+            }
+
+        }
+
+    }
+
+    public void setInitialArmiesCustom(int players) {
+
+        int numOfArmies = 0;
+        int armyCount;
+
+        if(players == 2){
+            numOfArmies = 50;
+
+        }else if(players == 3){
+            numOfArmies = 35;
+
+        }else if(players == 4) {
+            numOfArmies = 30;
+
+        }else if(players == 5){
+            numOfArmies = 25;
+
+        }else if(players == 6){
+            numOfArmies = 20;
+        }
+
+        for (int i = 0; i < players; i++) {
+            armyCount = numOfArmies;
+
+            while (armyCount > 0) {
+                for (int k = 0; k < playerArray.get(i).getCountrySizes(); k++) {
+                    playerArray.get(i).getCountry(k).increaseArmyCount(1);
+                    armyCount = armyCount - 1;
+                }
+            }
+        }
+    }
 
     /**
      * This method creates all the player objects required for the game and adds them all to an arraylist
@@ -249,12 +324,13 @@ public class Board implements Serializable {
     private void setInitialRulers(int players) {
         int i;
         int playerNum = 0;
-        for (i = 0; i < 42; i++) {
+        for (i = 0; i < countries.length; i++) {
             playerArray.get(playerNum).addCountry(countries[i]);
             countries[i].setRuler(playerArray.get(playerNum));
             playerNum = (playerNum + 1) % players;
         }
     }
+
 
 
     /**
@@ -1137,6 +1213,7 @@ public class Board implements Serializable {
         return info;
     }
 
+
     /**
      * This method performs a depth search path to find all possible paths from one country
      * to another country
@@ -1154,7 +1231,7 @@ public class Board implements Serializable {
         int i;
 
         for (i = 0; i < countries[a].getAdjacentCountries().size(); i++) {
-            System.out.println("H:" + i);
+
 
             if ((!visitedIndex[mapCountryToIndex(countries[a].getAdjacentCountries().get(i).getName())])
                     && (countries[a].getAdjacentCountries().get(i).getRuler().equals(countries[a].getRuler()))) {
@@ -1174,6 +1251,7 @@ public class Board implements Serializable {
 
     }
 
+
     /**
      * This method takes in 2 countries and runs the dfs search
      * It contains the paths array which will return which paths are valid (based on the
@@ -1183,18 +1261,19 @@ public class Board implements Serializable {
      * @return
      */
     public String runDFS(String CountryA, String CountryB){
-        boolean[] visitedIndex= new boolean[42];
+        boolean[] visitedIndex= new boolean[countries.length];
         ArrayList<String> paths = new ArrayList<>();
         String Result;
 
         dfsSearch(CountryA,CountryB,visitedIndex,paths);
 
         if(paths.contains("t")){
-            return Result = "true";
+            return Result = "t";
         }else{
-            return Result ="false";
+            return Result ="f";
         }
-
     }
+
+
 
 }

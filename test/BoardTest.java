@@ -1,7 +1,4 @@
-/*
-@author Yusuf J, Danish Butt
- */
-
+//@author Yusuf
 import org.junit.Test;
 import java.util.ArrayList;
 import static org.junit.Assert.*;
@@ -13,7 +10,7 @@ public class BoardTest {
 
     @Test
     public void createPlayersTest() {
-      //If 2 players are created then the size of the player array must be 2
+        //If 2 players are created then the size of the player array must be 2
         assertTrue(board.playerArray.size() == 2);
     }
 
@@ -116,4 +113,22 @@ public class BoardTest {
         assertEquals(board.runDFS("India","Alaska"),"false");
     }
 
+
+    @Test
+    public void createCustomCountries() {
+        assertTrue(board.getCountries(5).equals("China"));
+    }
+
+    @Test
+    public void setCustomAdjacentCountries() {
+        Country a1 = new Country("uk");
+        Country a2 = new Country("brazil");
+
+        a1.setAdjacentCountries(a2);
+        assertEquals(a2,a1.getAdjacentCountries().get(0));
+        assertTrue(a1.getAdjacentCountries().get(0)==a2);
+
+
+
+    }
 }

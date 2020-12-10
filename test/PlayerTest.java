@@ -1,7 +1,4 @@
-/*
-@author Yusuf J
- */
-
+//@author Yasin J
 import org.junit.Test;
 import java.util.ArrayList;
 import static org.junit.Assert.*;
@@ -13,7 +10,7 @@ public class PlayerTest {
 
         //Created country
         Country c = new Country("Somalia");
-       //Created player
+        //Created player
         Player p = new Player("Yusuf",5);
         //added country to the player p
         p.addCountry(c);
@@ -52,9 +49,9 @@ public class PlayerTest {
         Country n = new Country("Canada");
         Player o = new Player("player",2);
         o.addCountry(n);
-         assertTrue(o.getCountrySizes()==1);
-         assertEquals(1,o.getCountrySizes());
-         //now add another country to player o
+        assertTrue(o.getCountrySizes()==1);
+        assertEquals(1,o.getCountrySizes());
+        //now add another country to player o
         Country l = new Country("India");
         o.addCountry(l);
         assertEquals(2,o.getCountrySizes());
@@ -156,5 +153,23 @@ public class PlayerTest {
         assertTrue(o.getArmies()==4);
 
 
+    }
+
+    @Test
+    public void isPlayerAiTest() {
+        Player o = new Player("name",8);
+        o.setPlayerAsAi();
+        assertTrue(o.isPlayerAi());
+
+    }
+    @Test
+    public void setPlayerAiTest(){
+        Player l = new Player("Player1",6);
+        l.setPlayerAsAi();
+        assertEquals("Player1",l.getName());
+
+        Player u = new Player("Player2",6);
+        u.setPlayerAsAi();
+        assertTrue(u.getName().equals("Player2"));
     }
 }

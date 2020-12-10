@@ -1,6 +1,10 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.Color;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -11,7 +15,8 @@ public class View {
 
     private JFrame frame;
     private Controller controller;
-    private JMenuItem mapState, mainMenu, help, save;
+    private JMenuItem mapState, mainMenu, help, save, addCountry, Done, saveCustomMap;
+    private JPanel customMap;
     int choice;
     public static final Color pink= new Color(255,153,255);
     public static final Color brown = new Color(168,126,40);
@@ -55,21 +60,33 @@ public class View {
         JMenuItem quit = new JMenuItem("Quit");
         mainMenu = new JMenuItem("Main Menu");
         save = new JMenuItem("Save");
-
+        addCountry = new JMenuItem("Add Country");
+        Done = new JMenuItem("Done");
+        saveCustomMap= new JMenuItem("Save Custom Map");
 
         options.add(help);
         options.add(rules);
         options.add(mapState);
         options.add(quit);
         options.add(save);
+        options.add(addCountry);
+        options.add(Done);
+        options.add(saveCustomMap);
 
         rules.addActionListener(controller);
         mapState.addActionListener(controller);
         quit.addActionListener(controller);
         help.addActionListener(controller);
         save.addActionListener(controller);
+        addCountry.addActionListener(controller);
+        Done.addActionListener(controller);
+        saveCustomMap.addActionListener(controller);
+
         help.setVisible(false);
         save.setVisible(false);
+        addCountry.setVisible(false);
+        Done.setVisible(false);
+        saveCustomMap.setVisible(false);
 
 
         frame.setVisible(true);
@@ -87,6 +104,9 @@ public class View {
         mainMenu.setVisible(false);
         help.setVisible(false);
         save.setVisible(false);
+        addCountry.setVisible(false);
+        Done.setVisible(false);
+        saveCustomMap.setVisible(false);
 
         frame.getContentPane().removeAll();
 
@@ -101,7 +121,7 @@ public class View {
         startMenu.add(logo, BorderLayout.NORTH);
 
         //Create Buttons
-        JPanel buttons = new JPanel(new GridBagLayout());
+        JPanel buttons = new JPanel(new GridLayout(4,2));
         GridBagConstraints c = new GridBagConstraints();
 
         JButton start = new JButton("Start New Game");
@@ -144,6 +164,26 @@ public class View {
         //c.ipady = 50;
         load3.addActionListener(controller);
 
+        JButton createCustomMap = new JButton("Create Custom Map");
+        createCustomMap.setFont(new Font("Calibri", Font.PLAIN, 40));
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 3;
+        c.gridy = 1;
+        createCustomMap.addActionListener(controller);
+
+        JButton loadMap = new JButton("Play with Custom Map");
+        loadMap.setFont(new Font("Calibri", Font.PLAIN, 40));
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 3;
+        c.gridy = 1;
+        loadMap.addActionListener(controller);
+
+        JButton saveCustomMap = new JButton("Load Custom Map Game");
+        saveCustomMap.setFont(new Font("Calibri", Font.PLAIN, 40));
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 3;
+        c.gridy = 1;
+        saveCustomMap.addActionListener(controller);
 
         //Add buttons to startMenu frame
         buttons.add(rules);
@@ -151,6 +191,10 @@ public class View {
         buttons.add(load1);
         buttons.add(load2);
         buttons.add(load3);
+        buttons.add(createCustomMap);
+        buttons.add(loadMap);
+        buttons.add(saveCustomMap);
+
         startMenu.add(buttons, BorderLayout.CENTER);
 
         frame.validate();
@@ -163,9 +207,11 @@ public class View {
      * user to select the number of players playing
      */
     public void createNumOfPlayers() {
-
+        addCountry.setVisible(false);
         help.setVisible(false);
         save.setVisible(false);
+        Done.setVisible(false);
+        saveCustomMap.setVisible(false);
         frame.getContentPane().removeAll();
 
         //Create numOfPlayers panel
@@ -227,10 +273,14 @@ public class View {
      */
     public void mainScreen() {
 
+        addCountry.setVisible(false);
         help.setVisible(true);
         mapState.setVisible(true);
         save.setVisible(true);
+        Done.setVisible(false);
+        saveCustomMap.setVisible(false);
         frame.getContentPane().removeAll();
+
 
         //Create main screen panel
         JPanel mainScreen = new JPanel(new BorderLayout());
@@ -524,6 +574,132 @@ public class View {
 
 
     }
+
+    public void customMainScreen(ArrayList country){
+        addCountry.setVisible(false);
+        help.setVisible(true);
+        mapState.setVisible(true);
+        save.setVisible(false);
+        Done.setVisible(false);
+        saveCustomMap.setVisible(true);
+        frame.getContentPane().removeAll();
+
+        //Create main screen panel
+        JPanel mainScreen = new JPanel(new BorderLayout());
+        mapState.setVisible(true);
+
+        frame.getContentPane().add(mainScreen);
+
+        //Add custom map image
+        ImageIcon logoImage = new ImageIcon(getClass().getResource("./res/customMap.png"));
+        JLabel logo = new JLabel(logoImage);
+        logo.setPreferredSize(new Dimension(300, 300));
+        mainScreen.add(logo, BorderLayout.CENTER);
+
+        int n = country.size();
+
+        //Create panel for country buttons
+        JPanel countries = new JPanel(new GridLayout(((n/2)+1), 2));
+
+        for(int i =0; i< country.size();i++){
+            JButton custom1 = new JButton((String) country.get(i));
+            custom1.setBackground(blue);
+            countries.add(custom1);
+            custom1.addActionListener(controller);
+        }
+
+        //Add country panel to main screen panel
+        mainScreen.add(countries, BorderLayout.WEST);
+
+        //Add panel for the different operations and dice
+        JPanel controls = new JPanel(new GridBagLayout());
+        GridBagConstraints c = new GridBagConstraints();
+
+        //Add dice buttons
+        JButton dice1 = new JButton("1 Die");
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 0;
+        c.gridy = 0;
+        c.ipady = 30;
+        dice1.setBackground(Color.red);
+        dice1.addActionListener(controller);
+
+        controls.add(dice1, c);
+
+        JButton dice2 = new JButton("2 Dice");
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 1;
+        c.gridy = 0;
+        controls.add(dice2, c);
+        dice2.setBackground(Color.red);
+        dice2.addActionListener(controller);
+
+        JButton dice3 = new JButton("3 Dice");
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 2;
+        c.gridy = 0;
+        controls.add(dice3, c);
+        dice3.setBackground(Color.red);
+        dice3.addActionListener(controller);
+
+        //Add operation buttons
+        JButton Attack = new JButton("ATTACK!!");
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 0;
+        c.gridy = 1;
+        controls.add(Attack, c);
+        Attack.setBackground(Color.yellow);
+        Attack.addActionListener(controller);
+
+        JButton Fortify = new JButton("FORTIFY!!");
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 1;
+        c.gridy = 1;
+        controls.add(Fortify, c);
+        Fortify.setBackground(Color.yellow);
+        Fortify.addActionListener(controller);
+
+        JButton Pass = new JButton(("PASS"));
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 2;
+        c.gridy = 1;
+        controls.add(Pass, c);
+        Pass.setBackground(Color.yellow);
+        Pass.addActionListener(controller);
+
+        //Adding controls to main screen frame
+        mainScreen.add(controls, BorderLayout.EAST);
+        frame.validate();
+        frame.repaint();
+
+    }
+
+    public void customMap(){
+        Done.setVisible(true);
+        addCountry.setVisible(true);
+
+        frame.getContentPane().removeAll();
+
+        customMap= new JPanel();
+        customMap.setSize(400, 400);
+        frame.getContentPane().add(customMap);
+
+        frame.validate();
+        frame.repaint();
+    }
+
+    public void addNewCountry(CustomCountry n){
+        customMap.add(n);
+    }
+
+    public String addCountry(){
+        return String.valueOf(JOptionPane.showInputDialog("What is the name of the country you would like to add?")).toUpperCase();
+    }
+
+    public String continent(){
+        return String.valueOf(JOptionPane.showInputDialog("Which continent is this country on?")).toUpperCase();
+    }
+
 
     /**
      * This method shows the rules. This method is called when the user presses the rules button
@@ -956,4 +1132,108 @@ public class View {
         JOptionPane.showMessageDialog(this.frame, "There is no game saved in this slot",
                 "Message", JOptionPane.WARNING_MESSAGE, new ImageIcon(getClass().getResource("res/riskLogo.png")));
     }
+
+    public int numberOfContinent() {
+        return Integer.parseInt(JOptionPane.showInputDialog("How many continents would like to create?"));
+    }
+
+    public String continentName (){
+        return String.valueOf(JOptionPane.showInputDialog("Enter a continent name:")).toUpperCase();
+    }
+
+    public void countryExists(){
+        JOptionPane.showMessageDialog(this.frame, "This country already exists. Please enter another name",
+                "Message", JOptionPane.WARNING_MESSAGE, new ImageIcon(getClass().getResource("res/riskLogo.png")));
+    }
+
+    public void continentNotExist(){
+        JOptionPane.showMessageDialog(this.frame, "This continent does not exist. Please enter another name",
+                "Message", JOptionPane.WARNING_MESSAGE, new ImageIcon(getClass().getResource("res/riskLogo.png")));
+    }
+
+    public int bonusContinent() {
+        return Integer.parseInt(JOptionPane.showInputDialog("How many bonus armies should a player receive if they conquer this continent?"));
+    }
+
+    public void toManyArmy(){
+        JOptionPane.showMessageDialog(this.frame, "The number of bonus armies needs to be between 1 and 5.",
+                "Message", JOptionPane.WARNING_MESSAGE, new ImageIcon(getClass().getResource("res/riskLogo.png")));
+    }
+
+    public void AdjacentRules(){
+        JOptionPane.showMessageDialog(this.frame, "Now you have to enter the adjacent countries for each country\n"+
+                "1. Enter in the number of adjacent countries for the specified country\n"+
+                "2. Enter in the adjacent countries one at a time",
+                "Message", JOptionPane.WARNING_MESSAGE, new ImageIcon(getClass().getResource("res/riskLogo.png")));
+    }
+
+    public int numAdjacent(String s) {
+        return Integer.parseInt(JOptionPane.showInputDialog("How many adjacent countries does " + s +" have?"));
+    }
+
+    public String countryAdjacent (String s) {
+        return String.valueOf(JOptionPane.showInputDialog("Enter an adjacent country for " + s +" :")).toUpperCase();
+    }
+
+    public void countryNotExists(){
+        JOptionPane.showMessageDialog(this.frame, "This country does not exist. Please enter a different name.",
+                "Message", JOptionPane.WARNING_MESSAGE, new ImageIcon(getClass().getResource("res/riskLogo.png")));
+    }
+
+    public void notValidMap(){
+        JOptionPane.showMessageDialog(this.frame, "The map is not valid. There are some countries are not reachable",
+                "Message", JOptionPane.WARNING_MESSAGE, new ImageIcon(getClass().getResource("res/riskLogo.png")));
+    }
+
+    public void snipMap() throws IOException {
+        BufferedImage img = new BufferedImage(customMap.getWidth(), customMap.getHeight(), BufferedImage.TYPE_INT_RGB);
+        customMap.paint(img.getGraphics());
+        File outputfile = new File("./src/res/customMap.png");
+        ImageIO.write(img, "png", outputfile);
+    }
+
+    public void noMapSaved(){
+        JOptionPane.showMessageDialog(this.frame, "There is no custom map saved",
+                "Message", JOptionPane.WARNING_MESSAGE, new ImageIcon(getClass().getResource("res/riskLogo.png")));
+    }
+
+    public void ValidMap(){
+        JOptionPane.showMessageDialog(this.frame, "The map is valid. The game will now exit.\n"+
+                "Please start the game again and click on play with custom map to use the map",
+                "Message", JOptionPane.WARNING_MESSAGE, new ImageIcon(getClass().getResource("res/riskLogo.png")));
+    }
+
+    public void sameContinent(){
+        JOptionPane.showMessageDialog(this.frame, "This continent already exists. Please enter another name",
+                "Message", JOptionPane.WARNING_MESSAGE, new ImageIcon(getClass().getResource("res/riskLogo.png")));
+    }
+
+    public void notSameCountry(){
+        JOptionPane.showMessageDialog(this.frame, "You have entered the country that you are assigning adjacent countries too.\n" +
+                        "Please try again",
+                "Message", JOptionPane.WARNING_MESSAGE, new ImageIcon(getClass().getResource("res/riskLogo.png")));
+    }
+
+    public void customMapRules(){
+        JOptionPane.showMessageDialog(this.frame, "1.\tEnter in the number of continents, the names of those continents and the number of bonus armies assigned to each continent\n" +
+                        "2.\tClick on options and then click on add country to create a new country\n" +
+                        "3.\tEnter in the name of the country and the continent\n" +
+                        "4.\tA country box will be created which can be dragged on the screen. \n" +
+                        "5.\tTo add additional countries, click on add country\n" +
+                        "ASSUMPTION: It is assumed the player places the countries in each continent separate (not mixes them)\n" +
+                        "6.\tWhen you are done creating the map click on options and done\n" +
+                        "7.\tEnter in the adjacent countries for each country by first entering in the number of adjacent countries for the listed countries and then each adjacent country one by one\n" +
+                        "ASSUMPTION: It is assumed that the player enters the correct adjacent countries\n" +
+                        "8.\tThe program will check if the map is valid (path from every country to every country)\n" +
+                        "9.\tIf the map is valid the program will save the map, output a confirmed message, and exit the game\n" +
+                        "10.\tIf the map is not valid the program will go back to the main screen\n" +
+                        "11.\tStart the game again to play on the custom map. In the main screen click on play game with custom map.\n",
+                "Message", JOptionPane.WARNING_MESSAGE, new ImageIcon(getClass().getResource("res/riskLogo.png")));
+    }
+
+    public void noCustomLoad(){
+        JOptionPane.showMessageDialog(this.frame, "There is no custom game saved in this slot",
+                "Message", JOptionPane.WARNING_MESSAGE, new ImageIcon(getClass().getResource("res/riskLogo.png")));
+    }
 }
+

@@ -1,4 +1,4 @@
-//@author yasin jaamac
+//-@author yasin jaamac&yusufjaamac
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -43,22 +43,22 @@ public class CountryTest {
 
     @Test
     public void decreaseArmyCount() {
-        Player o = new Player("player",10);
-        o.decreaseArmyCount(2);
-        assertEquals(8,o.getArmies());
-        assertFalse(o.getArmies()==7);
+        Player p1 = new Player("player",10);
+        p1.decreaseArmyCount(2);
+        assertEquals(8,p1.getArmies());
+        assertFalse(p1.getArmies()==7);
         //decrease army by 4 now
-        o.decreaseArmyCount(4);
-        assertTrue(o.getArmies()==4);
+        p1.decreaseArmyCount(4);
+        assertTrue(p1.getArmies()==4);
     }
 
     @Test
     public void setRuler() {
-        Country s = new Country("Canada");
+        Country a = new Country("Canada");
         Player p = new Player("Al",6);
-        s.setRuler(p);
-        assertEquals(p,s.getRuler());
-        assertTrue(s.getRuler()==p);
+        a.setRuler(p);
+        assertEquals(p,a.getRuler());
+        assertTrue(a.getRuler()==p);
 
 
 
@@ -66,11 +66,11 @@ public class CountryTest {
 
     @Test
     public void getRuler() {
-        Country s = new Country("Canada");
+        Country a = new Country("Canada");
         Player p = new Player(" Al", 6);
-        s.setRuler(p);
-        assertTrue(s.getRuler() ==p);
-        assertEquals(p,s.getRuler());
+        a.setRuler(p);
+        assertTrue(a.getRuler() ==p);
+        assertEquals(p,a.getRuler());
 
 
 
@@ -84,19 +84,25 @@ public class CountryTest {
         s.setRuler(p);
         assertTrue(s.hasRuler());
 
+    }
 
+    @Test
+    public void equalsTest(){
+        String g = "name";
+        assertTrue(g.equals("name"));
 
     }
 
     @Test
     public void setAdjacentCountries() {
-        Country a1 = new Country("Canada");
-        Country a2 = new Country("USA");
+        Country u = new Country("Canada");
+        Country v = new Country("USA");
         Continent e = new Continent("Alaska",5);
 
-        a1.setAdjacentCountries(a2);
-        assertEquals(a2,a1.getAdjacentCountries().get(0));
-        assertTrue(a1.getAdjacentCountries().get(0)==a2);
+        u.setAdjacentCountries(v);
+        assertEquals(v,u.getAdjacentCountries().get(0));
+        assertTrue(u.getAdjacentCountries().get(0)==v);
     }
+
 
 }

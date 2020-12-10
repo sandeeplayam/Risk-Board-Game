@@ -9,7 +9,7 @@ public class Country implements Serializable {
 
     private int armies;
     private String name;
-    //private String continent;
+    private String continent;
     private Player ruler;
     private boolean hasRuler;
     private ArrayList<Country> adjacentCountries;
@@ -20,7 +20,6 @@ public class Country implements Serializable {
      */
     public Country(String name) {
         this.name = name;
-        //this.continent = continent;
         hasRuler = false;
         armies = 0;
         adjacentCountries = new ArrayList<Country>();
@@ -52,7 +51,6 @@ public class Country implements Serializable {
      */
     public void increaseArmyCount(int numArmy) {
         armies = numArmy + armies;
-        //System.out.println();
     }
 
     /**
@@ -61,7 +59,6 @@ public class Country implements Serializable {
      */
     public void decreaseArmyCount(int numArmy) {
         armies = armies - numArmy;
-        //System.out.println();
     }
 
     /**
@@ -107,6 +104,14 @@ public class Country implements Serializable {
 
     public int getAdjacentCountrySize() {
         return this.adjacentCountries.size();
+    }
+
+    public void setContinent(String name) {
+        this.continent = name;
+    }
+
+    public String getContinent() {
+        return this.continent;
     }
 
     public boolean equals(String name) {
