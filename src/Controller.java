@@ -159,6 +159,7 @@ public class Controller implements ActionListener {
                 continents.clear();
                 countriesBoard.clear();
 
+                view.customMapRules();
                 view.customMap();
                 customMap = true;
 
