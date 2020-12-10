@@ -197,6 +197,21 @@ public class Controller implements ActionListener {
                 } catch (FileNotFoundException file) {
                     view.noMapSaved();
                 }
+            } else if(input.equals("Load Custom Map Game")){
+                try {
+                    BufferedReader in = new BufferedReader(new FileReader("SaveBoardC.ser"));
+                    model= saveLoad.loadBoardC();
+                    ArrayList<String> custom;
+                    custom = saveLoad.loadCustomCountriesViewSAVE();
+
+                    view.customMainScreen(custom);
+                    playerNumber=saveLoad.loadPlayerNumC();
+
+                    view.playerTurn(playerNumber+1);
+                    menu = 2;
+                } catch (FileNotFoundException file) {
+                    view.noCustomLoad();
+                }
             }
         }
     }
@@ -310,6 +325,12 @@ public class Controller implements ActionListener {
                     view.startMenu();
                 }
 
+        } else if(input.equals("Save Custom Map")){
+                saveLoad.saveCustomCountriesViewSAVE(countries);
+                saveLoad.saveBoardC(model);
+                saveLoad.savePlayerNumC(playerNumber);
+
+                view.saveConfirmed();
         }
     }
 

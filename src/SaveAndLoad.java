@@ -114,4 +114,73 @@ public class SaveAndLoad implements Serializable{
 
         return number;
     }
+
+    public void saveCustomCountriesViewSAVE(ArrayList<String> countries) throws IOException {
+        FileOutputStream fout = new FileOutputStream("SaveCustomCountriesViewSAVE.ser");
+        ObjectOutputStream oout = new ObjectOutputStream(fout);
+        oout.writeObject(countries);
+        oout.close();
+        fout.close();
+
+    }
+
+    public ArrayList<String> loadCustomCountriesViewSAVE() throws IOException, ClassNotFoundException {
+        ArrayList<String> countries;
+
+        FileInputStream fin = new FileInputStream ("SaveCustomCountriesViewSAVE.ser");
+        ObjectInputStream oin = new ObjectInputStream(fin);
+        countries = (ArrayList<String>) oin.readObject();
+        oin.close();
+        fin.close();
+
+        return countries;
+    }
+
+    public void saveBoardC(Board b) throws IOException {
+        FileOutputStream fout = new FileOutputStream("SaveBoardC.ser");
+        ObjectOutputStream oout = new ObjectOutputStream(fout);
+        oout.writeObject(b);
+        oout.close();
+        fout.close();
+
+    }
+
+    public Board loadBoardC() throws IOException, ClassNotFoundException {
+        Board board;
+
+        FileInputStream fin = new FileInputStream ("SaveBoardC.ser");
+        ObjectInputStream oin = new ObjectInputStream(fin);
+        board = (Board) oin.readObject();
+        oin.close();
+        fin.close();
+
+        return board;
+    }
+
+
+    public void savePlayerNumC(int number) throws IOException {
+
+        FileOutputStream fout = new FileOutputStream("SavePlayerNumberC.ser");
+        ObjectOutputStream oout = new ObjectOutputStream(fout);
+        oout.writeObject(number);
+        oout.close();
+        fout.close();
+    }
+
+
+    public int loadPlayerNumC() throws IOException, ClassNotFoundException {
+        int number;
+
+        FileInputStream fin = new FileInputStream("SavePlayerNumberC.ser");
+        ObjectInputStream oin = new ObjectInputStream(fin);
+        number = (int) oin.readObject();
+        oin.close();
+        fin.close();
+
+        return number;
+    }
+
+
+
+
 }

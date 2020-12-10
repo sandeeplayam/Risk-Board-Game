@@ -15,7 +15,7 @@ public class View {
 
     private JFrame frame;
     private Controller controller;
-    private JMenuItem mapState, mainMenu, help, save, addCountry, Done;
+    private JMenuItem mapState, mainMenu, help, save, addCountry, Done, saveCustomMap;
     private JPanel customMap;
     int choice;
     public static final Color pink= new Color(255,153,255);
@@ -62,6 +62,7 @@ public class View {
         save = new JMenuItem("Save");
         addCountry = new JMenuItem("Add Country");
         Done = new JMenuItem("Done");
+        saveCustomMap= new JMenuItem("Save Custom Map");
 
         options.add(help);
         options.add(rules);
@@ -70,6 +71,7 @@ public class View {
         options.add(save);
         options.add(addCountry);
         options.add(Done);
+        options.add(saveCustomMap);
 
         rules.addActionListener(controller);
         mapState.addActionListener(controller);
@@ -78,11 +80,13 @@ public class View {
         save.addActionListener(controller);
         addCountry.addActionListener(controller);
         Done.addActionListener(controller);
+        saveCustomMap.addActionListener(controller);
 
         help.setVisible(false);
         save.setVisible(false);
         addCountry.setVisible(false);
         Done.setVisible(false);
+        saveCustomMap.setVisible(false);
 
 
         frame.setVisible(true);
@@ -102,6 +106,7 @@ public class View {
         save.setVisible(false);
         addCountry.setVisible(false);
         Done.setVisible(false);
+        saveCustomMap.setVisible(false);
 
         frame.getContentPane().removeAll();
 
@@ -173,6 +178,13 @@ public class View {
         c.gridy = 1;
         loadMap.addActionListener(controller);
 
+        JButton saveCustomMap = new JButton("Load Custom Map Game");
+        saveCustomMap.setFont(new Font("Calibri", Font.PLAIN, 40));
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 3;
+        c.gridy = 1;
+        saveCustomMap.addActionListener(controller);
+
         //Add buttons to startMenu frame
         buttons.add(rules);
         buttons.add(start);
@@ -181,6 +193,7 @@ public class View {
         buttons.add(load3);
         buttons.add(createCustomMap);
         buttons.add(loadMap);
+        buttons.add(saveCustomMap);
 
         startMenu.add(buttons, BorderLayout.CENTER);
 
@@ -198,6 +211,7 @@ public class View {
         help.setVisible(false);
         save.setVisible(false);
         Done.setVisible(false);
+        saveCustomMap.setVisible(false);
         frame.getContentPane().removeAll();
 
         //Create numOfPlayers panel
@@ -264,6 +278,7 @@ public class View {
         mapState.setVisible(true);
         save.setVisible(true);
         Done.setVisible(false);
+        saveCustomMap.setVisible(false);
         frame.getContentPane().removeAll();
 
 
@@ -564,8 +579,9 @@ public class View {
         addCountry.setVisible(false);
         help.setVisible(true);
         mapState.setVisible(true);
-        save.setVisible(true);
+        save.setVisible(false);
         Done.setVisible(false);
+        saveCustomMap.setVisible(false);
         frame.getContentPane().removeAll();
 
         //Create main screen panel
@@ -1212,6 +1228,11 @@ public class View {
                         "9.\tIf the map is valid the program will save the map, output a confirmed message, and exit the game\n" +
                         "10.\tIf the map is not valid the program will go back to the main screen\n" +
                         "11.\tStart the game again to play on the custom map. In the main screen click on play game with custom map.\n",
+                "Message", JOptionPane.WARNING_MESSAGE, new ImageIcon(getClass().getResource("res/riskLogo.png")));
+    }
+
+    public void noCustomLoad(){
+        JOptionPane.showMessageDialog(this.frame, "There is no custom game saved in this slot",
                 "Message", JOptionPane.WARNING_MESSAGE, new ImageIcon(getClass().getResource("res/riskLogo.png")));
     }
 }
